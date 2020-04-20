@@ -1,0 +1,85 @@
+{
+    "manifest": {
+      "publishingInformation": {
+        "locales": {
+          "en-US": {
+            "name": "client-skill",
+            "summary": "Sample Short Description",
+            "description": "Sample Full Description",
+            "examplePhrases": [
+              "Alexa open hello world",
+              "hello",
+              "help"
+            ],
+            "keywords": []
+          },
+          "en-GB": {
+            "name": "client-skill",
+            "summary": "Sample Short Description",
+            "description": "Sample Full Description",
+            "examplePhrases": [
+              "Alexa open hello world",
+              "hello",
+              "help"
+            ],
+            "keywords": []
+          },
+          "en-CA": {
+            "name": "client-skill",
+            "summary": "Sample Short Description",
+            "description": "Sample Full Description",
+            "examplePhrases": [
+              "Alexa open hello world",
+              "hello",
+              "help"
+            ],
+            "keywords": []
+          },
+          "en-IN": {
+            "name": "client-skill",
+            "summary": "Sample Short Description",
+            "description": "Sample Full Description",
+            "examplePhrases": [
+              "Alexa open hello world",
+              "hello",
+              "help"
+            ],
+            "keywords": []
+          },
+          "en-AU": {
+            "name": "client-skill",
+            "summary": "Sample Short Description",
+            "description": "Sample Full Description",
+            "examplePhrases": [
+              "Alexa open hello world",
+              "hello",
+              "help"
+            ],
+            "keywords": []
+          }
+        },
+        "isAvailableWorldwide": true,
+        "testingInstructions": "Sample Testing Instructions.",
+        "category": "KNOWLEDGE_AND_TRIVIA",
+        "distributionCountries": []
+      },
+      "apis": {
+        "custom": {
+          "endpoint": {
+            "uri": "",
+            "sslCertificateType": "Wildcard"
+          },
+          "regions": {
+            "EU": {
+              "endpoint": {
+                "uri": "",
+                "sslCertificateType": "Wildcard"
+              }
+            }
+          }
+        }
+      },
+      "manifestVersion": "1.0"
+    }
+  }
+  
