@@ -1,76 +1,33 @@
 {
-  "manifest": {
-    "publishingInformation": {
-      "locales": {
-        "en-US": {
-          "name": "alexa-skill",
-          "summary": "Sample Short Description",
-          "description": "Sample Full Description",
-          "examplePhrases": [
-            "Alexa open hello world",
-            "hello",
-            "help"
-          ],
-          "keywords": []
+    "manifest": {
+      "publishingInformation": {
+        "locales": {
+          "en-US": {
+            "name": "teacher-quiz",
+            "summary": "Sample Short Description",
+            "description": "Sample Full Description",
+            "examplePhrases": [
+              "Alexa open hello world",
+              "hello",
+              "help"
+            ],
+            "keywords": []
+          }
         },
-        "en-GB": {
-          "name": "alexa-skill",
-          "summary": "Sample Short Description",
-          "description": "Sample Full Description",
-          "examplePhrases": [
-            "Alexa open hello world",
-            "hello",
-            "help"
-          ],
-          "keywords": []
-        },
-        "en-CA": {
-          "name": "alexa-skill",
-          "summary": "Sample Short Description",
-          "description": "Sample Full Description",
-          "examplePhrases": [
-            "Alexa open hello world",
-            "hello",
-            "help"
-          ],
-          "keywords": []
-        },
-        "en-IN": {
-          "name": "alexa-skill",
-          "summary": "Sample Short Description",
-          "description": "Sample Full Description",
-          "examplePhrases": [
-            "Alexa open hello world",
-            "hello",
-            "help"
-          ],
-          "keywords": []
-        },
-        "en-AU": {
-          "name": "alexa-skill",
-          "summary": "Sample Short Description",
-          "description": "Sample Full Description",
-          "examplePhrases": [
-            "Alexa open hello world",
-            "hello",
-            "help"
-          ],
-          "keywords": []
+        "isAvailableWorldwide": true,
+        "testingInstructions": "Sample Testing Instructions.",
+        "category": "KNOWLEDGE_AND_TRIVIA",
+        "distributionCountries": []
+      },
+      "apis": {
+        "custom": {
+          "endpoint": {
+            "uri": "https://86a105e0.ngrok.io",
+            "sslCertificateType": "Wildcard"
+          }
         }
       },
-      "isAvailableWorldwide": true,
-      "testingInstructions": "Sample Testing Instructions.",
-      "category": "KNOWLEDGE_AND_TRIVIA",
-      "distributionCountries": []
-    },
-    "apis": {
-      "custom": {
-        "endpoint": {
-          "sourceDir": "lambda/custom",
-          "uri": "ask-custom-alexa-skill-default"
-        }
-      }
-    },
-    "manifestVersion": "1.0"
+      "manifestVersion": "1.0"
+    }
   }
-}
+  

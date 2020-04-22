@@ -21,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+#alexa skill
+alexa/lambda/custom/node_modules
+alexa/lambda/custom/package-lock.json
+alexa/lambda/custom/.DS_Store
+

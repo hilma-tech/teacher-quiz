@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "hello world",
+            "invocationName": "teacher quiz",
             "intents": [
                 {
                     "name": "AMAZON.CancelIntent",
@@ -16,8 +16,48 @@
                     "samples": []
                 },
                 {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.YesIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NoIntent",
+                    "samples": []
+                },
+
+                {
+                    "name": "WantToAnswerIntent",
+                    "samples": [
+                        "answer",
+                        "i want to answer",
+                        "please let me amswer"
+                    ]
+                },
+                {
+                    "name": "SkipQuestionIntent",
+                    "samples": [
+                        "skip",
+                        "i want to skip",
+                        "please skip",
+                        "skip to the next question",
+                        "i want to move to the next question",
+                        "move on",
+                        "i want to move on",
+                        "please move on"
+                    ]
+                },
+                {
                     "name": "HelloWorldIntent",
-                    "slots": [],
+                    "slots": [
+                        
+                      ],
                     "samples": [
                         "hello",
                         "how are you",
@@ -29,15 +69,31 @@
                     ]
                 },
                 {
-                    "name": "AMAZON.NavigateHomeIntent",
-                    "samples": []
+                    "name": "StartChallengeIntent",
+                    "slots": [],
+                    "samples": [
+                        "start",
+                        "start question session",
+                        "start asking me questions",
+                        "ask me questions",
+                        "start session",
+                        "yes"
+                    ]
                 },
                 {
-                    "name": "AMAZON.FallbackIntent",
-                    "samples": []
+                    "name": "AnswerIntent",
+                    "slots": [
+                        {
+                            "name": "answer",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "is it {answer}",
+                        "the answer is {answer}"
+                    ]
                 }
-            ],
-            "types": []
+            ]
         }
     }
 }
