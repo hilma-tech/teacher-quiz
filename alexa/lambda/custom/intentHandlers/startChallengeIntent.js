@@ -26,8 +26,11 @@ const StartChallengeIntent = {
 
         handlerInput.attributesManager.setSessionAttributes({...attributes,...addedAttributes});
 
+
+        let at=handlerInput.attributesManager.getSessionAttributes();
+
         const speechOutput = `welcome to the ${name} quiz.\
-        you have ${attributes.numOfQ} questions to answer.
+        you have ${Object.keys(questions).length} questions to answer.
         question number one is,\
         ${questions[1].qText}.
         would you like to answer it or skip to the next question?answer yes to answer and no to skip`;

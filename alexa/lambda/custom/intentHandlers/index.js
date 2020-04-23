@@ -9,6 +9,7 @@ const ErrorHandler = require('./ErrorHandler');
 const StartChallengeIntent = require('./startChallengeIntent');
 const AnswerIntent = require('./AnswerIntent');
 const EndOfChallengeHandlar = require('./EndOfChallengeHandlar');
+const WantToAnswerIntent = require('./WantToAnswerIntent');
 
 module.exports = {
     intentHandlers: [
@@ -18,6 +19,7 @@ module.exports = {
         StartChallengeIntent,
         AnswerIntent,
         EndOfChallengeHandlar,
+        // WantToAnswerIntent,
         CancelAndStopIntentHandler,
         FallbackIntentHandler,
         SessionEndedRequestHandler,

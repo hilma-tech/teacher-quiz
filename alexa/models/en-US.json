@@ -31,7 +31,6 @@
                     "name": "AMAZON.NoIntent",
                     "samples": []
                 },
-
                 {
                     "name": "WantToAnswerIntent",
                     "samples": [
@@ -55,9 +54,7 @@
                 },
                 {
                     "name": "HelloWorldIntent",
-                    "slots": [
-                        
-                      ],
+                    "slots": [],
                     "samples": [
                         "hello",
                         "how are you",
@@ -86,14 +83,86 @@
                         {
                             "name": "answer",
                             "type": "AMAZON.SearchQuery"
+                        },
+                        {
+                            "name": "skipOrAnswer",
+                            "type": "skipOrAnswerType"
                         }
                     ],
                     "samples": [
                         "is it {answer}",
-                        "the answer is {answer}"
+                        "the answer is {answer}",
+                        "{skipOrAnswer}"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "skipOrAnswerType",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "skip",
+                                "synonyms": [
+                                    "skip",
+                                    "i want to skip",
+                                    "please skip",
+                                    "skip to the next question",
+                                    "i want to move to the next question",
+                                    "move on",
+                                    "i want to move on",
+                                    "please move on"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "answer",
+                                "synonyms": [
+                                    "answer",
+                                    "i want to answer",
+                                    "please let me amswer"
+                                ]
+                            }
+                        }
                     ]
                 }
             ]
-        }
+        },
+
+
+
+        "dialog": {
+            "intents": [
+                {
+                    "name": "AnswerIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "lala",
+                            "type": "lala",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.53367795528.203040658299"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "delegationStrategy": "ALWAYS"
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.53367795528.203040658299",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "please say answer or skip to continue"
+                    }
+                ]
+            }
+        ]
     }
 }
