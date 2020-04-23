@@ -10,25 +10,22 @@ class Home extends Component {
         }
     }
 
-    updateQuests = (event, index) => {
-        console.log('update event: ', event.target);
-        if (event.target.first) {
-            console.log('inside first');
-            var value = { value: event.target.value }
-            this.setState({ firstQuest: value })
+    updateQuests = (event) => {
+        let value = event.target.value
+        let index = event.target.getAttribute("index")
+        let attribute = event.target.getAttribute("first")
+        if (attribute == "first") {
+            var question = { value: value }
+            this.setState({ firstQuest: question })
         }
         else {
-            console.log('inside else');
             var currentQuests = this.state.quests
-            currentQuests[index].value = event.target.value
+            currentQuests[index].value = value
             this.setState({ quests: currentQuests })
         }
-
     }
 
-    addQuestion = (event) => {
-        console.log('add event: ', event);
-
+    addQuestion = () => {
         var currentQuests = this.state.quests
         currentQuests.push({ value: "" })
         this.setState({ quests: currentQuests })
@@ -39,11 +36,11 @@ class Home extends Component {
             <div>
                 <h1>welcom to the quiz section</h1>
                 <h3>here you can add your questions</h3>
-                <div>
+                <div className="questions">
                     {/* first question */}
                     <input
                         type="text"
-                        first
+                        first="first"
                         value={this.state.firstQuest.value}
                         onChange={(event) => this.updateQuests(event)}
                         placeholder="type here your question"
@@ -55,14 +52,14 @@ class Home extends Component {
                             <input
                                 type="text"
                                 index={index}
-                                onChange={(event, index) => this.updateQuests(event, index)}
+                                onChange={(event) => this.updateQuests(event)}
                                 value={quest.value}
                                 placeholder="type here your question"
                             >
                             </input>
                         )
                     })}
-                    <button onClick={(event) => this.addQuestion(event)}>+</button>
+                    <button onClick={this.addQuestion}>+</button>
                 </div>
             </div>
         )
