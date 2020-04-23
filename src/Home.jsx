@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './home.css';
 
 
 class Home extends Component {
@@ -8,6 +9,11 @@ class Home extends Component {
             quests: [],
             firstQuest: { value: '' }
         }
+    }
+
+    sendData = () => {
+        //need to create db for that
+        window.alert("your questions has been sent successfully")
     }
 
     updateQuests = (event) => {
@@ -33,7 +39,7 @@ class Home extends Component {
 
     render() {
         return (
-            <div>
+            <div className="main">
                 <h1>welcom to the quiz section</h1>
                 <h3>here you can add your questions</h3>
                 <div className="questions">
@@ -61,6 +67,7 @@ class Home extends Component {
                     })}
                     <button onClick={this.addQuestion}>+</button>
                 </div>
+                <button onClick={this.sendData}>send</button>
             </div>
         )
     }
