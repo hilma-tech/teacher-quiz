@@ -1,0 +1,22 @@
+[
+    {
+        "name": "holocaust",
+        "questions": {
+            "1": {
+                "qText": "what.....",
+                "aText": "the blala",
+                "s3Url": "https://...."
+            },
+            "2": {
+                "qText": "what.....",
+                "aText": "the blala",
+                "s3Url": "https://...."
+            },
+            "3": {
+                "qText": "what.....",
+                "aText": "the blala",
+                "s3Url": "https://...."
+            }
+        }
+    }
+]

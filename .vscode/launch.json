@@ -5,10 +5,10 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceRoot}/client-skill/lambda/custom/local-debugger.js",
+            "program": "${workspaceRoot}/alexa/lambda/custom/local-debugger.js",
             "args": [
                 "--portNumber", "3001",
-                "--skillEntryFile", "${workspaceRoot}/client-skill/lambda/custom/index.js",
+                "--skillEntryFile", "${workspaceRoot}/alexa/lambda/custom/index.js",
                 "--lambdaHandler", "handler"
             ],
         }
