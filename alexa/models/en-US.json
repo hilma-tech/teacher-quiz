@@ -2,6 +2,11 @@
     "interactionModel": {
         "languageModel": {
             "invocationName": "teacher quiz",
+            "modelConfiguration": {
+                "fallbackIntentSensitivity": {
+                    "level": "LOW"
+                }
+            },
             "intents": [
                 {
                     "name": "AMAZON.CancelIntent",
@@ -33,6 +38,7 @@
                 },
                 {
                     "name": "WantToAnswerIntent",
+                    "slots": [],
                     "samples": [
                         "answer",
                         "i want to answer",
@@ -41,6 +47,7 @@
                 },
                 {
                     "name": "SkipQuestionIntent",
+                    "slots": [],
                     "samples": [
                         "skip",
                         "i want to skip",
@@ -63,6 +70,19 @@
                         "hi",
                         "say hello world",
                         "say hello"
+                    ]
+                },
+                {
+                    "name": "SelectChallengeIntent",
+                    "slots": [
+                        {
+                            "name": "challengeName",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "i want to start {challengeName}",
+                        "start {challengeName}"
                     ]
                 },
                 {
@@ -111,7 +131,9 @@
                                     "i want to move to the next question",
                                     "move on",
                                     "i want to move on",
-                                    "please move on"
+                                    "please move on",
+                                    "skip the question",
+                                    "move on to the next question"
                                 ]
                             }
                         },
@@ -121,7 +143,8 @@
                                 "synonyms": [
                                     "answer",
                                     "i want to answer",
-                                    "please let me amswer"
+                                    "please let me amswer",
+                                    "answer the question"
                                 ]
                             }
                         }
@@ -129,9 +152,6 @@
                 }
             ]
         },
-
-
-
         "dialog": {
             "intents": [
                 {
@@ -140,12 +160,44 @@
                     "prompts": {},
                     "slots": [
                         {
-                            "name": "lala",
-                            "type": "lala",
+                            "name": "answer",
+                            "type": "AMAZON.SearchQuery",
+                            "confirmationRequired": true,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "confirmation": "Confirm.Slot.351773218643.733416538530",
+                                "elicitation": "Elicit.Slot.351773218643.733416538530"
+                            }
+                        },
+                        {
+                            "name": "skipOrAnswer",
+                            "type": "skipOrAnswerType",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.53367795528.203040658299"
+                                "elicitation": "Elicit.Slot.351773218643.1359885924807"
+                            },
+                            "validations": [
+                                {
+                                    "type": "hasEntityResolutionMatch",
+                                    "prompt": "Slot.Validation.351773218643.1359885924807.146205133045"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "SelectChallengeIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "challengeName",
+                            "type": "AMAZON.SearchQuery",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.399009765214.203442322629"
                             }
                         }
                     ]
@@ -155,11 +207,47 @@
         },
         "prompts": [
             {
-                "id": "Elicit.Slot.53367795528.203040658299",
+                "id": "Elicit.Slot.351773218643.1359885924807",
                 "variations": [
                     {
                         "type": "PlainText",
                         "value": "please say answer or skip to continue"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.351773218643.1359885924807.146205133045",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "sorry, but you didnt mention a correct action. please say what you want to do - answer the question or skip it?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.351773218643.733416538530",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "sorry, but you didnt mention an answer. please say the answer is following the answer."
+                    }
+                ]
+            },
+            {
+                "id": "Confirm.Slot.351773218643.733416538530",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "your answer is {answer} . is it correct?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.399009765214.203442322629",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "sorry, but we didnt get that. please specify the name of the challenge you want to start"
                     }
                 ]
             }

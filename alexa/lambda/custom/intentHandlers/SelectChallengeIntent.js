@@ -1,15 +1,53 @@
 const Alexa = require('ask-sdk-core');
 const challenges = require('../../../../teacherData/questionTemplate.json');
-const util = require('util')
 
-const SelectChallengeIntent=require('./SelectChallengeIntent')
+// const SelectChallengeIntent = {
+//     canHandle(handlerInput) {
+//         return Alexa.getRequestType(handlerInput.requestEnvelope) === "IntentRequest" &&
+//             Alexa.getIntentName(handlerInput.requestEnvelope) === "SelectChallengeIntent";
+//     },
+//     handle(handlerInput) {
+//         const challengeName = Alexa.getSlotValue(handlerInput.requestEnvelope, 'challengeName');
+//         // const dynamicEntities = changeChallengeNameTypeValues(challenges);
+
+
+//         return handlerInput.responseBuilder
+//             .speak(`you choose ${challengeName}. say start to start the challenge`)
+//             // .reprompt(speakOutput)
+//             // .addDirective(dynamicEntities)
+
+//             .getResponse();
+//     }
+// };
+
+
+const SelectChallengeIntent = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === "IntentRequest" &&
+            Alexa.getIntentName(handlerInput.requestEnvelope) === "SelectChallengeIntent";
+    },
+    handle(handlerInput) {
+        return handlerInput.responseBuilder
+            .speak(`you choose Select Challenge Intent`)
+            // .reprompt(speakOutput)
+            // .addDirective(dynamicEntities)
+
+            .getResponse();
+    }
+};
+
+
+
+
+
+
 
 const LAUNCH_OPENING = 'welcome to the amazing teacher quiz. ';
 
 const ONE_CHALLENGE = 'please repeat its name to start the challenge.'
 const SEVERAL_CHALLENGES = 'please say the name of the challenge you want to start.'
 
-// const LaunchRequestHandler = {
+// const SelectChallengeIntent = {
 //     canHandle(handlerInput) {
 //         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
 //     },
@@ -70,14 +108,4 @@ function getSpeakOutput(challenges) {
 }
 
 
-const LaunchRequestHandler = {
-    canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
-    },
-    handle(handlerInput) {
-
-        return SelectChallengeIntent.handle(handlerInput);
-    }
-};
-
-module.exports = LaunchRequestHandler;
+module.exports = SelectChallengeIntent;

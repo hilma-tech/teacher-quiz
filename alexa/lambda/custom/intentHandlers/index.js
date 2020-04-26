@@ -9,13 +9,16 @@ const ErrorHandler = require('./ErrorHandler');
 const StartChallengeIntent = require('./startChallengeIntent');
 const AnswerIntent = require('./AnswerIntent');
 const EndOfChallengeHandlar = require('./EndOfChallengeHandlar');
-const WantToAnswerIntent = require('./WantToAnswerIntent');
+// const WantToAnswerIntent = require('./WantToAnswerIntent');
+const SelectChallengeIntent=require('./SelectChallengeIntent')
+
 
 module.exports = {
     intentHandlers: [
         LaunchRequestHandler,
         HelloWorldIntentHandler,
         HelpIntentHandler,
+        SelectChallengeIntent,
         StartChallengeIntent,
         AnswerIntent,
         EndOfChallengeHandlar,
