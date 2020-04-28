@@ -1,8 +1,3 @@
-.questions{
-    display: block;
-}
-
-.main{
-    background-color: antiquewhite;
-    height: 100vh;
+.challenges{
+    background-color: aqua;
 }

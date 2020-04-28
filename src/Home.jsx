@@ -1,78 +1,79 @@
 import React, { Component } from 'react';
 import './home.css';
+import { Link } from 'react-router-dom';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 
 
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quests: [],
-            firstQuest: { value: '' }
+            challenges: [{ name: 'places around the world' },
+            { name: 'food names' }]
         }
     }
 
-    sendData = () => {
-        //need to create db for that
-        window.alert("your questions has been sent successfully")
+    deleteChallenge = (event) => {
+        console.log('event: ', event.target, 'current', event.currentTarget);
+        // window.alert("are you sure that you want to delete this challenge?")
+        let challenges = this.state.challenges
+        let index = event.currentTarget.getAttribute("index");
+        // var confirmation = false;
+        // if (confirm("gghghghjgh")) {
+        //   confirmation = true;
+        // } else {
+        //   confirmation = false;
+        // }
+        // if(confirmation){
+        //     delete challenges[index]
+        // }
+        delete challenges[index]
+        this.setState({ challenges });
     }
 
-    updateQuests = (event) => {
-        let value = event.target.value
-        let index = event.target.getAttribute("index")
-        let attribute = event.target.getAttribute("first")
-        if (attribute == "first") {
-            var question = { value: value }
-            this.setState({ firstQuest: question })
-        }
-        else {
-            var currentQuests = this.state.quests
-            currentQuests[index].value = value
-            this.setState({ quests: currentQuests })
-        }
-    }
-
-    addQuestion = () => {
-        var currentQuests = this.state.quests
-        currentQuests.push({ value: "" })
-        this.setState({ quests: currentQuests })
-    }
 
     render() {
         return (
-            <div className="main">
-                <h1>welcom to the quiz section</h1>
-                <h3>here you can add your questions</h3>
-                <div className="questions">
-                    {/* first question */}
-                    <input
-                        type="text"
-                        first="first"
-                        value={this.state.firstQuest.value}
-                        onChange={(event) => this.updateQuests(event)}
-                        placeholder="type here your question"
-                    >
-                    </input>
-                    {/* questions */}
-                    {this.state.quests.map((quest, index) => {
+            <div>
+                <h1>שלום מורה!</h1>
+                <h3>האתגרים שיצרת</h3>
+                <div>
+                    {this.state.challenges.map((chall, index) => {
                         return (
-                            <input
-                                type="text"
-                                index={index}
-                                onChange={(event) => this.updateQuests(event)}
-                                value={quest.value}
-                                placeholder="type here your question"
-                            >
-                            </input>
+                            <div>
+                                <Link to='/questions'>
+                                    <div className="challenges">
+                                        {chall.name}
+                                    </div>
+                                </Link>
+                                {/* <button index={index} onClick={(event) => this.deleteChallenge(event)}> */}
+                                    <DeleteIcon index={index} onClick={this.deleteChallenge}/>
+                                {/* </button> */}
+                            </div>
+
                         )
                     })}
-                    <button onClick={this.addQuestion}>+</button>
                 </div>
-                <button onClick={this.sendData}>send</button>
+                {/* <div>
+                    <InputLabel htmlFor="input-with-icon-adornment">With a start adornment</InputLabel>
+                    <Input
+                        disabled="disabled"
+                        value='nnnnn'
+                        id="input-with-icon-adornment"
+                        startAdornment={
+                            <InputAdornment position="start">
+                                <DeleteIcon onClick={this.deleteChallenge}/>
+                            </InputAdornment>
+                        }
+                    />
+                </div> */}
             </div>
         )
     }
 }
-
-
 
 export default Home;
