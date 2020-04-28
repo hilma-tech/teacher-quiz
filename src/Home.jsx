@@ -1,74 +1,79 @@
 import React, { Component } from 'react';
+import './home.css';
+import { Link } from 'react-router-dom';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 
 
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quests: [],
-            firstQuest: { value: '' }
+            challenges: [{ name: 'places around the world' },
+            { name: 'food names' }]
         }
     }
 
-    updateQuests = (event, index) => {
-        console.log('update event: ', event.target);
-        if (event.target.first) {
-            console.log('inside first');
-            var value = { value: event.target.value }
-            this.setState({ firstQuest: value })
-        }
-        else {
-            console.log('inside else');
-            var currentQuests = this.state.quests
-            currentQuests[index].value = event.target.value
-            this.setState({ quests: currentQuests })
-        }
-
+    deleteChallenge = (event) => {
+        console.log('event: ', event.target, 'current', event.currentTarget);
+        // window.alert("are you sure that you want to delete this challenge?")
+        let challenges = this.state.challenges
+        let index = event.currentTarget.getAttribute("index");
+        // var confirmation = false;
+        // if (confirm("gghghghjgh")) {
+        //   confirmation = true;
+        // } else {
+        //   confirmation = false;
+        // }
+        // if(confirmation){
+        //     delete challenges[index]
+        // }
+        delete challenges[index]
+        this.setState({ challenges });
     }
 
-    addQuestion = (event) => {
-        console.log('add event: ', event);
-
-        var currentQuests = this.state.quests
-        currentQuests.push({ value: "" })
-        this.setState({ quests: currentQuests })
-    }
 
     render() {
         return (
             <div>
-                <h1>welcom to the quiz section</h1>
-                <h3>here you can add your questions</h3>
+                <h1>שלום מורה!</h1>
+                <h3>האתגרים שיצרת</h3>
                 <div>
-                    {/* first question */}
-                    <input
-                        type="text"
-                        first
-                        value={this.state.firstQuest.value}
-                        onChange={(event) => this.updateQuests(event)}
-                        placeholder="type here your question"
-                    >
-                    </input>
-                    {/* questions */}
-                    {this.state.quests.map((quest, index) => {
+                    {this.state.challenges.map((chall, index) => {
                         return (
-                            <input
-                                type="text"
-                                index={index}
-                                onChange={(event, index) => this.updateQuests(event, index)}
-                                value={quest.value}
-                                placeholder="type here your question"
-                            >
-                            </input>
+                            <div>
+                                <Link to='/questions'>
+                                    <div className="challenges">
+                                        {chall.name}
+                                    </div>
+                                </Link>
+                                {/* <button index={index} onClick={(event) => this.deleteChallenge(event)}> */}
+                                    <DeleteIcon index={index} onClick={this.deleteChallenge}/>
+                                {/* </button> */}
+                            </div>
+
                         )
                     })}
-                    <button onClick={(event) => this.addQuestion(event)}>+</button>
                 </div>
+                {/* <div>
+                    <InputLabel htmlFor="input-with-icon-adornment">With a start adornment</InputLabel>
+                    <Input
+                        disabled="disabled"
+                        value='nnnnn'
+                        id="input-with-icon-adornment"
+                        startAdornment={
+                            <InputAdornment position="start">
+                                <DeleteIcon onClick={this.deleteChallenge}/>
+                            </InputAdornment>
+                        }
+                    />
+                </div> */}
             </div>
         )
     }
 }
-
-
 
 export default Home;
