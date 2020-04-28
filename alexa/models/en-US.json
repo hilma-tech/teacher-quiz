@@ -77,11 +77,11 @@
                     "slots": [
                         {
                             "name": "challengeName",
-                            "type": "AMAZON.SearchQuery"
+                            "type": "challengeNameType"
                         }
                     ],
                     "samples": [
-                        "i want to start {challengeName}",
+                        "{challengeName}",
                         "start {challengeName}"
                     ]
                 },
@@ -107,9 +107,14 @@
                         {
                             "name": "skipOrAnswer",
                             "type": "skipOrAnswerType"
+                        },
+                        {
+                            "name": "yesOrNo",
+                            "type": "yesOrNoType"
                         }
                     ],
                     "samples": [
+                        "{yesOrNo}",
                         "is it {answer}",
                         "the answer is {answer}",
                         "{skipOrAnswer}"
@@ -149,6 +154,43 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "challengeNameType",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "aaa"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "yesOrNoType",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "no",
+                                "synonyms": [
+                                    "nope",
+                                    "I do not",
+                                    "no thank you"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "yes",
+                                "synonyms": [
+                                    "yep",
+                                    "yeah",
+                                    "I do",
+                                    "yes please",
+                                    "you know it"
+                                ]
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -183,6 +225,15 @@
                                     "prompt": "Slot.Validation.351773218643.1359885924807.146205133045"
                                 }
                             ]
+                        },
+                        {
+                            "name": "yesOrNo",
+                            "type": "yesOrNoType",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.668654732539.202665657490"
+                            }
                         }
                     ]
                 },
@@ -193,7 +244,7 @@
                     "slots": [
                         {
                             "name": "challengeName",
-                            "type": "AMAZON.SearchQuery",
+                            "type": "challengeNameType",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
@@ -248,6 +299,15 @@
                     {
                         "type": "PlainText",
                         "value": "sorry, but we didnt get that. please specify the name of the challenge you want to start"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.668654732539.202665657490",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "im sorry, but i didnt understood. you want to move to the next question"
                     }
                 ]
             }

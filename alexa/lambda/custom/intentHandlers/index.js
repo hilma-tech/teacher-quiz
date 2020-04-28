@@ -7,10 +7,10 @@ const SessionEndedRequestHandler = require('./SessionEndedRequestHandler');
 const IntentReflectorHandler = require('./IntentReflectorHandler');
 const ErrorHandler = require('./ErrorHandler');
 const StartChallengeIntent = require('./startChallengeIntent');
-const AnswerIntent = require('./AnswerIntent');
+const { AnswerIntent, FirstAnswerhandler } = require('./AnswerIntent');
 const EndOfChallengeHandlar = require('./EndOfChallengeHandlar');
 // const WantToAnswerIntent = require('./WantToAnswerIntent');
-const SelectChallengeIntent=require('./SelectChallengeIntent')
+const SelectChallengeIntent = require('./SelectChallengeIntent')
 
 
 module.exports = {
@@ -19,9 +19,10 @@ module.exports = {
         HelloWorldIntentHandler,
         HelpIntentHandler,
         SelectChallengeIntent,
-        StartChallengeIntent,
+        FirstAnswerhandler,
+        // StartChallengeIntent,
         AnswerIntent,
-        EndOfChallengeHandlar,
+        // EndOfChallengeHandlar,
         // WantToAnswerIntent,
         CancelAndStopIntentHandler,
         FallbackIntentHandler,

@@ -1,6 +1,6 @@
 const Alexa = require('ask-sdk-core');
 const challenges = require('../../../../teacherData/questionTemplate.json');
-
+const { FirstAnswerhandler } = require('./AnswerIntent')
 // const SelectChallengeIntent = {
 //     canHandle(handlerInput) {
 //         return Alexa.getRequestType(handlerInput.requestEnvelope) === "IntentRequest" &&
@@ -27,12 +27,18 @@ const SelectChallengeIntent = {
             Alexa.getIntentName(handlerInput.requestEnvelope) === "SelectChallengeIntent";
     },
     handle(handlerInput) {
-        return handlerInput.responseBuilder
-            .speak(`you choose Select Challenge Intent`)
-            // .reprompt(speakOutput)
-            // .addDirective(dynamicEntities)
+        // const challengeName = Alexa.getSlotValue(handlerInput.requestEnvelope, 'challengeName');
+        const id =handlerInput.requestEnvelope.request.intent.slots.challengeName.resolutions.resolutionsPerAuthority[1].values[0].value.id
+        global.DB.setCurrChall(id);
+        // return FirstAnswerhandler.canHandle(handlerInput)
+        return FirstAnswerhandler.handle(handlerInput)
 
-            .getResponse();
+
+        // return handlerInput.responseBuilder
+        //     .speak(`you choose ${challengeName}`)
+        //     // .reprompt(speakOutput)
+        //     // .addDirective(dynamicEntities)
+        //     .getResponse();
     }
 };
 

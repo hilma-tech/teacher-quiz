@@ -5,23 +5,29 @@ let dbReceivedData = (function () {
     function init() {
 
         let challenges = [], currChall, currChallQ;
+        let answers = {}
 
         // Public methods and variables (the init function return)
         return {
             get challenges() { return challenges; },
             get currChall() { return currChall; },
             get currChallQ() { return currChallQ; },
+            get answers() { return answers; },
 
             setChallenges(challengesArr) {
                 challenges = challengesArr;
             },
 
-            setCurrChall(currentChallenge) {
-                currChall = currentChallenge;
+            setCurrChall(challengeId) {
+                currChall = challenges[challengeId];
             },
 
             setCurrChallQ(currentChallengeQuestions) {
                 currChallQ = currentChallengeQuestions;
+            },
+
+            setAnswers(qIndex, answer) {
+                answers[qIndex] = answer;
             }
 
         };
