@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "teacher quiz",
+            "invocationName": "t q",
             "modelConfiguration": {
                 "fallbackIntentSensitivity": {
                     "level": "LOW"
@@ -29,37 +29,6 @@
                     "samples": []
                 },
                 {
-                    "name": "AMAZON.YesIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.NoIntent",
-                    "samples": []
-                },
-                {
-                    "name": "WantToAnswerIntent",
-                    "slots": [],
-                    "samples": [
-                        "answer",
-                        "i want to answer",
-                        "please let me amswer"
-                    ]
-                },
-                {
-                    "name": "SkipQuestionIntent",
-                    "slots": [],
-                    "samples": [
-                        "skip",
-                        "i want to skip",
-                        "please skip",
-                        "skip to the next question",
-                        "i want to move to the next question",
-                        "move on",
-                        "i want to move on",
-                        "please move on"
-                    ]
-                },
-                {
                     "name": "HelloWorldIntent",
                     "slots": [],
                     "samples": [
@@ -83,18 +52,6 @@
                     "samples": [
                         "{challengeName}",
                         "start {challengeName}"
-                    ]
-                },
-                {
-                    "name": "StartChallengeIntent",
-                    "slots": [],
-                    "samples": [
-                        "start",
-                        "start question session",
-                        "start asking me questions",
-                        "ask me questions",
-                        "start session",
-                        "yes"
                     ]
                 },
                 {
@@ -204,21 +161,18 @@
                         {
                             "name": "answer",
                             "type": "AMAZON.SearchQuery",
-                            "confirmationRequired": true,
-                            "elicitationRequired": true,
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
                             "prompts": {
-                                "confirmation": "Confirm.Slot.351773218643.733416538530",
-                                "elicitation": "Elicit.Slot.351773218643.733416538530"
+                                "confirmation": "Confirm.Slot.351773218643.733416538530"
                             }
                         },
                         {
                             "name": "skipOrAnswer",
                             "type": "skipOrAnswerType",
                             "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.351773218643.1359885924807"
-                            },
+                            "elicitationRequired": false,
+                            "prompts": {},
                             "validations": [
                                 {
                                     "type": "hasEntityResolutionMatch",
@@ -230,10 +184,8 @@
                             "name": "yesOrNo",
                             "type": "yesOrNoType",
                             "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.668654732539.202665657490"
-                            }
+                            "elicitationRequired": false,
+                            "prompts": {}
                         }
                     ]
                 },
@@ -246,10 +198,8 @@
                             "name": "challengeName",
                             "type": "challengeNameType",
                             "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.399009765214.203442322629"
-                            }
+                            "elicitationRequired": false,
+                            "prompts": {}
                         }
                     ]
                 }
@@ -308,6 +258,15 @@
                     {
                         "type": "PlainText",
                         "value": "im sorry, but i didnt understood. you want to move to the next question"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.163978917980.797260176044",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "i didnt get that. would you like to skip to answer the question, or skip to the next question?"
                     }
                 ]
             }

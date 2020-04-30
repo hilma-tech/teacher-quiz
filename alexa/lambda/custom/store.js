@@ -26,7 +26,7 @@ let dbReceivedData = (function () {
                 currChallQ = currentChallengeQuestions;
             },
 
-            setAnswers(qIndex, answer) {
+            setAnswers(qIndex, answer, score) {
                 answers[qIndex] = answer;
             }
 
