@@ -1,3 +1,42 @@
-.main-answers{
-    background-color: blanchedalmond;
+.answers{
+    background-color: rgb(113, 206, 240);
+    width: 100vw;
+    height: 100vh;
+
+    .main{
+        padding-top: 8vh;
+
+        .title{
+            align-self: center;
+            margin: auto;
+            margin-left: 35%;
+        }
+
+        .recorder{
+            width: fit-content;
+            align-self: center;
+            margin: auto;
+            margin-left: 35%;
+            margin-bottom: 2vh;
+        }
+
+        .input-answer{
+            border: none;
+            border-color: transparent;
+            background-color: rgb(113, 240, 170);
+            padding: 1vh;
+            margin-top: 2vh;
+            min-width: 15vw;
+            width: fit-content;
+            height: 5vh;
+            border-radius: 12px;
+            align-self: center;
+            margin: auto;
+            margin-left: 35%;
+        }
+
+        .input-answer:focus{
+            outline:none;
+        }
+    }
 }
