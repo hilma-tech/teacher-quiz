@@ -18,14 +18,32 @@ class Questions extends Component {
             firstQuest: { value: '' }
         }
     }
-
+    
     sendData = () => {
         //need to create db for that
-        window.alert("your questions has been sent successfully")
+        let quests = this.state.quests
+        let emptyFields = []
+        let first = this.state.firstQuest
+        
+
+        quests.map((quest)=>{
+            if(!quest.value){
+                emptyFields.push(quest)
+            }
+        })
+        
+        if(first.value && !emptyFields.length){
+            window.alert("your questions has been sent successfully")
+        }
+
+        else{    
+            window.alert("all fields must to be filled")
+        }
+       
     }
 
     updateQuests = (event) => {
-        console.log('event: ', event.target);
+        
         let value = event.target.value
         let index = event.target.getAttribute("index")
         let attribute = event.target.getAttribute("first")
@@ -47,7 +65,7 @@ class Questions extends Component {
     }
 
     deleteQuestion = (event) => {
-        console.log('event: ', event.target, 'current', event.currentTarget);
+        
         let quests = this.state.quests
         let index = event.currentTarget.getAttribute("index");
         delete quests[index]
@@ -114,7 +132,9 @@ class Questions extends Component {
                         <ControlPointIcon className="add-btn" onClick={this.addQuestion}/>
                         <div className="post-btn" onClick={this.sendData}>
                         <span className="post-text">post challenge</span>
+                        <span className="telegram-icon">
                         <TelegramIcon />
+                        </span>
                         </div>
                     {/* <button onClick={this.sendData}>send</button> */}
                 </div>

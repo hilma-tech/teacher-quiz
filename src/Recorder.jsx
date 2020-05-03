@@ -67,7 +67,6 @@ class AlexaRecorder extends Component {
   render() {
     return (
       <div>
-        <h1>welcom to the alexa recorder!</h1>
         <button onClick={this.start} disabled={this.state.isRecording}>
           Record
         </button>

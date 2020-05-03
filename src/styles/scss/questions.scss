@@ -42,9 +42,10 @@
         .add-btn{
             align-self:center;
             margin:auto;
-            margin-left:44%;
+            margin-left:49%;
             padding-top: 2vh;
             display: block;
+            cursor: pointer;
         }
 
         .post-btn{
@@ -55,13 +56,18 @@
             height: 2vh;
             width: 15vw;
             border-radius: 12px;
-            margin-left:44%;
-            padding-top: 2vh;
+            margin-left:42%;
+            padding: 0vh 0vh 4vh 0vh;
             display: block;
 
             .post-text{
                 align-self: center;
                 padding-bottom: 1vh;
+                cursor: pointer;
+            }
+
+            .telegram-icon{
+                padding-top: 2vh;
             }
         }
     }
