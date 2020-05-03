@@ -6,7 +6,7 @@
       "merge": {},
       "resources": {
         "manifest": {
-          "eTag": "68f837eec735919268df1d26a63a5dec"
+          "eTag": "c64ac15d2aae25efbdc155583d52a13c"
         },
         "interactionModel": {
           "en-AU": {
@@ -16,7 +16,7 @@
             "eTag": "78b8670beb27c2d3c545fdacc941817a"
           },
           "en-US": {
-            "eTag": "b649cdab044897cef9736bd4e3eac832"
+            "eTag": "7be38961c3be0c3fcc4e68c1e2088c35"
           },
           "en-CA": {
             "eTag": "b05cca2cdd7d8462ff9274acc05f7ece"

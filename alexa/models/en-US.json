@@ -68,9 +68,14 @@
                         {
                             "name": "yesOrNo",
                             "type": "yesOrNoType"
+                        },
+                        {
+                            "name": "exitYesOrNo",
+                            "type": "yesOrNoType"
                         }
                     ],
                     "samples": [
+                        "{exitYesOrNo}",
                         "{yesOrNo}",
                         "is it {answer}",
                         "the answer is {answer}",
@@ -163,9 +168,7 @@
                             "type": "AMAZON.SearchQuery",
                             "confirmationRequired": false,
                             "elicitationRequired": false,
-                            "prompts": {
-                                "confirmation": "Confirm.Slot.351773218643.733416538530"
-                            }
+                            "prompts": {}
                         },
                         {
                             "name": "skipOrAnswer",
@@ -182,6 +185,13 @@
                         },
                         {
                             "name": "yesOrNo",
+                            "type": "yesOrNoType",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        },
+                        {
+                            "name": "exitYesOrNo",
                             "type": "yesOrNoType",
                             "confirmationRequired": false,
                             "elicitationRequired": false,

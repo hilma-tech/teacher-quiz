@@ -11,8 +11,8 @@ const ErrorHandler = {
         return true;
     },
     handle(handlerInput, error) {
+        console.log('error: ', error);
         const speakOutput = 'Sorry, I had trouble doing what you asked. Please try again.';
-        console.log(`~~~~ Error handled: ${JSON.stringify(error)}`);
 
         return handlerInput.responseBuilder
             .speak(speakOutput)

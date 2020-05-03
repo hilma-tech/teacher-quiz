@@ -21,6 +21,10 @@ const elicitSlotUpdatedIntent = {
         yesOrNo: {
             name: 'yesOrNo',
             confirmationStatus: 'NONE'
+        },
+        exitYesOrNo:{
+            name:'exitYesOrNo',
+            confirmationStatus: 'NONE'
         }
     }
 }

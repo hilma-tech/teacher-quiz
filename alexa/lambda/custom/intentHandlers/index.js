@@ -10,11 +10,12 @@ const {
     FirstAnswerhandler,
     SkipOrAnswerHandler,
     AnswerProcessingHandler,
-    NextQuestionHandler
+    NextQuestionHandler,
+    ExitSkillHandler,
+    EndOfChallengeHandler
 } = require('./AnswerIntent');
-const EndOfChallengeHandlar = require('./EndOfChallengeHandlar');
-// const WantToAnswerIntent = require('./WantToAnswerIntent');
-const SelectChallengeIntent = require('./SelectChallengeIntent')
+const SelectChallengeIntent = require('./SelectChallengeIntent');
+
 
 
 module.exports = {
@@ -23,13 +24,12 @@ module.exports = {
         HelloWorldIntentHandler,
         HelpIntentHandler,
         SelectChallengeIntent,
+        FirstAnswerhandler,
         SkipOrAnswerHandler,
         AnswerProcessingHandler,
         NextQuestionHandler,
-        FirstAnswerhandler,
-        // AnswerIntent,
-        // EndOfChallengeHandlar,
-        // WantToAnswerIntent,
+        ExitSkillHandler,
+        EndOfChallengeHandler,
         CancelAndStopIntentHandler,
         FallbackIntentHandler,
         SessionEndedRequestHandler,

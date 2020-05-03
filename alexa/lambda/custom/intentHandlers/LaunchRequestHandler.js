@@ -9,6 +9,7 @@ const LAUNCH_OPENING = 'welcome to the amazing teacher quiz. ';
 const ONE_CHALLENGE = 'please repeat its name to start the challenge.'
 const SEVERAL_CHALLENGES = 'please say the name of the challenge you want to start.'
 
+
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
@@ -19,11 +20,6 @@ const LaunchRequestHandler = {
         const dynamicEntities = changeChallengeNameTypeValues(challenges);
 
         return handlerInput.responseBuilder
-            // .addElicitSlotDirective('challengeName', {
-            //     name: 'SelectChallengeIntent',
-            //     confirmationStatus: 'NONE',
-            //     slots: {}
-            // })
             .speak(speakOutput)
             .reprompt(speakOutput)
             .addDirective(dynamicEntities)
