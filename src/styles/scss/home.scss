@@ -1,0 +1,62 @@
+$blue: rgb(113, 206, 240);
+
+
+.home{
+    background-color: $blue;
+    width: 100vw;
+    height: 100vh;
+
+    .main{
+        padding-top: 8vh;
+        
+        .title{
+            align-self: center;
+            margin: auto;
+            margin-left: 44%;
+        }
+
+        .challenges{
+            background-color: rgb(113, 240, 170);
+            width: 20vw;
+            align-self: center;
+            display: flex;
+            margin: auto;
+            border-radius: 12px;
+            margin-top: 5vh;
+
+            .link{
+                text-decoration: none;
+                decoration: none; 
+                .name{
+                // background-color: aliceblue;
+                display: block;
+                padding: 1vh;
+                text-decoration: none;
+                }
+            }
+
+            .input{
+                border: none;
+                border-color: transparent;
+                background-color: transparent;
+                padding: 1vh;
+            }
+            .input:focus{
+                outline:none;
+            }
+
+        }
+
+        .button{
+            align-self:center;
+            margin:auto;
+            padding-top: 2vh;
+            display: block;
+        }
+
+    }
+
+}
+
+
+

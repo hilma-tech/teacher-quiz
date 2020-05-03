@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import './questions.css';
+import './styles/scss/questions.scss';
+// import './styles/css/questions.css';
 import TextField from '@material-ui/core/TextField';
 import GraphicEqIcon from '@material-ui/icons/GraphicEq';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ControlPointIcon from '@material-ui/icons/ControlPoint';
+import TelegramIcon from '@material-ui/icons/Telegram';
 
 
 
@@ -54,12 +57,13 @@ class Questions extends Component {
 
     render() {
         return (
-            <div className="main">
-                <h1>welcom to the quiz section</h1>
-                <h3>here you can add your questions</h3>
-                <div className="questions">
-                    {/* material try*/}
-                    <TextField
+            <div className="questions">
+                <div className="main">
+                    <h1 className="title">welcom to the quiz section</h1>
+                    <h3 className="title">here you can add your questions</h3>
+                    <div className="question-list">
+                        {/* material try*/}
+                        {/* <TextField
                         id="outlined-basic"
                         label="Outlined"
                         variant="outlined"
@@ -69,44 +73,51 @@ class Questions extends Component {
                         value={this.state.firstQuest.value}
                         onChange={this.updateQuests}
                         placeholder="type here your question"
-                        />
-                    <div>
-                        {/* first question */}
-                        <input
-                            type="text"
-                            first="first"
-                            value={this.state.firstQuest.value}
-                            onChange={this.updateQuests}
-                            placeholder="type here your question"
-                        >
-                        </input>
-                        <Link to="/answers">
-                        <GraphicEqIcon/>
-                        </Link>
-                        <DeleteIcon/>
-                    </div>
-                    {/* questions */}
-                    {this.state.quests.map((quest, index) => {
-                        return (
-                            <div>
+                        /> */}
+                        <div>
+                            {/* first question */}
                             <input
+                                className="input"
                                 type="text"
-                                index={index}
+                                first="first"
+                                value={this.state.firstQuest.value}
                                 onChange={this.updateQuests}
-                                value={quest.value}
                                 placeholder="type here your question"
                             >
                             </input>
                             <Link to="/answers">
-                         <GraphicEqIcon/>
-                         </Link>
-                         <DeleteIcon index={index} onClick={this.deleteQuestion}/>
-                            </div>
-                        )
-                    })}
-                    <button onClick={this.addQuestion}>+</button>
+                                <GraphicEqIcon />
+                            </Link>
+                            <DeleteIcon />
+                        </div>
+                        {/* questions */}
+                        {this.state.quests.map((quest, index) => {
+                            return (
+                                <div>
+                                    <input
+                                        type="text"
+                                        className="input"
+                                        index={index}
+                                        onChange={this.updateQuests}
+                                        value={quest.value}
+                                        placeholder="type here your question"
+                                    >
+                                    </input>
+                                    <Link to="/answers" className="link">
+                                        <GraphicEqIcon />
+                                    </Link>
+                                    <DeleteIcon index={index} onClick={this.deleteQuestion} />
+                                </div>
+                            )
+                        })}
+                    </div>
+                        <ControlPointIcon className="add-btn" onClick={this.addQuestion}/>
+                        <div className="post-btn" onClick={this.sendData}>
+                        <span className="post-text">post challenge</span>
+                        <TelegramIcon />
+                        </div>
+                    {/* <button onClick={this.sendData}>send</button> */}
                 </div>
-                <button onClick={this.sendData}>send</button>
             </div>
         )
     }

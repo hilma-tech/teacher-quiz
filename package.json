@@ -11,6 +11,7 @@
     "alexa-app": "^4.2.3",
     "aws-sdk": "^2.663.0",
     "mic-recorder-to-mp3": "^2.2.1",
+    "node-sass": "^4.14.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
