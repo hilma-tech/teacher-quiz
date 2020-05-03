@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import MicRecorder from 'mic-recorder-to-mp3';
-import './App.css';
+// import './scss/App.scss';
+import '../styles/components/Recorder.scss'
 import AWS from 'aws-sdk';
+
+import { Button, ButtonGroup } from '@material-ui/core';
 
 const s3 = new AWS.S3();
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 
-class AlexaRecorder extends Component {
+class Recorder extends Component {
   constructor(props) {
     super(props);
 
@@ -53,35 +56,43 @@ class AlexaRecorder extends Component {
       }).catch((e) => console.log(e));
   };
 
-    uploadFile = ({ body }) => {
+  uploadFile = ({ body }) => {
 
-      return s3.upload({
-          Bucket: 'tts-hb-translator', // pass your bucket name
-          Key: this.state.blobURL + '.mp3',
-          Body: body,
-          ACL: "public-read"
-      }).promise()
+    return s3.upload({
+      Bucket: 'tts-hb-translator', // pass your bucket name
+      Key: this.state.blobURL + '.mp3',
+      Body: body,
+      ACL: "public-read"
+    }).promise()
   };
-  
+
 
   render() {
     return (
-      <div>
-        <button onClick={this.start} disabled={this.state.isRecording}>
-          Record
-        </button>
-        <button onClick={this.stop} disabled={!this.state.isRecording}>
-          Stop
-        </button>
-        <button onClick={this.uploadFile} disabled={!this.state.isRecorded}>
-          Upload
-        </button>
+      <div className={`recorder ${this.props.addedClasses}`}>
         <audio src={this.state.blobURL} controls="controls" />
+
+        <ButtonGroup variant="contained">
+          <Button
+            onClick={this.start}
+            disabled={this.state.isRecording}>
+            Record</Button>
+
+          <Button
+            onClick={this.stop}
+            disabled={!this.state.isRecording}>
+            Stop</Button>
+
+          <Button
+            onClick={this.uploadFile}
+            disabled={!this.state.isRecorded}>
+            Upload</Button>
+        </ButtonGroup>
       </div>
     )
   }
 }
 
 
-export default AlexaRecorder;
+export default Recorder;
 

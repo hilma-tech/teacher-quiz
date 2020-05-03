@@ -1,42 +1,50 @@
-.answers{
-    background-color: rgb(113, 206, 240);
+@import 'varibales';
+
+.page{
+    background-color: $light-gray;
     width: 100vw;
     height: 100vh;
+}
 
-    .main{
-        padding-top: 8vh;
+.answer{
+    padding:2rem;
 
-        .title{
-            align-self: center;
-            margin: auto;
-            margin-left: 35%;
-        }
+    h1{
+        padding:0 auto;
+        align-self: center;
+        // margin: auto;
+        // margin-left: 35%;
+    }
 
-        .recorder{
-            width: fit-content;
-            align-self: center;
-            margin: auto;
-            margin-left: 35%;
-            margin-bottom: 2vh;
-        }
+    .AQ-recorder{
+        margin-top:1rem;
+    }
 
-        .input-answer{
-            border: none;
-            border-color: transparent;
-            background-color: rgb(113, 240, 170);
-            padding: 1vh;
-            margin-top: 2vh;
-            min-width: 15vw;
-            width: fit-content;
-            height: 5vh;
-            border-radius: 12px;
-            align-self: center;
-            margin: auto;
-            margin-left: 35%;
-        }
+    .recorder{
+        width: fit-content;
+        align-self: center;
+        margin: auto;
+        margin-left: 35%;
+        margin-bottom: 2vh;
+    }
 
-        .input-answer:focus{
-            outline:none;
-        }
+    input{
+        border: none;
+        border-color: transparent;
+        // background-color: rgb(113, 240, 170);
+        padding: 1vh;
+        margin-top: 2vh;
+        // min-width: 15vw;
+        width:17rem;
+        text-align: center;
+        height: 2.5rem;
+        border-radius: 5px;
+        align-self: center;
+        // margin: auto;
+        margin: 0 auto;
+    }
+
+    .input-answer:focus{
+        outline:none;
     }
 }
