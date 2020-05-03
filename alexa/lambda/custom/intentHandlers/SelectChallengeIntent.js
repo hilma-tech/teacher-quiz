@@ -30,7 +30,6 @@ const SelectChallengeIntent = {
         // const challengeName = Alexa.getSlotValue(handlerInput.requestEnvelope, 'challengeName');
         const id =handlerInput.requestEnvelope.request.intent.slots.challengeName.resolutions.resolutionsPerAuthority[1].values[0].value.id
         global.DB.setCurrChall(id);
-        const lala=global.DB.currChall
         // return FirstAnswerhandler.canHandle(handlerInput)
         return FirstAnswerhandler.handle(handlerInput)
 

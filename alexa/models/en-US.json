@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "t q",
+            "invocationName": "teacher quiz",
             "modelConfiguration": {
                 "fallbackIntentSensitivity": {
                     "level": "LOW"

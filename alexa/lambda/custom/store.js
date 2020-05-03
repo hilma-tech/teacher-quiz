@@ -5,6 +5,8 @@ let dbReceivedData = (function () {
     function init() {
 
         let challenges = [], currChall, currChallQ;
+        let completeChallenges = []
+        let availableChallenges = []
         let answers = {}
 
         // Public methods and variables (the init function return)
@@ -12,22 +14,27 @@ let dbReceivedData = (function () {
             get challenges() { return challenges; },
             get currChall() { return currChall; },
             get currChallQ() { return currChallQ; },
+            get completeChallenges() { return completeChallenges; },
             get answers() { return answers; },
+            get aChall() { return availableChallenges; },
 
             setChallenges(challengesArr) {
                 challenges = challengesArr;
+                availableChallenges = challenges;
             },
 
             setCurrChall(challengeId) {
-                currChall = challenges[challengeId];
+                currChall = { ...challenges[challengeId], id: challengeId };
             },
 
-            setCurrChallQ(currentChallengeQuestions) {
-                currChallQ = currentChallengeQuestions;
+            setCompleteChallenges() {
+                const { id } = currChall;
+                completeChallenges.push(challenges[id]);
+                availableChallenges.splice(id, 1);
             },
 
             setAnswers(qIndex, answer, score) {
-                answers[qIndex] = answer;
+                answers[qIndex] = { answer, score };
             }
 
         };
