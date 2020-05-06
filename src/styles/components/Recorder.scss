@@ -1,0 +1,17 @@
+@import '../scss/varibales.scss';
+
+
+.recorder{
+    display: flex;
+    flex-direction: column;
+    .MuiButtonGroup-contained{
+        direction: ltr;
+        box-shadow:none;
+        margin:0.7rem auto 0 auto;
+        .MuiButtonBase-root.MuiButton-root {
+            color:$darkest-blue;
+            background-color: $turquoise;
+        }
+
+    }
+}

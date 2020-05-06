@@ -1,73 +1,67 @@
+@import 'varibales.scss';
+
+
 .questions{
-    background-color: rgb(113, 206, 240);
+    background-color:$light-gray;
     width: 100vw;
     height: 100vh;
 
     .main{
         padding-top: 8vh;
+        display: flex;
+        flex-direction: column;
+        margin:0 auto;
+        width:40vw;
+        height: 80vh;
 
         .title{
             align-self: center;
-            margin: auto;
-            margin-left: 35%;
+            // margin: auto;
+            // margin-left: 35%;
         }
 
         .question-list{
-            background-color: rgb(113, 240, 170);
-            width: 20vw;
-            align-self: center;
-            display: flex;
-            margin: auto;
-            border-radius: 12px;
-            margin-top: 5vh;
+            width:20vw;
+            margin:0 auto;
+            .quest-unit{
+                border:1px solid $darkest-blue;
+                height: 2.5rem;
+                border-radius: 5px;
+                display: flex;
+                margin-top:1rem;
 
-            .input{
-                border: none;
-                border-color: transparent;
-                background-color: transparent;
-                padding: 1vh 1vh 2vh 1vh;
-                
-            }
+                .icons{
+                    margin:auto auto auto 1rem;
+                    &>*{
+                        color:$turquoise;
+                    }
+                }
 
-            .input:focus{
-                outline:none;
-            }
+                input{
+                    height: 2rem;
+                    margin:auto 0.5rem auto 0;
+                }
 
-            .link{
-                text-decoration: none;
-                decoration: none; 
             }
         }
 
-        .add-btn{
-            align-self:center;
-            margin:auto;
-            margin-left:49%;
-            padding-top: 2vh;
-            display: block;
-            cursor: pointer;
+        .MuiButtonBase-root.MuiIconButton-root.add-btn{
+            background-color: $turquoise;
+            // display: inline-block;
+            margin:0.5rem auto;
+            width:3rem;
+            height: 3rem;
         }
 
-        .post-btn{
-            text-align: center;
-            border: 2px solid rgb(222, 80, 127);
-            align-self:center;
-            margin:auto;
-            height: 2vh;
-            width: 15vw;
-            border-radius: 12px;
-            margin-left:42%;
-            padding: 0vh 0vh 4vh 0vh;
-            display: block;
-
-            .post-text{
-                align-self: center;
-                padding-bottom: 1vh;
-                cursor: pointer;
-            }
-
-            .telegram-icon{
-                padding-top: 2vh;
+        .MuiButton-root.publish-btn{
+            // margin-top:auto;
+            background-color: $dark-blue;
+            // display: inline-block;
+            margin:auto auto 0 auto;
+            width:10rem;
+            height: 2.5rem;
+            .MuiButton-label{
+                color:$light-gray;
             }
         }
     }
