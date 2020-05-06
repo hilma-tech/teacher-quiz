@@ -24,7 +24,6 @@ class Questions extends Component {
         let quests = this.state.quests
         let emptyFields = []
         let first = this.state.firstQuest
-        
 
         quests.map((quest)=>{
             if(!quest.value){
@@ -35,7 +34,6 @@ class Questions extends Component {
         if(first.value && !emptyFields.length){
             window.alert("your questions has been sent successfully")
         }
-
         else{    
             window.alert("all fields must to be filled")
         }
@@ -65,7 +63,6 @@ class Questions extends Component {
     }
 
     deleteQuestion = (event) => {
-        
         let quests = this.state.quests
         let index = event.currentTarget.getAttribute("index");
         delete quests[index]

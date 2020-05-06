@@ -37,92 +37,79 @@ class Home extends Component {
         this.setState({ challenges });
     }
 
-    addNewChallenge = ()=>{
+    addNewChallenge = () => {
         let challenges = this.state.challenges
-        challenges.push({inEditMode: true, name: ''})
-        this.setState({challenges})
+        challenges.push({ inEditMode: true, name: '' })
+        this.setState({ challenges })
     }
 
-    edit = (event)=>{
+    edit = (event) => {
         let challenges = this.state.challenges
-        let index=event.currentTarget.getAttribute("index")
+        let index = event.currentTarget.getAttribute("index")
         challenges[index].inEditMode = true;
-        this.setState({challenges})
+        this.setState({ challenges })
     }
 
-    editOnEnter = (event)=>{
+    editOnEnter = (event) => {
         let challenges = this.state.challenges
-        let index=event.currentTarget.getAttribute("index")
-        if(event.key==="Enter"){
-            challenges[index].inEditMode=false;
-            this.setState({challenges})
+        let index = event.currentTarget.getAttribute("index")
+        if (event.key === "Enter") {
+            challenges[index].inEditMode = false;
+            this.setState({ challenges })
         }
     }
 
-    handleAnswer = (event)=>{
+    handleAnswer = (event) => {
         let challenges = this.state.challenges
         let value = event.target.value
         let index = event.target.getAttribute("index")
         challenges[index].name = value
-        this.setState({challenges})
+        this.setState({ challenges })
     }
 
     render() {
         return (
             <div className="home">
                 <div className="main">
-                <h1 className="title">שלום מורה!</h1>
-                <h3 className="title">האתגרים שיצרת</h3>
-                <div>
-                    {this.state.challenges.map((chall, index) => {
-                        return (
-                            <div className="challenge-list">
-                                {!chall.inEditMode &&
-                            <div className="challenges">
-                                <Link to='/questions' className="link">
-                                    <div className="name">
-                                        {chall.name}
-                                    </div>
-                                </Link>
-                                    <DeleteIcon index={index} onClick={this.deleteChallenge}/>
-                                    <EditIcon index={index} onClick={this.edit}/>
-                            </div>}
-                                {chall.inEditMode &&
-                                <div className="challenges">
-                                    <input 
-                                    index={index}
-                                    className="input"
-                                    type="text" 
-                                    placeholder="name here"
-                                    value={chall.name}
-                                    onChange={this.handleAnswer}
-                                    onKeyPress={this.editOnEnter}
-                                    ></input>
-                                    <DeleteIcon index={index} onClick={this.deleteChallenge}/>
-                                    </div>}
-                            </div>
-                        )
-                    })}
-                    <ControlPointIcon 
-                    className="button" 
-                    onClick={this.addNewChallenge}
-                    fontSize="large"
-                    />
+                    <h1 className="title">שלום מורה!</h1>
+                    <h3 className="title">האתגרים שיצרת</h3>
+                    <div>
+                        {this.state.challenges.map((chall, index) => {
+                            return (
+                                <div className="challenge-list">
+                                    {!chall.inEditMode &&
+                                        <div className="challenges">
+                                            <Link to='/questions' className="link">
+                                                <div className="name">
+                                                    {chall.name}
+                                                </div>
+                                            </Link>
+                                            <DeleteIcon index={index} onClick={this.deleteChallenge} />
+                                            <EditIcon index={index} onClick={this.edit} />
+                                        </div>}
+                                    {chall.inEditMode &&
+                                        <div className="challenges">
+                                            <input
+                                                index={index}
+                                                className="input"
+                                                type="text"
+                                                placeholder="name here"
+                                                value={chall.name}
+                                                onChange={this.handleAnswer}
+                                                onKeyPress={this.editOnEnter}
+                                            ></input>
+                                            <DeleteIcon index={index} onClick={this.deleteChallenge} />
+                                        </div>}
+                                </div>
+                            )
+                        })}
+                        <ControlPointIcon
+                            className="button"
+                            onClick={this.addNewChallenge}
+                            fontSize="large"
+                        />
+                    </div>
                 </div>
-                {/* <div>
-                    <InputLabel htmlFor="input-with-icon-adornment">With a start adornment</InputLabel>
-                    <Input
-                        disabled="disabled"
-                        value='nnnnn'
-                        id="input-with-icon-adornment"
-                        startAdornment={
-                            <InputAdornment position="start">
-                                <DeleteIcon onClick={this.deleteChallenge}/>
-                            </InputAdornment>
-                        }
-                    />
-                </div> */}
-            </div>
             </div>
         )
     }
