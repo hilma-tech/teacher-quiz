@@ -19,18 +19,19 @@ let dbReceivedData = (function () {
             get aChall() { return availableChallenges; },
 
             setChallenges(challengesArr) {
-                challenges = challengesArr;
-                availableChallenges = challenges;
+                challenges = [...challengesArr];
+                availableChallenges = [...challengesArr];
             },
 
             setCurrChall(challengeId) {
-                currChall = { ...challenges[challengeId], id: challengeId };
+                currChall = { ...challenges[challengeId], challengeId };
             },
 
             setCompleteChallenges() {
-                const { id } = currChall;
+                const { challengeId: id } = currChall;
                 completeChallenges.push(challenges[id]);
                 availableChallenges.splice(id, 1);
+                currChall = undefined;
             },
 
             setAnswers(qIndex, answer, score) {
@@ -40,10 +41,7 @@ let dbReceivedData = (function () {
         };
     };
 
-    //the class function return
     return {
-        // Get the Singleton instance if one exists
-        // or create one if it doesn't
         getInstance: function () {
 
             if (!instance) {

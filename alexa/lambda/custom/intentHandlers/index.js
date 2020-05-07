@@ -6,15 +6,7 @@ const FallbackIntentHandler = require('./FallbackIntentHandler');
 const SessionEndedRequestHandler = require('./SessionEndedRequestHandler');
 const IntentReflectorHandler = require('./IntentReflectorHandler');
 const ErrorHandler = require('./ErrorHandler');
-const {
-    FirstAnswerhandler,
-    SkipOrAnswerHandler,
-    AnswerProcessingHandler,
-    NextQuestionHandler,
-    ExitSkillHandler,
-    EndOfChallengeHandler
-} = require('./AnswerIntent');
-const SelectChallengeIntent = require('./SelectChallengeIntent');
+const AIHandlars = require('./ChallengeIntentHandlars/ChallHandlerIndex.js');
 
 
 
@@ -23,13 +15,7 @@ module.exports = {
         LaunchRequestHandler,
         HelloWorldIntentHandler,
         HelpIntentHandler,
-        SelectChallengeIntent,
-        FirstAnswerhandler,
-        SkipOrAnswerHandler,
-        AnswerProcessingHandler,
-        NextQuestionHandler,
-        EndOfChallengeHandler,
-        ExitSkillHandler,
+        ...AIHandlars,
         CancelAndStopIntentHandler,
         FallbackIntentHandler,
         SessionEndedRequestHandler,
