@@ -25,7 +25,7 @@ const ExitSkillHandler = {
         }
 
         //if its the end of the challenge 
-        if (counter === numOfQ && !skippedQ.length) {
+        if (counter === numOfQ) {
             if (ifYes) {
                 let  aChallNames = store.aChall.map(chall => chall.name);
                 const challList = createStrList(aChallNames);

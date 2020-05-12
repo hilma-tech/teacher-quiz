@@ -4,14 +4,13 @@ const {
     quest: {
         ORDER_Q,
         SKIPPED_Q,
-        SKIP_THIS_Q,
-        MOVE_TO_NEXT_Q_QUEST,
-        GO_BACK_TO_SKIPPED_Q
+        SKIP_THIS_Q
     },
     obj: { elicitSlotUpdatedIntent }
 } = require('../../constStr');
+const { createQReprompt, getCurrentQuestIndex, createQResponse } = require('../../functions');
 
-const { createQReprompt, getCurrentQuestIndex } = require('../../functions');
+const { EndOfOrderedQHandler } = require('./Handlers');
 
 const SkipOrAnswerHandler = {
     canHandle(handlerInput) {
@@ -26,20 +25,21 @@ const SkipOrAnswerHandler = {
 
         if (skipOrAnswer === 'answer') {
             speechOutput = reprompt = `Please say the answer`;
-            slotToElicit = 'answer';
+            slotToElicit = skipOrAnswer;
         }
 
         else if (skipOrAnswer === 'skip') {
-            let at = handlerInput.attributesManager.getSessionAttributes();
+            let prevAt = handlerInput.attributesManager.getSessionAttributes();
+            let at;
+            prevAt.skippedQ.push(prevAt.counter);
+            ([speechOutput, reprompt, at] = createQResponse({ ...prevAt }, true))
 
-            at.skippedQ.push(at.counter);
-            const [qIndex, isSkippedQuest, attributes] = getCurrentQuestIndex(at);
-            const { qText } = store.currChall.questions[qIndex];
-            
-            reprompt = createQReprompt(qText);
-            speechOutput = `${SKIP_THIS_Q} ${isSkippedQuest ? SKIPPED_Q : ORDER_Q} ${qIndex}. ${reprompt}`
-            
-            handlerInput.attributesManager.setSessionAttributes(attributes);
+            //if we finished going over all the questions,and we skipped a question 
+            console.log('boolll', prevAt.counter === at.numOfQ, at.skippedQ.length, prevAt.counter === at.numOfQ && at.skippedQ.length)
+            if (prevAt.counter === at.numOfQ && at.skippedQ.length)
+                return EndOfOrderedQHandler.handle(handlerInput);
+
+            handlerInput.attributesManager.setSessionAttributes(at);
             slotToElicit = 'skipOrAnswer';
         }
 
@@ -51,102 +51,8 @@ const SkipOrAnswerHandler = {
     }
 };
 
-const AnswerProcessingHandler = {
-    canHandle(handlerInput) {
-        const { counter, numOfQ, skippedQ } = handlerInput.attributesManager.getSessionAttributes();
-
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === "IntentRequest"
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === "ChallengeIntent"
-            && !Alexa.getSlotValue(handlerInput.requestEnvelope, 'yesOrNo')
-            && Alexa.getSlotValue(handlerInput.requestEnvelope, 'answer')
-            && (counter < numOfQ || skippedQ.length);
-    },
-
-    handle(handlerInput) {
-        const at = handlerInput.attributesManager.getSessionAttributes();
-        const { aText } = store.currChall.questions[at.counter];
-        const answer = Alexa.getSlotValue(handlerInput.requestEnvelope, 'answer');
-        ///check if the answer is correct
-        ///
-
-        store.setAnswers(at.counter, at.counter, 100)
-
-
-        handlerInput.attributesManager.setSessionAttributes(at);
-
-        const reprompt = MOVE_TO_NEXT_Q_QUEST;
-        const speechOutput = `your answer was correct! ${reprompt}`;
-
-        return handlerInput.responseBuilder
-            .addElicitSlotDirective('yesOrNo', elicitSlotUpdatedIntent)
-            .speak(speechOutput)
-            .reprompt(reprompt)
-            .getResponse();
-    }
-};
-
-
-const EndOfOrderedQHandler = {
-    canHandle(handlerInput) {
-        const { counter, numOfQ, skippedQ } = handlerInput.attributesManager.getSessionAttributes();
-
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === "IntentRequest"
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === "ChallengeIntent"
-            && (counter === numOfQ && skippedQ.length);
-    },
-
-    handle(handlerInput) {
-        return handlerInput.responseBuilder
-            .addElicitSlotDirective('goBackToSkippedQ', elicitSlotUpdatedIntent)
-            .speak(GO_BACK_TO_SKIPPED_Q)
-            .reprompt(GO_BACK_TO_SKIPPED_Q)
-            .getResponse();
-
-    }
-};
-
-
-const EndOfChallengeHandler = {
-    canHandle(handlerInput) {
-        const { counter, numOfQ, skippedQ } = handlerInput.attributesManager.getSessionAttributes();
-
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === "IntentRequest"
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === "ChallengeIntent"
-            // && Alexa.getSlotValue(handlerInput.requestEnvelope, 'yesOrNo')
-            && (counter === numOfQ && !skippedQ.length);
-    },
-
-    handle(handlerInput) {
-        ///sending the answers somewhere
-        store.setCompleteChallenges();
-        const startOfSpeech = 'you have finished the challenge, wall done!';
-
-        if (store.challenges.length) {
-            const reprompt = 'would you like to move to another challenge?'
-            const speechOutput = `${startOfSpeech} you have other challenges available. ${reprompt}`
-
-            return handlerInput.responseBuilder
-                .addElicitSlotDirective('exitYesOrNo', elicitSlotUpdatedIntent)
-                .speak(speechOutput)
-                .reprompt(reprompt)
-                .getResponse();
-        }
-        else {
-            const speechOutput = `${startOfSpeech} you dont have other challenges. see you soon!`;
-
-            return handlerInput.responseBuilder
-                .speak(speechOutput)
-                .withShouldEndSession(true);
-        }
-    }
-};
-
-
 module.exports = {
-    SkipOrAnswerHandler,
-    AnswerProcessingHandler,
-    EndOfOrderedQHandler,
-    EndOfChallengeHandler
+    SkipOrAnswerHandler
 };
 
 
