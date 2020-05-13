@@ -4,7 +4,7 @@ const { MOVE_TO_NEXT_Q_QUEST } = require('../../constStr').quest;
 const { elicitSlotUpdatedIntent } = require('../../constStr').obj;
 
 
-const { createQReprompt, getCurrentQuestIndex, createQResponse } = require('../../functions')
+const { createQReprompt, createQResponse } = require('../../functions')
 const { EndOfOrderedQHandler, EndOfChallengeHandler } = require('./Handlers');
 
 const FirstAnswerhandler = {
@@ -34,10 +34,15 @@ const FirstAnswerhandler = {
         const reprompt = createQReprompt(qText, qNum === 1);
         const speechOutput = `you have chosen ${challengeName} challenge. you have ${qNum} questions in this challenge. starting question number 1. ${reprompt}`;
 
+        const numOfQ = Object.keys(questions).length;
+        const answeredQ = new Array(numOfQ).fill(false);
+
         handlerInput.attributesManager.setSessionAttributes({
             counter: 1,
-            skippedQ: [],
-            numOfQ: Object.keys(questions).length
+            numOfQ,
+            answeredQ,
+            currLastQ: numOfQ,
+            skipMode: false
         });
 
         return handlerInput.responseBuilder
@@ -52,14 +57,12 @@ const FirstAnswerhandler = {
 
 const NextQuestionHandler = {
     canHandle(handlerInput) {
-        const { counter, numOfQ, skippedQ } = handlerInput.attributesManager.getSessionAttributes();
 
         return Alexa.getRequestType(handlerInput.requestEnvelope) === "IntentRequest"
             && Alexa.getIntentName(handlerInput.requestEnvelope) === "ChallengeIntent"
             && (Alexa.getSlotValue(handlerInput.requestEnvelope, 'yesOrNo')
                 || Alexa.getSlotValue(handlerInput.requestEnvelope, 'goBackToSkippedQ'))
             && !Alexa.getSlotValue(handlerInput.requestEnvelope, 'answer')
-        // && (counter < numOfQ || skippedQ.length);
     },
 
     handle(handlerInput) {
@@ -79,9 +82,9 @@ const NextQuestionHandler = {
         else {
             if (goBackToSkippedQ) {
                 const sSo = 'i will save your progress.';
-                return EndOfChallengeHandler.handle(handlerInput, sSo)
+                return EndOfChallengeHandler.handle(handlerInput, sSo);
             }
-            speechOutput = 'do you want to exit this skill?'
+            speechOutput = reprompt = 'do you want to exit this skill?'
             slotToElicit = 'exitYesOrNo';
         }
 
@@ -104,19 +107,27 @@ const AnswerProcessingHandler = {
 
     handle(handlerInput) {
         const at = handlerInput.attributesManager.getSessionAttributes();
+        at.answeredQ[at.counter] = true;
+        if (at.answeredQ.length !== at.numOfQ)
+            handlerInput.attributesManager.setSessionAttributes(at);
+
         const { aText } = store.currChall.questions[at.counter];
         const answer = Alexa.getSlotValue(handlerInput.requestEnvelope, 'answer');
         ///check if the answer is correct
         ///
 
-        store.setAnswers(at.counter, at.counter, 100)
+        store.setAnswers(at.counter, at.counter, 100);
 
         const aScore = `your answer is correct!`;
 
-        if (at.counter === at.numOfQ && at.skippedQ.length) {
+
+        //end of ordered q
+        if (at.counter === at.numOfQ && at.answeredQ.includes(false)) {
+
             return EndOfOrderedQHandler.handle(handlerInput, aScore)
         }
-        else if (at.counter === at.numOfQ && !at.skippedQ.length) {
+        //end of challenge
+        else if (at.counter === at.numOfQ && !at.answeredQ.includes(false)) {
             return EndOfChallengeHandler.handle(handlerInput, aScore);
         }
 
@@ -130,7 +141,6 @@ const AnswerProcessingHandler = {
             .getResponse();
     }
 };
-
 
 
 module.exports = {

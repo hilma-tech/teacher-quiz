@@ -1,10 +1,9 @@
 const Alexa = require('ask-sdk-core');
 const store = require('../../store').getInstance();
-const {
-    exit: { EXIT_GREETING },
-    obj: { elicitSlotUpdatedIntent }
-} = require('../../constStr');
+const { elicitSlotUpdatedIntent } = require('../../constStr').obj;
 
+const { ExitSkill } = require('./Handlers');
+const { createStrList } = require('../../functions');
 
 const ExitSkillHandler = {
     canHandle(handlerInput) {
@@ -15,19 +14,12 @@ const ExitSkillHandler = {
 
     handle(handlerInput) {
         let ifYes = Alexa.getSlotValue(handlerInput.requestEnvelope, 'exitYesOrNo') === 'yes';
-        const { counter, numOfQ, skippedQ } = handlerInput.attributesManager.getSessionAttributes();
-
-        const exitSkill = () => {
-            return handlerInput.responseBuilder
-                .speak(EXIT_GREETING)
-                .withShouldEndSession(true)
-                .getResponse();
-        }
+        const { counter, numOfQ } = handlerInput.attributesManager.getSessionAttributes();
 
         //if its the end of the challenge 
         if (counter === numOfQ) {
             if (ifYes) {
-                let  aChallNames = store.aChall.map(chall => chall.name);
+                let aChallNames = store.aChall.map(chall => chall.name);
                 const challList = createStrList(aChallNames);
 
                 const cNum = store.aChall.length;
@@ -45,15 +37,14 @@ const ExitSkillHandler = {
                     .reprompt(speechOutput)
                     .getResponse();
             }
-            else exitSkill();
+            else return ExitSkill.handle(handlerInput);
         }
         //in the middle of challenge. between questions.
         else {
 
-            if (ifYes) {
-                //saving the progress in the challenges
-                return exitSkill();
-            }
+            //saving the progress in the challenges
+            if (ifYes) return ExitSkill.handle(handlerInput);
+
             else {
                 return handlerInput.responseBuilder
                     .addElicitSlotDirective('skipOrAnswer', elicitSlotUpdatedIntent)
@@ -61,15 +52,7 @@ const ExitSkillHandler = {
                     .getResponse();
             }
         }
-
     }
 };
-
-
-function createStrList(arr) {
-    const last = arr.pop();
-    return arr.join(', ') + (arr.length ? ' and ' : '') + last
-}
-
 
 module.exports = ExitSkillHandler;

@@ -1,9 +1,15 @@
 const { GO_BACK_TO_SKIPPED_Q } = require('../../constStr').quest;
 const { elicitSlotUpdatedIntent } = require('../../constStr').obj;
+const { EXIT_GREETING } = require('../../constStr').exit;
+
 
 module.exports = {
     EndOfOrderedQHandler: {
         handle(handlerInput, sSo = '') {
+            let at = handlerInput.attributesManager.getSessionAttributes();
+            if (!at.skipMode) at.skipMode = true;
+            handlerInput.attributesManager.setSessionAttributes(at);
+
             return handlerInput.responseBuilder
                 .addElicitSlotDirective('goBackToSkippedQ', elicitSlotUpdatedIntent)
                 .speak(`${sSo} ${GO_BACK_TO_SKIPPED_Q}`)
@@ -14,10 +20,10 @@ module.exports = {
 
 
     EndOfChallengeHandler: {
-        handle(handlerInput, { so = '', sSo = '' }) {
+        handle(handlerInput, sSo = '') {
             ///sending the answers somewhere
             store.setCompleteChallenges();
-            const startOfSpeech = so || `${sSo} you have finished the challenge, wall done!`;
+            const startOfSpeech = `${sSo} you have finished the challenge, wall done!`;
 
             if (store.challenges.length) {
                 const reprompt = 'would you like to move to another challenge?'
@@ -37,10 +43,16 @@ module.exports = {
                     .withShouldEndSession(true);
             }
         }
+    },
+
+    ExitSkill: {
+        handle(handlerInput) {
+            return handlerInput.responseBuilder
+                .speak(EXIT_GREETING)
+                .withShouldEndSession(true)
+                .getResponse();
+        }
     }
-
-
-
 }
 
 

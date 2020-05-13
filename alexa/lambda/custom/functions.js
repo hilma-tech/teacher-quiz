@@ -23,7 +23,7 @@ function createQResponse(at, isSkippingQ = false) {
     const [qIndex, isSkippedQuest, _at] = getCurrentQuestIndex(at);
 
     const { qText } = store.currChall.questions[qIndex];
-    const ifLast = at.counter === at.numOfQ || (at.counter === at.numOfQ && !at.skippedQ.length);
+    const ifLast = at.counter === at.numOfQ || (at.counter === at.numOfQ && !at.answeredQ.includes(false));
 
     const reprompt = createQReprompt(qText, ifLast)
     const speechOutput = `${isSkippingQ ? SKIP_THIS_Q : ''} ${isSkippedQuest ? SKIPPED_Q : ORDER_Q} ${qIndex}. ${reprompt}`;
@@ -31,7 +31,8 @@ function createQResponse(at, isSkippingQ = false) {
     return [
         speechOutput,
         reprompt,
-        _at
+        _at,
+        isSkippedQuest
     ]
 }
 
@@ -40,24 +41,23 @@ function createQResponse(at, isSkippingQ = false) {
 ///////////////////
 function getCurrentQuestIndex(at) {
     let qIndex;
-    const isSkippedQuest = at.counter === at.numOfQ;
 
-    if (isSkippedQuest === at.numOfQ && at.numOfQ - 1 && at.skippedQ.length) {
-        qIndex = at.skippedQ.shift();
-    }
-    else if (at.counter < at.numOfQ || !at.numOfQ - 1) {
-        if (at.numOfQ - 1) at.counter++;
+    const isSkippedQuest = (at.counter === at.numOfQ)
+        && at.answeredQ.findIndex(q => !q);
+
+    if (at.counter < at.numOfQ) {
+        if (at.numOfQ === 1) qIndex = at.counter;
+        else at.counter++;
         qIndex = at.counter;
     }
+    else qIndex = isSkippedQuest + 1;
 
     return [
         qIndex,
-        isSkippedQuest,
+        Number.isInteger(isSkippedQuest),
         at
     ];
 }
-
-
 
 module.exports = {
     createStrList,

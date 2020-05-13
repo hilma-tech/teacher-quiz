@@ -1,14 +1,7 @@
 const Alexa = require('ask-sdk-core');
-const store = require('../../store').getInstance();
-const {
-    quest: {
-        ORDER_Q,
-        SKIPPED_Q,
-        SKIP_THIS_Q
-    },
-    obj: { elicitSlotUpdatedIntent }
-} = require('../../constStr');
-const { createQReprompt, getCurrentQuestIndex, createQResponse } = require('../../functions');
+// const store = require('../../store').getInstance();
+const { elicitSlotUpdatedIntent } = require('../../constStr').obj;
+const { createQResponse } = require('../../functions');
 
 const { EndOfOrderedQHandler } = require('./Handlers');
 
@@ -21,6 +14,7 @@ const SkipOrAnswerHandler = {
     },
     handle(handlerInput) {
         let skipOrAnswer = Alexa.getSlot(handlerInput.requestEnvelope, 'skipOrAnswer').resolutions.resolutionsPerAuthority[0].values[0].value.name;
+        let at = handlerInput.attributesManager.getSessionAttributes();
         let speechOutput, reprompt, slotToElicit;
 
         if (skipOrAnswer === 'answer') {
@@ -29,19 +23,16 @@ const SkipOrAnswerHandler = {
         }
 
         else if (skipOrAnswer === 'skip') {
-            let prevAt = handlerInput.attributesManager.getSessionAttributes();
-            let at;
-            prevAt.skippedQ.push(prevAt.counter);
-            ([speechOutput, reprompt, at] = createQResponse({ ...prevAt }, true))
+            let _at, isSkippedQuest;
+            // at.skippedQ.push(at.counter);
+            ([speechOutput, reprompt, _at, isSkippedQuest] = createQResponse({ ...at }, true))
 
             //if we finished going over all the questions,and we skipped a question 
-            console.log('boolll', prevAt.counter === at.numOfQ, at.skippedQ.length, prevAt.counter === at.numOfQ && at.skippedQ.length)
-            if (prevAt.counter === at.numOfQ && at.skippedQ.length)
-                return EndOfOrderedQHandler.handle(handlerInput);
-
-            handlerInput.attributesManager.setSessionAttributes(at);
+            if (isSkippedQuest) return EndOfOrderedQHandler.handle(handlerInput);
             slotToElicit = 'skipOrAnswer';
+            at = _at;
         }
+        handlerInput.attributesManager.setSessionAttributes(at);
 
         return handlerInput.responseBuilder
             .addElicitSlotDirective(slotToElicit, elicitSlotUpdatedIntent)
