@@ -3,7 +3,7 @@ const store = require('../../store').getInstance();
 const { elicitSlotUpdatedIntent } = require('../../constStr').obj;
 
 const { ExitSkill } = require('./Handlers');
-const { createStrList } = require('../../functions');
+const { createStrList, lastQ } = require('../../functions');
 
 const ExitSkillHandler = {
     canHandle(handlerInput) {
@@ -14,10 +14,9 @@ const ExitSkillHandler = {
 
     handle(handlerInput) {
         let ifYes = Alexa.getSlotValue(handlerInput.requestEnvelope, 'exitYesOrNo') === 'yes';
-        const { counter, numOfQ } = handlerInput.attributesManager.getSessionAttributes();
+        let at = handlerInput.attributesManager.getSessionAttributes();
 
-        //if its the end of the challenge 
-        if (counter === numOfQ) {
+        if (at.counter === at.currLastQ) {
             if (ifYes) {
                 let aChallNames = store.aChall.map(chall => chall.name);
                 const challList = createStrList(aChallNames);
@@ -39,7 +38,7 @@ const ExitSkillHandler = {
             }
             else return ExitSkill.handle(handlerInput);
         }
-        //in the middle of challenge. between questions.
+        // in the middle of challenge.between questions.
         else {
 
             //saving the progress in the challenges

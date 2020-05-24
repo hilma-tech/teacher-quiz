@@ -1,5 +1,4 @@
 const LaunchRequestHandler = require('./LaunchRequestHandler');
-const HelloWorldIntentHandler = require('./HelloWorldIntentHandler');
 const HelpIntentHandler = require('./HelpIntentHandler');
 const CancelAndStopIntentHandler = require('./CancelAndStopIntentHandler');
 const FallbackIntentHandler = require('./FallbackIntentHandler');
@@ -13,7 +12,6 @@ const AIHandlars = require('./ChallengeIntentHandlars/ChallHandlerIndex.js');
 module.exports = {
     intentHandlers: [
         LaunchRequestHandler,
-        HelloWorldIntentHandler,
         HelpIntentHandler,
         ...AIHandlars,
         CancelAndStopIntentHandler,

@@ -1,9 +1,8 @@
 const Alexa = require('ask-sdk-core');
 // const store = require('../../store').getInstance();
 const { elicitSlotUpdatedIntent } = require('../../constStr').obj;
-const { createQResponse } = require('../../functions');
+const { createQResponse, returnEndSessionHandler } = require('../../functions');
 
-const { EndOfOrderedQHandler } = require('./Handlers');
 
 const SkipOrAnswerHandler = {
     canHandle(handlerInput) {
@@ -18,17 +17,18 @@ const SkipOrAnswerHandler = {
         let speechOutput, reprompt, slotToElicit;
 
         if (skipOrAnswer === 'answer') {
-            speechOutput = reprompt = `Please say the answer`;
+            speechOutput = `Please say the answer`;
+            reprompt = speechOutput;
             slotToElicit = skipOrAnswer;
         }
 
         else if (skipOrAnswer === 'skip') {
-            let _at, isSkippedQuest;
-            // at.skippedQ.push(at.counter);
-            ([speechOutput, reprompt, _at, isSkippedQuest] = createQResponse({ ...at }, true))
+            let _at;
+            ([speechOutput, reprompt, _at] = createQResponse({ ...at }, true))
 
-            //if we finished going over all the questions,and we skipped a question 
-            if (isSkippedQuest) return EndOfOrderedQHandler.handle(handlerInput);
+            const endSession = returnEndSessionHandler(_at, handlerInput);
+            if (endSession) return endSession;
+
             slotToElicit = 'skipOrAnswer';
             at = _at;
         }

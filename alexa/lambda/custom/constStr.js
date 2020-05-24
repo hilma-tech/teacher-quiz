@@ -18,8 +18,6 @@ const GO_BACK_TO_SKIPPED_Q = 'you finished all your questions. however you skipp
 //exit skill responses
 const EXIT_GREETING = 'i will save your progress. see you soon!'
 
-
-
 const elicitSlotUpdatedIntent = {
     name: 'ChallengeIntent',
     confirmationStatus: 'NONE',

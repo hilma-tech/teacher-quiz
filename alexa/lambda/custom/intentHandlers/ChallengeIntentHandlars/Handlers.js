@@ -2,12 +2,15 @@ const { GO_BACK_TO_SKIPPED_Q } = require('../../constStr').quest;
 const { elicitSlotUpdatedIntent } = require('../../constStr').obj;
 const { EXIT_GREETING } = require('../../constStr').exit;
 
+const store = require('../../store').getInstance();
 
 module.exports = {
     EndOfOrderedQHandler: {
         handle(handlerInput, sSo = '') {
             let at = handlerInput.attributesManager.getSessionAttributes();
             if (!at.skipMode) at.skipMode = true;
+            // at.currLastQ = at.nextCurrLastQ;
+            at.nextCurrLastQ = undefined;
             handlerInput.attributesManager.setSessionAttributes(at);
 
             return handlerInput.responseBuilder
@@ -25,7 +28,7 @@ module.exports = {
             store.setCompleteChallenges();
             const startOfSpeech = `${sSo} you have finished the challenge, wall done!`;
 
-            if (store.challenges.length) {
+            if (store.aChall.length) {
                 const reprompt = 'would you like to move to another challenge?'
                 const speechOutput = `${startOfSpeech} you have other challenges available. ${reprompt}`
 
@@ -40,7 +43,9 @@ module.exports = {
 
                 return handlerInput.responseBuilder
                     .speak(speechOutput)
-                    .withShouldEndSession(true);
+                    .withShouldEndSession(true)
+                    .getResponse();
+
             }
         }
     },

@@ -23,14 +23,15 @@ let dbReceivedData = (function () {
                 availableChallenges = [...challengesArr];
             },
 
-            setCurrChall(challengeId) {
-                currChall = { ...challenges[challengeId], challengeId };
+            setCurrChall(challengeId = undefined) {
+                if (challengeId) currChall = { ...challenges[challengeId], challengeId };
+                else currChall = availableChallenges[0];
             },
 
             setCompleteChallenges() {
-                const { challengeId: id } = currChall;
+                const { challengeId: id, name } = currChall;
                 completeChallenges.push(challenges[id]);
-                availableChallenges.splice(id, 1);
+                availableChallenges = availableChallenges.filter(chall => chall.name !== name);
                 currChall = undefined;
             },
 
