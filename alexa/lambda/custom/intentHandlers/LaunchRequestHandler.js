@@ -1,13 +1,15 @@
 const Alexa = require('ask-sdk-core');
 const challenges = require('../../../../teacherData/questionTemplate.json');
-const util = require('util')
+const store = require('../store').getInstance();
+const fn = require('../functions');
 
-const SelectChallengeIntent=require('./SelectChallengeIntent')
-
-const LAUNCH_OPENING = 'welcome to the amazing teacher quiz. ';
-
-const ONE_CHALLENGE = 'please repeat its name to start the challenge.'
-const SEVERAL_CHALLENGES = 'please say the name of the challenge you want to start.'
+const {
+    launch: {
+        LAUNCH_OPENING,
+        ONE_CHALLENGE,
+        SEVERAL_CHALLENGES
+    }
+} = require('../constStr');
 
 
 const LaunchRequestHandler = {
@@ -15,9 +17,33 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
-        global.DB.setChallenges(challenges);
-        const speakOutput = getSpeakOutput(challenges);
-        const dynamicEntities = changeChallengeNameTypeValues(challenges);
+        store.setChallenges(challenges);
+
+        const numOfC = Object.keys(challenges).length;
+        const cNames = challenges.map(chall => chall.name);
+
+        const listOfCNames = fn.createStrList(cNames);
+
+        const speakOutput = `${LAUNCH_OPENING} you have ${numOfC} challenges available, ${listOfCNames}.\
+            ${numOfC === 1 ? ONE_CHALLENGE : SEVERAL_CHALLENGES}`;
+
+        let slotValues = challenges.map((chall, id) => ({ id, name: { value: chall.name } }));
+
+        const yesNo = [
+            { name: { value: "yes", synonyms: ["yep", "yeah"] } },
+            { name: { value: "no", synonyms: ["nope", "I do not", "no thank you"] } }
+        ]
+
+        const dynamicEntities = {
+            type: "Dialog.UpdateDynamicEntities",
+            updateBehavior: "REPLACE",
+            types: [
+                {
+                    name: "challengeNameType",
+                    values: [...slotValues, ...yesNo]
+                }
+            ]
+        };
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -26,50 +52,5 @@ const LaunchRequestHandler = {
             .getResponse();
     }
 };
-
-function changeChallengeNameTypeValues(challengeArr) {
-
-    const slotValues = challengeArr.map((chall, id) => {
-        return { id, name: { value: chall.name } }
-    })
-
-    return {
-        type: "Dialog.UpdateDynamicEntities",
-        updateBehavior: "REPLACE",
-        types: [
-            {
-                name: "challengeNameType",
-                values: slotValues
-            }
-        ]
-    };
-}
-
-function getSpeakOutput(challenges) {
-
-    const createSentence = (arr) => {
-        const last = arr.pop();
-        return arr.join(', ') + (arr.length ? ' and ' : '') + last
-    }
-
-    const numOfC = Object.keys(challenges).length;
-    const cNames = challenges.map(chall => chall.name);
-
-    const listOfCNames = createSentence(cNames);
-
-    return `${LAUNCH_OPENING} you have ${numOfC} challenges available, ${listOfCNames}.\
-            ${numOfC === 1 ? ONE_CHALLENGE : SEVERAL_CHALLENGES}`
-}
-
-
-// const LaunchRequestHandler = {
-//     canHandle(handlerInput) {
-//         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
-//     },
-//     handle(handlerInput) {
-
-//         return SelectChallengeIntent.handle(handlerInput);
-//     }
-// };
 
 module.exports = LaunchRequestHandler;

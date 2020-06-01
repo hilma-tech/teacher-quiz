@@ -1,41 +1,6 @@
 [
     {
-        "name": "holocaust",
-        "questions": {
-            "1": {
-                "qText": "what.....",
-                "aText": "the blala",
-                "s3Url": "https://...."
-            },
-            "2": {
-                "qText": "what.....",
-                "aText": "the blala",
-                "s3Url": "https://...."
-            },
-            "3": {
-                "qText": "what.....",
-                "aText": "the blala",
-                "s3Url": "https://...."
-            }
-        }
-    },
-    {
-        "name": "lala",
-        "questions": {
-            "1": {
-                "qText": "what lala.....",
-                "aText": "the lala",
-                "s3Url": "https://...."
-            },
-            "2": {
-                "qText": "what lala.....",
-                "aText": "the lala",
-                "s3Url": "https://...."
-            }
-        }
-    },
-    {
-        "name": "demo",
+        "name": "preferences",
         "questions": {
             "1": {
                 "qText": "what is your name?",
@@ -48,8 +13,23 @@
                 "s3Url": "https://...."
             },
             "3": {
-                "qText": "what is your favorite dish?",
+                "qText": "what is your favorite food?",
                 "aText": "the blala",
+                "s3Url": "https://...."
+            }
+        }
+    },
+    {
+        "name": "english words",
+        "questions": {
+            "1": {
+                "qText": "what is the translation of apple in english?",
+                "aText": "the lala",
+                "s3Url": "https://...."
+            },
+            "2": {
+                "qText": "what is the translation of charger in english?",
+                "aText": "the lala",
                 "s3Url": "https://...."
             }
         }

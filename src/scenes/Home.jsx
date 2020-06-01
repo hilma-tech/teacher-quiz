@@ -85,8 +85,7 @@ class Home extends Component {
 
                     <div className="challenge-list">
                         {challenges.map((chall, index) =>
-                            <ChallengeUnit challInfo={{ ...chall, index }} fn={{ ...this }} />
-                        )}
+                            <ChallengeUnit challInfo={{ ...chall, index }} fn={{ ...this }} />)}
                     </div>
 
                     <IconButton>

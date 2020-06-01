@@ -1,4 +1,4 @@
-const IHelloWorld = require('../intentHandlers/AnswerIntent.js');
+const IHelloWorld = require('../intentHandlers/ChallengeIntent.js');
 
 describe('Answer intent handlers', () => {
 

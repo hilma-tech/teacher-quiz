@@ -3,7 +3,7 @@ const {
     SkipOrAnswerHandler,
     AnswerProcessingHandler,
     NextQuestionHandler
-} = require('../intentHandlers/AnswerIntent');
+} = require('../intentHandlers/ChallengeIntent');
 
 const handlerInput = require('./requests/skipOrAnswer_request.json');
 
