@@ -150,12 +150,6 @@ export class Challenge extends Component {
                                             onChange={this.handleValue}
                                         >
                                         </input>
-                                        <div
-                                            index={index}
-                                            id={id}
-                                            onClick={this.deleteAnswer}>
-                                            <Clear />
-                                        </div>
                                     </div>
                                 ))}
                         </div>

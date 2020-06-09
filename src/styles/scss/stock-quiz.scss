@@ -73,6 +73,7 @@
         position: fixed;
         top: 86vh;
         right: 80vw;
+        box-shadow: -0.1vh 1vh 1vh -0.15vh rgba(0, 0, 0, 0.24);
 
         .plus-sign{
             padding: 0.75vh 2.7vh;
@@ -94,6 +95,8 @@
     background-color: white;
     justify-content: space-between;
     padding: 2vh;
+    border-radius: 5px;
+    box-shadow: 0 0.3vh 1vh 0vh rgba(0, 0, 0, 0.16), 0 0.3vh 1vh 0vh rgba(0, 0, 0, 0.16);
 
     div{
         display: flex;
