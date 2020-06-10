@@ -20,19 +20,19 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     const { User, Questions, Challenges } = models;
     
-    ToDo.belongsTo(User, {
+    Answers.belongsTo(User, {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
       foreignKey: { allowNull: false }
     });
 
-    ToDo.belongsTo(Questions, {
+    Answers.belongsTo(Questions, {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
       foreignKey: { allowNull: false }
     })
 
-    ToDo.belongsTo(Challenges, {
+    Answers.belongsTo(Challenges, {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
       foreignKey: { allowNull: false }

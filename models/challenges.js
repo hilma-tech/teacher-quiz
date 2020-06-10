@@ -9,11 +9,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, { tableName: 'challenges' });
+
   Challenges.associate = function (models) {
     // associations can be defined here
     const {
       Answers, Questions,
-      StockChallenge, User
+      ChallengeStock, User
     } = models;
 
     Challenges.hasMany(Answers);
@@ -25,13 +26,56 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: { allowNull: false }
     });
 
-    Challenges.belongsTo(challengeStock, {
+    Challenges.belongsTo(ChallengeStock, {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
       foreignKey: { allowNull: false }
     });
-
-
   };
+
+
+  Challenge.remoteMethod = {
+    path: '',
+    op: '',
+    params: {
+      in: '',
+      name: '',
+      schema: {
+
+      },
+      required: true
+    }
+  }
+
+  Challenge.schema = {
+    challenge:{
+      type:
+    }
+
+  }
+
+
+
+
+
   return Challenges;
 };
+
+
+
+
+
+Groups.remoteMethod('updateExistGroupInfo', {
+  http: {
+    path: '/updateExistGroupInfo',
+    verb: 'post'
+  },
+  accepts: [
+    {
+      arg: 'info', type: 'object', 'http': {
+        'source': 'body'
+      }
+    }
+  ],
+  returns: { type: 'object', root: true }
+});

@@ -15,10 +15,13 @@
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
+    "express-explorer": "^0.4.1",
+    "express-list-endpoints": "^4.0.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "mic-recorder-to-mp3": "^2.2.1",
     "morgan": "~1.9.1",
+    "mysql2": "^2.1.0",
     "node-sass": "^4.14.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -51,5 +54,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-eslint-plugin": "^2.2.1",
+    "prettier": "2.0.5"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "semi": false,
+    "singleQuote": true
   }
 }
