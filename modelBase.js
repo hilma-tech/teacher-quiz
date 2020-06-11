@@ -1,3 +1,6 @@
+let {Model}=require('sesequelize')
+
+
 module.exports = async function defaultCrud(Model) {
 
     Model.get = async (req) => {
@@ -23,7 +26,7 @@ module.exports = async function defaultCrud(Model) {
         return await Model.destroy({ where: { id } });
     }
 
-    Model.components.schemas = { createBasicSchema(Model) };
+    Model.schemas = { createBasicSchema(Model) };
 
 
     Model.utiles = {
@@ -32,7 +35,7 @@ module.exports = async function defaultCrud(Model) {
     }
 
 
-    Challenges.routes = {
+    Model.routes = {
         '/': [{
             method: "get",
             op: 'get'

@@ -1,15 +1,11 @@
 
+let {Model}=require('sesequelize')
+
+
+
 module.exports = (router, Challenges) => {
-//     console.log('hellooo')
-//     let a=    Challenges.hasOwnProperty('utiles')
+    Model.lala='lala'
 
-// console.log('a',a)
-// console.log(this)
-function addSchema(){
-    console.log(addSchema.caller.arguments)
-    
-  }
-
-  addSchema()
+    console.log('lala',Model)
 
 };
