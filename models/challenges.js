@@ -33,29 +33,47 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
+  Challenges.hello = (num) => {
+    return `hello, do you like the number ${num}?`;
+  }
 
-  Challenge.remoteMethod = {
-    path: '',
-    op: '',
-    params: {
-      in: '',
-      name: '',
-      schema: {
+  Challenges.greet = (name) => {
+    return `hello ${name}`;
+  }
 
-      },
-      required: true
+  Challenges.tags = ['challenge']
+
+  Challenges.routes = {
+    '/hello': [{
+      method: "hello",
+      op: 'get',
+      parameters: [
+        {
+          name: 'num',
+          in: "query",
+          required: true,
+          schema: {
+            type: 'string'
+          }
+        }
+      ],
+    }],
+
+    '/greet': {
+      method: 'greet',
+      op: 'post',
+      requestBody: {
+        schema: {
+          type: "string"
+        }
+      }
     }
   }
 
-  Challenge.schema = {
-    challenge:{
-      type:
-    }
+
+  Challenges.compSchemes = {
 
   }
-
-
-
 
 
   return Challenges;
@@ -64,18 +82,3 @@ module.exports = (sequelize, DataTypes) => {
 
 
 
-
-Groups.remoteMethod('updateExistGroupInfo', {
-  http: {
-    path: '/updateExistGroupInfo',
-    verb: 'post'
-  },
-  accepts: [
-    {
-      arg: 'info', type: 'object', 'http': {
-        'source': 'body'
-      }
-    }
-  ],
-  returns: { type: 'object', root: true }
-});

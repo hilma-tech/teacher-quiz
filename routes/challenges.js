@@ -1,37 +1,15 @@
-const { Challenges } = require('../models');
 
-let express = require('express');
-let router = express.Router();
+module.exports = (router, Challenges) => {
+//     console.log('hellooo')
+//     let a=    Challenges.hasOwnProperty('utiles')
 
-/* GET users listing. */
-router.get('/', async (req, res, next) => {
-  const elements = await Challenges.findAll();
-  res.send(elements);
-});
+// console.log('a',a)
+// console.log(this)
+function addSchema(){
+    console.log(addSchema.caller.arguments)
+    
+  }
 
-router.get('/:id', async (req, res, next) => {
-  const { id } = req.params
-  const elenemt = await Challenges.findAll({ where: { id } });
-  res.send(elenemt);
-});
+  addSchema()
 
-router.post('/', async (req, res, next) => {
-  const c = await Challenges.create(req.body)
-  res.send(c);
-});
-
-router.put('/:id', async (req, res, next) => {
-  const { id } = req.params
-  const up = await Challenges.update(req.body, { where: { id } })
-  res.send(up);
-});
-
-
-router.delete('/:id', async (req, res, next) => {
-  const { id } = req.params
-  const del = await Challenges.destroy({ where: { id } })
-  res.send(del);
-});
-
-
-module.exports = router;
+};

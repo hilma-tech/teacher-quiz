@@ -3,6 +3,7 @@ const path = require('path');
 const basename = path.basename(__filename);
 const express = require('express');
 
+
 module.exports = (app) => {
   fs
     .readdirSync(__dirname)
@@ -11,21 +12,18 @@ module.exports = (app) => {
     })
     .map(fName => {
       let router = express.Router();
-      const Model = fName.charAt(0).toUpperCase() + fName.slice(1);
-      defaultCrud(router, Model);
-      require(`./${fName}`)(router);
+      fName = fName.replace(/\.[^/.]+$/, "");
+      const mName = fName.charAt(0).toUpperCase() + fName.slice(1);
+      const Model = require('../models')[mName];
 
-      const ext = path.extname(fName);
-      const fileName = path.basename(fName, ext);
-
-      return app.use(`/${fileName}`, router)
+      // defaultCrud(Model);
+      require(`./${fName}`)(router, Model);
+      return app.use(`/${fName}`, router);
     });
 };
 
 
-
-function defaultCrud(router, Model) {
-  const router = express.Router();
+async function defaultCrud1(router, Model) {
 
   /* GET users listing. */
   router.get('/', async (req, res, next) => {
@@ -59,3 +57,39 @@ function defaultCrud(router, Model) {
 
   return router;
 }
+
+
+function customMethods(router, Model) {
+  const { routes, compSchemes, tags } = Model;
+  let openapi = JSON.parse(JSON.stringify(require('../openApi.json')));
+
+  let { paths: pathsOA, components: compOA } = openapi;
+
+  for (const path in routes) {
+    for (const info of routes[path]) {
+      compOA.schemas = { ...compOA.schemas, ...compSchemes };
+
+      if (Object.keys(pathsOA).includes(path)) break;
+
+      const { method, op, ...reqParams } = info;
+
+      const pObj = {
+        [path]: {
+          [op]: {
+            tags,
+            reqParams
+          }
+        }
+      }
+
+      pathsOA = { ...pathsOA, ...pObj };
+
+      router[op](path, async (req, res, next) => {
+        const result = Model[method](req);
+        res.send(result);
+      });
+
+    }
+  }
+}
+// customMethods()
