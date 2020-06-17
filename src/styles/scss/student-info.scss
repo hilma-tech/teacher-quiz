@@ -1,0 +1,106 @@
+.student-info{
+    margin-left: 7vw;
+    margin-right: 7vw;
+    
+    .top-bar{
+        margin-top: 2vh;
+        .MuiSvgIcon-root{
+            font-size: 2.5rem;
+            color: rgba(19, 27, 103, 1);
+        }
+    }
+
+    .filter{
+        border: 2px solid rgba(166, 34, 92, 1);
+        color: rgba(166, 34, 92, 1);
+        border-radius: 25px;
+        padding: 1vh;
+        width: 35vw;
+        display: flex;
+        flex-direction: row;
+
+        select{
+            border: 0px;
+            outline: 0px;
+            background-color: transparent;
+            color: rgba(166, 34, 92, 1);
+            font-weight: bold;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            text-indent: 1px;
+            text-overflow: '';
+        }
+
+        img{
+            width: 4vw;
+            height: 2vh;
+            margin-right: 4vh;
+            align-self: center;
+        }
+
+    }
+
+    
+    .student-details{
+        display: flex;
+        flex-direction: column;
+        margin-right: 15vw;
+
+        .profile-img{
+            width: 20vw;
+            height: 10vh;
+            margin-right: 15vw;
+        }
+        
+        h1{
+            font-size: 1.7rem;
+        }
+
+        .total-score{
+            margin-right: 15vw;
+            padding: 2vh;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            
+            h3{
+                color: rgba(17, 171, 185, 1);
+            }
+
+            color: rgba(17, 171, 185, 1);
+            display: flex;
+            flex-direction: row;
+        }
+    }
+
+    .challenge-unit{
+        background-color: white;
+        margin-top: 2vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 2vh;
+
+        .unit-name{
+            color: rgba(166, 34, 92, 1);
+        }
+
+        .category{
+            color: rgba(19, 27, 103, 1);
+            font-weight: bold;
+        }
+
+        .score{
+            color: rgba(17, 171, 185, 1);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-evenly;
+
+            div{
+                color: rgba(17, 171, 185, 1);                
+            }
+
+        }
+    }
+}

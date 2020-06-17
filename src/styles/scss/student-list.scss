@@ -1,0 +1,118 @@
+.student-list{
+    margin-right: 7vw;
+    margin-left: 7vw;
+    .top-bar{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 2vh;
+
+        .MuiSvgIcon-root{
+            font-size: 3rem;
+            color: rgba(27, 37, 128, 1);
+        }
+    }
+
+    h1{
+        color: rgba(19, 27, 103, 1);
+        text-align: start;
+        margin-top: 5vh;
+        // padding-right: 5vw;
+        font-size: 2.2rem;
+        font-family: 'Assistant', sans-serif;
+        font-weight: bold;
+    }
+
+    .filter{
+        border: 2px solid rgba(166, 34, 92, 1);
+        color: rgba(166, 34, 92, 1);
+        border-radius: 25px;
+        padding: 1vh;
+        width: 35vw;
+        display: flex;
+        flex-direction: row;
+
+        select{
+            border: 0px;
+            outline: 0px;
+            background-color: transparent;
+            color: rgba(166, 34, 92, 1);
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            text-overflow: '';
+            text-indent: 1px;
+            
+        }
+
+        img{
+            width: 4vw;
+            height: 2vh;
+            margin-right: 7vh;
+            align-self: center;
+        }
+        
+
+    }
+
+    .student-info{
+        background-color: white;
+        margin-top: 2vh;
+
+        .profile-img{
+           width: 5vw;
+           height: 2vh;
+        }
+        
+    }
+
+    .plus-btn{
+        border-radius: 50px;
+        background-color: rgba(166, 34, 92, 1);
+        width: 9vh;
+        height: 9vh;
+        display: flex;
+        color: white;
+        padding-top: 2vh;
+        position: fixed;
+        top: 86vh;
+        right: 80vw;
+        box-shadow: -0.1vh 1vh 1vh -0.15vh rgba(0, 0, 0, 0.24);
+
+        .plus-sign{
+            padding: 0.75vh 2.7vh;
+            
+            .MuiSvgIcon-root{
+                color: white;
+            }
+        }
+    }
+}
+
+.student-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: white;
+    margin-top: 2vh;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0 0.3vh 1vh 0vh rgba(0, 0, 0, 0.16), 0 0.3vh 1vh 0vh rgba(0, 0, 0, 0.16);
+    
+
+    img{
+        width: 15vw;
+        height: 6vh;
+    }
+
+    .score{
+        color: rgba(17, 171, 185, 1);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .name{
+        color: rgba(19, 27, 103, 1);
+        font-weight: 500;
+    }
+}

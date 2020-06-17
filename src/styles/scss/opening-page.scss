@@ -1,0 +1,54 @@
+.opening-page{
+    height: 100vh;
+    width:100vw;
+    background-color: rgba(233, 233, 234, 1);
+
+    .MuiSvgIcon-root{
+        font-size: 3rem;
+        color: rgba(27, 37, 128, 1);
+        font-weight: bold;
+    }
+
+    h1{
+        color: rgba(19, 27, 103, 1);
+        font-size: 3.7rem;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 14vh;
+    }
+
+    .buttons{
+        align-self: center;
+        margin-right: 20vw;
+        margin-top: 10vh;
+
+        .quiz-list-btn{
+            background-color: rgba(17, 171, 185, 1);
+            width: 55vw;
+            height: 7vh;
+            border-radius: 25px;
+            margin-top: 2vh;
+            padding: 1.5vh 4vh 2vh 1vh;
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 1);
+            // align-content: center;
+            // align-items: center;
+            // align-self: center;
+        }
+
+        .student-list-btn{
+            background-color: rgba(166, 34, 92, 1);
+            width: 55vw;
+            height: 7vh;
+            border-radius: 25px;
+            padding: 1.5vh 4vh 2vh 1vh;
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 1);
+            margin-top: 4vh;
+        }
+    }
+}
+
+.link{
+    text-decoration: none;
+}
