@@ -7,9 +7,8 @@ const cors = require('cors');
 const listEndpoints = require('express-list-endpoints');
 
 const swaggerUi = require('swagger-ui-express');
-const YAML = require('yamljs');
-// const swaggerDocument = YAML.load('./openApi.yaml');
 const swaggerDocument = require('./openApi.json');
+const models = require('./models').sequelize.models;
 
 
 const app = express();
@@ -26,9 +25,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-require('./routes')(app);
+for (Model in models) {
+  models[Model].creatingCustomMethod(app)
+  models[Model].createDefCrud(app);
+}
 
-console.log('list',listEndpoints(app))
+// require('./routes')(app);
+
+console.log('list', listEndpoints(app))
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -47,3 +51,10 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+
+
+
+
+
+
+

@@ -1,6 +1,8 @@
 'use strict';
 
 let CustomModel = require('../modelBase');
+let { Model } = require('sequelize');
+
 
 module.exports = (sequelize, DataTypes) => {
   // const User = sequelize.define('User', {
@@ -20,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
   //   }
   // },
   //   { tableName: 'user' });
-
 
   class User extends CustomModel { }
 

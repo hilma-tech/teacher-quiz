@@ -31,9 +31,6 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'challenges'
   });
 
-
-
-
   Challenges.associate = function (models) {
     // associations can be defined here
     const {
@@ -58,6 +55,18 @@ module.exports = (sequelize, DataTypes) => {
   };
 
 
+  Challenges.hello = (rej,res) => {
+    // console.log('im heree')
+    // res.send('hello')
+    return 'hello'
+  }
+
+  Challenges.routes = {
+    '/hello': [{
+      method: 'hello',
+      op: 'get'
+    }]
+  }
 
 
   return Challenges;
@@ -94,7 +103,7 @@ module.exports = (sequelize, DataTypes) => {
 //           type: 'string'
 //         }
 //       }
-//     ],
+//     ]
 //   }],
 
 //   '/greet': {

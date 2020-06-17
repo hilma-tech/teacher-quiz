@@ -25,7 +25,6 @@ const server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-
 const con = mysql.createConnection({
   user: configSqlz.username,
   password: configSqlz.password

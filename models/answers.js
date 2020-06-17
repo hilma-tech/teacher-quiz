@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
 
 
   class Answers extends CustomModel { }
-  Answers.utiles.createDefCrudRoutes();
+  // Answers.utiles.createDefCrudRoutes();
   Answers.init({
     id: {
       type: DataTypes.INTEGER,
