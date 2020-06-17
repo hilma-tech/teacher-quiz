@@ -1,26 +1,58 @@
 'use strict';
 
 //challenge_id
+
+let CustomModel = require('../modelBase');
+
 module.exports = (sequelize, DataTypes) => {
-  const Questions = sequelize.define('Questions', {
+  // const Questions = sequelize.define('Questions', {
+  //   id: {
+  //     type: DataTypes.INTEGER,
+  //     autoIncrement: true,
+  //     primaryKey: true,
+  //     allowNull: false
+  //   },
+  //   quest: {
+  //     type: DataTypes.TEXT,
+  //     allowNull: false
+  //   },
+  //   aText: {
+  //     type: DataTypes.TEXT
+  //   },
+  //   record: {
+  //     type: DataTypes.STRING
+  //   }
+
+  // }, {
+  //   tableName: 'questions',
+  //   validate: {
+  //     bothCoordsOrNone: function () {
+  //       if ((this.aText === null) && (this.record === null)) {
+  //         throw new Error('Require aText or record')
+  //       }
+  //     }
+  //   }
+
+  // });
+
+
+
+  class Questions extends CustomModel { }
+
+  Questions.init({
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
       allowNull: false
     },
-    quest: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    aText: {
-      type: DataTypes.TEXT
-    },
-    record: {
-      type: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING(11)
     }
-
   }, {
+    // Other model options go here
+    sequelize, // We need to pass the connection instance
+    modelName: 'Questions', // We need to choose the model name
     tableName: 'questions',
     validate: {
       bothCoordsOrNone: function () {
@@ -29,8 +61,12 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     }
-
   });
+
+
+
+
+
   Questions.associate = function (models) {
     // associations can be defined here
     const { Answers, Challenges } = models;

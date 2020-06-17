@@ -12,10 +12,6 @@ const models = require('../models');
 const env = process.env.NODE_ENV || 'development';
 const configSqlz = require('../config/config.json')[env];
 
-/**
- * Get port from environment and store in Express.
- */
-
 const port = normalizePort(process.env.SVR_PORT || '8080');
 app.set('port', port);
 
