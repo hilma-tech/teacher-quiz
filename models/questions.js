@@ -2,40 +2,9 @@
 
 //challenge_id
 
-let CustomModel = require('../modelBase');
+let CustomModel = require('./CustomModel');
 
 module.exports = (sequelize, DataTypes) => {
-  // const Questions = sequelize.define('Questions', {
-  //   id: {
-  //     type: DataTypes.INTEGER,
-  //     autoIncrement: true,
-  //     primaryKey: true,
-  //     allowNull: false
-  //   },
-  //   quest: {
-  //     type: DataTypes.TEXT,
-  //     allowNull: false
-  //   },
-  //   aText: {
-  //     type: DataTypes.TEXT
-  //   },
-  //   record: {
-  //     type: DataTypes.STRING
-  //   }
-
-  // }, {
-  //   tableName: 'questions',
-  //   validate: {
-  //     bothCoordsOrNone: function () {
-  //       if ((this.aText === null) && (this.record === null)) {
-  //         throw new Error('Require aText or record')
-  //       }
-  //     }
-  //   }
-
-  // });
-
-
 
   class Questions extends CustomModel { }
 
@@ -63,10 +32,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-
-
-
-
   Questions.associate = function (models) {
     // associations can be defined here
     const { Answers, Challenges } = models;
@@ -77,7 +42,8 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: "CASCADE",
       foreignKey: { allowNull: false }
     });
-
   };
+
+
   return Questions;
 };

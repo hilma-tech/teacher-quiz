@@ -1,22 +1,8 @@
 'use strict';
 
-let CustomModel = require('../modelBase');
+let CustomModel = require('./CustomModel');
 
 module.exports = (sequelize, DataTypes) => {
-  // const Classes = sequelize.define('Classes', {
-  //   id: {
-  //     type: DataTypes.INTEGER,
-  //     autoIncrement: true,
-  //     primaryKey: true,
-  //     allowNull: false
-  //   },
-  //   name:{
-  //     type:DataTypes.STRING(11)
-  //   }
-  // }, {tableName: 'classes'});
-
-
-
 
   class Classes extends CustomModel { }
 

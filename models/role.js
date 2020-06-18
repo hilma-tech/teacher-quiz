@@ -1,21 +1,8 @@
 'use strict';
 
-let CustomModel = require('../modelBase');
+let CustomModel = require('./CustomModel');
 
 module.exports = (sequelize, DataTypes) => {
-  // const Role = sequelize.define('Role', {
-  //   id: {
-  //     type: DataTypes.INTEGER,
-  //     autoIncrement: true,
-  //     primaryKey: true,
-  //     allowNull: false
-  //   },
-  //   name: {
-  //     type: DataTypes.STRING(11),
-  //     allowNull: false
-  //   }
-  // }, {});
-
 
   class Role extends CustomModel { }
 
@@ -34,16 +21,21 @@ module.exports = (sequelize, DataTypes) => {
     // Other model options go here
     sequelize, // We need to pass the connection instance
     modelName: 'Role', // We need to choose the model name
-    tableName: 'Role'
+    tableName: 'Role',
+    timestamps: false
   });
 
 
 
   Role.associate = function (models) {
     // associations can be defined here
-    const { RoleMapping } = models;
+    const { RoleMapping, User } = models;
 
-    RoleMapping.hasMany(RoleMapping);
+    // Role.hasMany(RoleMapping, { foreignKey: 'roleId' });
+    // Role.belongsToMany(User, {
+    //   through: 'RoleMapping',
+    //   foreignKey: 'roleId'
+    // });
   };
 
 

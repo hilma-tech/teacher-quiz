@@ -1,19 +1,9 @@
 'use strict';
 //stock_challenge_id, teacher_id   vvv
 
-let CustomModel = require('../modelBase');
+let CustomModel = require('./CustomModel');
 
 module.exports = (sequelize, DataTypes) => {
-  // const Challenges = sequelize.define('Challenges', {
-  //   id: {
-  //     type: DataTypes.INTEGER,
-  //     autoIncrement: true,
-  //     primaryKey: true,
-  //     allowNull: false
-  //   }
-  // }, { tableName: 'challenges' });
-
-
 
   class Challenges extends CustomModel { }
 
@@ -50,21 +40,27 @@ module.exports = (sequelize, DataTypes) => {
     Challenges.belongsTo(ChallengeStock, {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
-      foreignKey: { allowNull: false }
+      foreignKey: {
+        name: "csId",
+        allowNull: false
+      }
     });
   };
 
 
-  Challenges.hello = (rej,res) => {
-    // console.log('im heree')
-    // res.send('hello')
+  Challenges.hello = (rej) => {
     return 'hello'
   }
 
   Challenges.routes = {
     '/hello': [{
       method: 'hello',
-      op: 'get'
+      op: 'get',
+      responses: {
+        200: {
+          description: `default response in class`
+        }
+      }
     }]
   }
 

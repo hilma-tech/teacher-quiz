@@ -1,27 +1,11 @@
 'use strict';
 
-let CustomModel = require('../modelBase');
+let CustomModel = require('./CustomModel');
 
 //student_id, quest_id, challenge_id  vvvvv
 module.exports = (sequelize, DataTypes) => {
-  // const Answers = sequelize.define('Answers', {
-  //   id: {
-  //     type: DataTypes.INTEGER,
-  //     autoIncrement: true,
-  //     primaryKey: true,
-  //     allowNull: false
-  //   },
-  //   answer: {
-  //     type: DataTypes.TEXT
-  //   },
-  //   score: {
-  //     type: DataTypes.INTEGER
-  //   }
-  // }, { tableName: 'answers' });
-
 
   class Answers extends CustomModel { }
-  // Answers.utiles.createDefCrudRoutes();
   Answers.init({
     id: {
       type: DataTypes.INTEGER,
@@ -33,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT
     },
     score: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     }
   }, {
     // Other model options go here
@@ -67,6 +52,22 @@ module.exports = (sequelize, DataTypes) => {
   };
 
 
+  Answers.nice = (rej) => {
+    return 'nice'
+  }
+
+
+  Answers.routes = {
+    '/nice': [{
+      method: 'nice',
+      op: 'get',
+      responses: {
+        200: {
+          description: `default response in class `
+        }
+      }
+    }]
+  }
 
 
 
