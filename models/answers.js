@@ -35,19 +35,28 @@ module.exports = (sequelize, DataTypes) => {
     Answers.belongsTo(User, {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
-      foreignKey: { allowNull: false }
+      foreignKey: {
+        name: 'studentId',
+        allowNull: false
+      }
     });
 
     Answers.belongsTo(Questions, {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
-      foreignKey: { allowNull: false }
+      foreignKey: {
+        name: 'questId',
+        allowNull: false
+      }
     })
 
     Answers.belongsTo(Challenges, {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
-      foreignKey: { allowNull: false }
+      foreignKey: {
+        name: 'challengeId',
+        allowNull: false
+      }
     })
   };
 

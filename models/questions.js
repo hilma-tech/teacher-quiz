@@ -15,8 +15,11 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       allowNull: false
     },
-    name: {
-      type: DataTypes.STRING(11)
+    quest: {
+      type: DataTypes.TEXT
+    },
+    answer: {
+      type: DataTypes.TEXT
     }
   }, {
     // Other model options go here
@@ -34,13 +37,15 @@ module.exports = (sequelize, DataTypes) => {
 
   Questions.associate = function (models) {
     // associations can be defined here
-    const { Answers, Challenges } = models;
+    const { ChallengeStock } = models;
 
-    // Questions.hasMany(Answers);?????
-    Questions.belongsTo(Challenges, {
+    Questions.belongsTo(ChallengeStock, {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
-      foreignKey: { allowNull: false }
+      foreignKey: {
+        name: 'csId',
+        allowNull: false
+      }
     });
   };
 

@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(512),
       allowNull: false
     },
-    IDcode: {
+    code: {
       type: DataTypes.STRING(512),
       allowNull: false
     }
@@ -34,9 +34,9 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     const { Answers, Challenges, ChallengeStock } = models
 
-    User.hasMany(Answers);
-    User.hasMany(Challenges);
-    User.hasMany(ChallengeStock);
+    User.hasMany(Answers, { foreignKey: 'studentId' });
+    User.hasMany(Challenges, { foreignKey: 'teacherId' });
+    User.hasMany(ChallengeStock, { foreignKey: 'creatorId' });
   };
 
 

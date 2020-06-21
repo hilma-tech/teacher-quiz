@@ -10,17 +10,17 @@ module.exports = {
       */
     return queryInterface.bulkInsert('user', [{
       userName: 'admin',
-      IDcode: '546656',
+      code: '546656',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
       userName: 'lala',
-      IDcode: '9876545',
+      code: '9876545',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
       userName: 'baz',
-      IDcode: '34665',
+      code: '34665',
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});

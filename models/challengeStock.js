@@ -30,14 +30,19 @@ module.exports = (sequelize, DataTypes) => {
   ChallengeStock.associate = function (models) {
     // associations can be defined here
     const { User,
-      Challenges } = models;
+      Challenges,
+      Questions } = models;
 
-    ChallengeStock.hasMany(Challenges);
+    ChallengeStock.hasMany(Challenges, { foreignKey: 'csId' });
+    ChallengeStock.hasMany(Questions, { foreignKey: 'csId' })
 
     ChallengeStock.belongsTo(User, {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
-      foreignKey: { allowNull: false }
+      foreignKey: {
+        name: "creatorId",
+        allowNull: false
+      }
     });
   };
 

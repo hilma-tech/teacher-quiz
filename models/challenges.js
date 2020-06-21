@@ -28,13 +28,15 @@ module.exports = (sequelize, DataTypes) => {
       ChallengeStock, User
     } = models;
 
-    Challenges.hasMany(Answers);
-    Challenges.hasMany(Questions);
+    Challenges.hasMany(Answers, { foreignKey: 'challengeId' });
 
     Challenges.belongsTo(User, {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
-      foreignKey: { allowNull: false }
+      foreignKey: {
+        name: 'teacherId',
+        allowNull: false
+      }
     });
 
     Challenges.belongsTo(ChallengeStock, {

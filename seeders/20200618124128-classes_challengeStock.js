@@ -7,11 +7,11 @@ module.exports = {
       Return a promise to correctly handle asynchronicity.
 
       Example:
-      return queryInterface.bulkInsert('People', [{
-        name: 'John Doe',
-        isBetaMember: false
-      }], {});
-    */
+      */
+    return queryInterface.bulkInsert('classes_challengeStock', [{
+      classId: 1,
+      csId: 1
+    }], {});
   },
 
   down: (queryInterface, Sequelize) => {
