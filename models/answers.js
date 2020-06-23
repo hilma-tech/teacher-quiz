@@ -61,14 +61,14 @@ module.exports = (sequelize, DataTypes) => {
   };
 
 
-  Answers.nice = (rej) => {
-    return 'nice'
+  Answers.helloAyelet = () => {
+    return 'hello ayelet!!!'
   }
 
 
   Answers.routes = {
-    '/nice': [{
-      method: 'nice',
+    '/hello_ayelet': [{
+      method: 'helloAyelet',
       op: 'get',
       responses: {
         200: {
@@ -77,7 +77,6 @@ module.exports = (sequelize, DataTypes) => {
       }
     }]
   }
-
 
 
   return Answers;

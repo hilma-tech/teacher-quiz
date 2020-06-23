@@ -1,9 +1,6 @@
 const Alexa = require('ask-sdk-core');
-const store = require('../../store').getInstance();
-const { elicitSlotUpdatedIntent } = require('../../constStr').obj;
-
+const { exit } = require('../../const').exit;
 const { ExitSkill } = require('./Handlers');
-const { createStrList, lastQ } = require('../../functions');
 
 const ExitSkillHandler = {
     canHandle(handlerInput) {
@@ -13,43 +10,24 @@ const ExitSkillHandler = {
     },
 
     handle(handlerInput) {
-        let ifYes = Alexa.getSlotValue(handlerInput.requestEnvelope, 'exitYesOrNo') === 'yes';
-        let at = handlerInput.attributesManager.getSessionAttributes();
+        const ifYes = Alexa.getSlotValue(handlerInput.requestEnvelope, 'exitYesOrNo') === 'yes';
+        let att = handlerInput.attributesManager.getSessionAttributes();
 
-        if (at.counter === at.currLastQ) {
-            if (ifYes) {
-                let aChallNames = store.aChall.map(chall => chall.name);
-                const challList = createStrList(aChallNames);
-
-                const cNum = store.aChall.length;
-
-                const speechOutput = `you currently have ${cNum} available challenge - ${challList}.
-                \ ${cNum - 1 ? 'which challenge would you like to start?' : 'you want to start it?'}`
-
-                return handlerInput.responseBuilder
-                    .addElicitSlotDirective('challengeName', {
-                        name: 'SelectChallengeIntent',
-                        confirmationStatus: 'NONE',
-                        slots: {}
-                    })
-                    .speak(speechOutput)
-                    .reprompt(speechOutput)
-                    .getResponse();
-            }
-            else return ExitSkill.handle(handlerInput);
+        if (att.counter === att.currLastQ && !ifYes) {
+            return ExitSkill.handle(handlerInput);
         }
         // in the middle of challenge.between questions.
-        else {
-
+        else if (att.counter !== att.currLastQ && ifYes) {
             //saving the progress in the challenges
-            if (ifYes) return ExitSkill.handle(handlerInput);
-
-            else {
-                return handlerInput.responseBuilder
-                    .addElicitSlotDirective('skipOrAnswer', elicitSlotUpdatedIntent)
-                    .speak('so im moving to the next question')
-                    .getResponse();
-            }
+            return ExitSkill.handle(handlerInput);
+        }
+        else {
+            const [speechOutput, reprompt, slotToElicit, updateSlotsInElicit] = exit(ifYes, att);
+            return handlerInput.responseBuilder
+                .addElicitSlotDirective(slotToElicit, updateSlotsInElicit)
+                .speak(speechOutput)
+                .reprompt(reprompt)
+                .getResponse();
         }
     }
 };

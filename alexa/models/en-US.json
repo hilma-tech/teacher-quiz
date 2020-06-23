@@ -73,6 +73,16 @@
                 {
                     "name": "AMAZON.NavigateHomeIntent",
                     "samples": []
+                },
+                {
+                    "name": "SkipIntent",
+                    "slots": [
+                        {
+                            "name": "skip",
+                            "type": "skipType"
+                        }
+                    ],
+                    "samples": []
                 }
             ],
             "types": [
@@ -143,6 +153,29 @@
                                     "I do",
                                     "yes please",
                                     "you know it"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "skipType",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "skip",
+                                "synonyms": [
+                                    "yes",
+                                    "skip",
+                                    "i want to skip",
+                                    "please skip",
+                                    "skip to the next question",
+                                    "i want to move to the next question",
+                                    "move on",
+                                    "i want to move on",
+                                    "please move on",
+                                    "skip the question",
+                                    "move on to the next question"
                                 ]
                             }
                         }

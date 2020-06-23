@@ -5,14 +5,11 @@ const {
     SKIP_THIS_Q,
     SKIPPED_Q,
     ORDER_Q
-} = require('./constStr').quest;
+} = require('./const').quest;
 
-const store = require('./store').getInstance();
 
 const { EndOfOrderedQHandler, EndOfChallengeHandler } = require('./intentHandlers/ChallengeIntentHandlars/Handlers');
 
-
-let lastQ;
 
 function createStrList(arr) {
     const last = arr.pop();
@@ -25,6 +22,7 @@ function createQReprompt(qText, ifLast = false) {
 
 function createQResponse(at, isSkippingQ = false) {
     const [qIndex, _at] = getCurrentQuestIndex(at);
+    const { store } = global;
 
     const { qText } = store.currChall.questions[qIndex];
     const ifLast = at.counter === at.currLastQ
@@ -47,31 +45,31 @@ function getCurrentQuestIndex(at) {
     let qIndex, prevCounter = at.counter;
 
     if (at.skipMode) {
-        const skippedQArr = Object.entries(at.answeredQ)
-            .filter(qE => !qE[1])
-            .map(q => parseInt(q[0]));
+        let skippedQArr = [];
 
-        qIndex = skippedQArr.find(q => q > at.counter) || at.counter;
+        for (const q in at.answeredQ) {
+            if (!at.answeredQ[q]) skippedQArr.push(parseInt(q));
+        }
+
+        qIndex = skippedQArr.find(q => q >= at.counter);
         at.counter = qIndex;
-        if (!at.currLastQ) at.currLastQ = skippedQArr[skippedQArr.length - 1];
+        if (!at.currLastQ) {
+            at.currLastQ = skippedQArr[skippedQArr.length - 1];
+        }
     }
     else {
-        if (at.numOfQ !== 1 && at.counter < at.numOfQ) at.counter++;
+        if (at.qSum !== 1 && at.counter < at.qSum) at.counter++;
         qIndex = at.counter;
     }
 
-    lastQ = prevCounter === at.currLastQ;
+    store.lastQ = (prevCounter === at.currLastQ);
 
-    return [
-        qIndex,
-        at,
-        prevCounter === at.currLastQ
-    ];
+    return qIndex;
 }
 
 
 function returnEndSessionHandler(at, handlerInput, sSo = '') {
-    if (!lastQ && !at.answeredQ[at.counter] || (at.skipMode && at.counter !== at.currLastQ)) return;
+    if (!store.lastQ && !at.answeredQ[at.counter] || (at.skipMode && at.counter !== at.currLastQ)) return;
 
     const isSkippedQ = Object.values(at.answeredQ).includes(false);
     const isLast = at.counter === at.currLastQ;
@@ -92,6 +90,5 @@ module.exports = {
     createQReprompt,
     createQResponse,
     getCurrentQuestIndex,
-    returnEndSessionHandler,
-    lastQ
+    returnEndSessionHandler
 }

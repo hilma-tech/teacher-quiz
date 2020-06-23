@@ -1,7 +1,7 @@
 const Alexa = require('ask-sdk-core');
 const handlers = require('./intentHandlers/index');
 
-global.store = require('./store').getInstance();
+global.store = require('./store');
 global.Alexa = require('ask-sdk-core');
 
 const skillBuilder = Alexa.SkillBuilders.custom();
