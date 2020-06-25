@@ -1,0 +1,79 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "teacher quiz",
+    "description": "teacher quiz api",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+  "tags": [],
+  "paths": {
+  },
+  "components": {
+    "schemas": {
+      "basicFilter": {
+        "type":"object",
+        "properties":{
+          "offset":{
+            "type":"integer"
+          },
+          "limit": {
+            "type":"integer"
+          },
+          "skip": {
+            "type":"integer"
+          },
+          "order": {
+            "type":"array",
+            "items":{
+              "type":"string"
+            }
+        },
+          "where": {
+            "type":"object",
+            "properties":{
+              "additionalProp1": {
+                "type":"object"
+              }
+
+            }
+          },
+          "include": {
+            "type":"array",
+              "items":{
+                "type":"object",
+                "properties":{
+                  "relation":{
+                    "type":"string"
+                  },
+                  "scope":{
+                    "type":"object"
+                  },
+                  "where": {
+                    "type":"object",
+                    "properties":{
+                      "additionalProp1":{
+                        "type":"object"
+                      }
+                    }
+                  },
+                  "fields": {
+                    "type":"object",
+                    "properties":{
+                      "additionalProp1":{
+                        "type":"object"
+                      }
+                    }
+                  }
+                }
+              }
+            }   
+        }
+      }
+    }
+  }
+}
