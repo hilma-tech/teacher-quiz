@@ -13,6 +13,7 @@ import StudentInfo from './scenes/StudentInfo';
 import SummaryQuiz from './scenes/SummaryQuiz';
 import CreateChallenge from './scenes/CreateChallenge';
 import AddNewStudent from './scenes/AddNewStudent';
+import Question from './scenes/Question';
 
 
 
@@ -29,6 +30,9 @@ function App() {
         <Route exact path='/summary-quiz' component={SummaryQuiz} />
         <Route exact path='/create-challenge' component={CreateChallenge} />
         <Route exact path='/add-new-student' component={AddNewStudent} />
+        <Route exact path='/question' component={Question} />
+
+        {/* {} */}
         <Route exact path='/questions' component={Questions} />
         <Route exact path='/answers' component={AnswersAndRecords} />
         <Route exact path='/test' component={Test} />

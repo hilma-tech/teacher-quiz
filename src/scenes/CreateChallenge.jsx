@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import '../styles/scss/create-challenge.scss';
 import { Link } from 'react-router-dom';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ClearIcon from '@material-ui/icons/Clear';
-import DropDownArrow from '../images/chevron.svg';
+import {ArrowBack, Delete, Clear} from '@material-ui/icons';
 
 
 export default class CreateChallenge extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            serialNum: '1323456',
             questions: [
                 { question: { value: '?מה היא עיר הבירה של ישראל' }, answers: [{ value: 'ירושלים' }, { value: 'ירושלים' }] },
                 { question: { value: '?מה היא עיר הבירה של ישראל' }, answers: [{ value: 'תל אביב' }] },
@@ -76,34 +74,16 @@ export default class CreateChallenge extends Component {
     }
 
     render() {
+        let {serialNum, questions} = this.state
         return (
             <div className="create-challenge">
                 <div className="top-bar">
-                    <ArrowForwardIcon />
+                    <ArrowBack />
                 </div>
-                <h1>כותרת השאלון</h1>
+                <h1>Questionnaire name</h1>
                 <hr />
-                <div className="filters">
-                    <div>
-                        <select>
-                            <option>בחר יחידה</option>
-                        </select>
-                        <img
-                            src={DropDownArrow}
-                            onClick={this.openSelectList}
-                        />
-                    </div>
-                    <div>
-                        <select>
-                            <option>בחר רמה</option>
-                        </select>
-                        <img
-                            src={DropDownArrow}
-                            onClick={this.openSelectList}
-                        />
-                    </div>
-                </div>
-                {this.state.questions.map((quest, index) => {
+                <p>Serial Number: {serialNum}</p>
+                {questions.map((quest, index) => {
                     return (
                         <div className="question-unit">
                             <div
@@ -111,7 +91,7 @@ export default class CreateChallenge extends Component {
                                 index={index}
                                 onClick={this.deleteQuestion}
                             >
-                                <DeleteIcon />
+                                <Delete />
                             </div>
                             <p>שאלה</p>
                             <div
@@ -140,7 +120,7 @@ export default class CreateChallenge extends Component {
                                             index={index}
                                             id={id}
                                             onClick={this.deleteAnswer}>
-                                            <ClearIcon />
+                                            <Clear />
                                         </div>
                                     </div>
                                 ))}

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import '../styles/scss/stock-quiz.scss';
 import { Link } from 'react-router-dom';
-import {Menu, Search, Add} from '@material-ui/icons';
+import {Menu, Add} from '@material-ui/icons';
 import Conversation from '../images/conversation-blue.svg';
-import DropDownArrow from '../images/chevron.svg';
 
 // const quizCard = ({quiz}) => {
 
@@ -27,24 +26,24 @@ class StockQuiz extends Component {
         this.state = {
             quizzes: [
                 {
-                    category: 'ערי בירה', unitName: 'שם היחידה',
-                    grade: 'כיתה ט', ansNum: 25
+                    category: 'Capital City', unitName: '123456',
+                    ansNum: 25
                 },
                 {
-                    category: 'ערי בירה', unitName: 'שם היחידה',
-                    grade: 'כיתה ט', ansNum: 25
+                    category: 'Capital City', unitName: '123456',
+                    ansNum: 25
                 },
                 {
-                    category: 'ערי בירה', unitName: 'שם היחידה',
-                    grade: 'כיתה ט', ansNum: 25
+                    category: 'Capital City', unitName: '123456',
+                    ansNum: 25
                 },
                 {
-                    category: 'ערי בירה', unitName: 'שם היחידה',
-                    grade: 'כיתה ט', ansNum: 25
+                    category: 'Capital City', unitName: '123456',
+                    ansNum: 25
                 },
                 {
-                    category: 'ערי בירה', unitName: 'שם היחידה',
-                    grade: 'כיתה ט', ansNum: 25
+                    category: 'Capital City', unitName: '123456',
+                    ansNum: 25
                 },
             ]
         }
@@ -59,53 +58,29 @@ class StockQuiz extends Component {
             <div className="stock-quiz">
                 <div className="top-bar">
                     <Menu />
-                    <Search />
                 </div>
-                <h1>מאגר שאלונים</h1>
-                <div className="filter-bar">
-                    <div>
-                        <select>
-                            <option>כל היחידות</option>
-                        </select>
-                        <img
-                            src={DropDownArrow}
-                            onClick={this.openSelectList}
-                        />
-                    </div>
-                    <div>
-                        <select>
-                            <option>כל הרמות</option>
-                        </select>
-                        <img
-                            src={DropDownArrow}
-                            onClick={this.openSelectList}
-                        />
-                    </div>
-                    {/* filter bar */}
-                </div>
-                {/* {this.state.quizzes.map((quiz)=>{
-                    return <quizCard quiz={quiz}/>
-                })} */}
+                <h1>Questionnaires</h1>
                 {this.state.quizzes.map((quiz) => {
                     return (
                         <div className="quiz-card">
                             <div>
-                                <div className="category">{quiz.category}</div>
-                                <div className="unit-name">{quiz.unitName}</div>
-                            </div>
-                            <div>
-                                <div className="grade">{quiz.grade}</div>
                                 <div className="ans-num">
                                     <img src={Conversation}></img>
                                     <div>{quiz.ansNum}</div>
                                 </div>
+                            </div>
+                            <div>
+                                <div className="category">{quiz.category}</div>
+                                <div className="unit-name">{quiz.unitName}</div>
                             </div>
                         </div>
                     )
                 })}
                 <div className="plus-btn">
                     <div className="plus-sign">
+                        <Link to="create-challenge">
                         <Add />
+                        </Link>
                     </div>
                 </div>
             </div>

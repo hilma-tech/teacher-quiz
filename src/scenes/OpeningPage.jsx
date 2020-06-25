@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../styles/scss/opening-page.scss';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
@@ -9,13 +9,20 @@ function OpeningPage() {
     return (
         <div className="opening-page">
             <MenuIcon />
-            <h1>ללמוד אנגלית עם אלקסה</h1>
+            <div className="title">
+            <h1 className="bold">English</h1>
+            <h1>with</h1>
+            <h1 className="bold">Alexa</h1>
+            </div>
             <div className="buttons">
                 <Link to="/stock-quiz" className="link">
-                <div className="quiz-list-btn">מאגר השאלונים</div>
+                <div className="blue btn">Questionnaires</div>
                 </Link>
                 <Link to="/student-list" className="link">
-                <div className="student-list-btn">רשימת תלמידים</div>
+                <div className="pink btn">Students</div>
+                </Link>
+                <Link to="/" className="link">
+                <div className="blue btn">Question</div>
                 </Link>
             </div>
 

@@ -1,67 +1,57 @@
 import React, { Component } from 'react';
 import '../styles/scss/student-info.scss';
 import { Link } from 'react-router-dom';
-import StarIcon from '@material-ui/icons/Star';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import DropDownArrow from '../images/chevron.svg';
+import { Star, ArrowBack, } from '@material-ui/icons';
 import Social from '../images/social.svg';
 
 class StudentInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            studentDetails: { name: 'אור כהן', grade: 'כיתה ט', image: '', score: 80 },
+            studentDetails: { name: 'Or Cohen', score: 80 },
             challenges: [
-                { category: 'ערי בירה', score: 80, uintNmae: 'שם היחידה' },
-                { category: 'ערי בירה', score: 80, uintNmae: 'שם היחידה' },
-                { category: 'ערי בירה', score: 80, uintNmae: 'שם היחידה' },
-                { category: 'ערי בירה', score: 80, uintNmae: 'שם היחידה' },
-                { category: 'ערי בירה', score: 80, uintNmae: 'שם היחידה' },
-                { category: 'ערי בירה', score: 80, uintNmae: 'שם היחידה' }
+                { category: 'Capital City', score: 80, unitName: '123456' },
+                { category: 'Capital City', score: 80, unitName: '123456' },
+                { category: 'Capital City', score: 80, unitName: '123456' },
+                { category: 'Capital City', score: 80, unitName: '123456' },
+                { category: 'Capital City', score: 80, unitName: '123456' },
+                { category: 'Capital City', score: 80, unitName: '123456' },
             ]
         }
     }
 
     render() {
-        let details = this.state.studentDetails
+        let { studentDetails, challenges } = this.state
         return (
             <div className="student-info">
                 <div className="top-bar">
-                    <ArrowForwardIcon />
+                    <ArrowBack />
                 </div>
-                <div className="student-details">
-                    <img
-                        className="profile-img"
-                        src={details.image ? details.image : Social}>
-                    </img>
-                    <h1>{details.name + ' ' + details.grade}</h1>
-                    <div className="total-score">
-                        <StarIcon />
-                        <h3>{details.score}</h3>
+                <h1>{studentDetails.name}</h1>
+                <div className='total-score'>
+                    <div>
+                        {studentDetails.score}
                     </div>
-
-
-                </div>
-                <div className="filter">
-                   <select>
-                       <option>כל היחידות</option>
-                   </select>
-                   <img src={DropDownArrow} />
+                    <Star />
                 </div>
                 {
-                    this.state.challenges &&
-                    this.state.challenges.map((challenge) => {
+                    challenges &&
+                    challenges.map((challenge) => {
                         return (
+                            <Link to="student-quiz-info" className="link">
                             <div className="challenge-unit">
-                                <div className="category">{challenge.category}</div>
-                                <div className="unit-name">{challenge.uintNmae}</div>
+                                <div className="left-side">
+                                    <div className="category">{challenge.category}</div>
+                                    <div className="unit-name">{challenge.unitName}</div>
+                                </div>
                                 <div className="score">
-                                    <StarIcon />
+                                    <Star />
                                     <div>
                                         {challenge.score}
                                     </div>
                                 </div>
                             </div>
+                            </Link>
                         )
                     })
                 }
