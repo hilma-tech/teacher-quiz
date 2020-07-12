@@ -15,7 +15,7 @@ class Store {
     lastQ = false;
 
     get lastQ() { return lastQ; }
-
+    set lastQ(lastQ) { lastQ = lastQ; }
 
     getChallenges() {
         this.challenges = [...challengesArr];

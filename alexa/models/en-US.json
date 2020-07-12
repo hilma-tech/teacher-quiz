@@ -21,8 +21,19 @@
                     "samples": []
                 },
                 {
-                    "name": "AMAZON.FallbackIntent",
+                    "name": "AMAZON.NavigateHomeIntent",
                     "samples": []
+                },
+                {
+                    "name": "AMAZON.NextIntent",
+                    "samples": []
+                },
+                {
+                    "name": "HelloWorldIntent",
+                    "slots": [],
+                    "samples": [
+                        "hello"
+                    ]
                 },
                 {
                     "name": "SelectChallengeIntent",
@@ -33,8 +44,8 @@
                         }
                     ],
                     "samples": [
-                        "{challengeName}",
-                        "start {challengeName}"
+                        "start {challengeName}",
+                        "{challengeName}"
                     ]
                 },
                 {
@@ -45,82 +56,31 @@
                             "type": "AMAZON.SearchQuery"
                         },
                         {
-                            "name": "skipOrAnswer",
-                            "type": "skipOrAnswerType"
-                        },
-                        {
-                            "name": "yesOrNo",
-                            "type": "yesOrNoType"
-                        },
-                        {
                             "name": "exitYesOrNo",
                             "type": "yesOrNoType"
                         },
                         {
                             "name": "goBackToSkippedQ",
                             "type": "yesOrNoType"
+                        },
+                        {
+                            "name": "moveToNextQ",
+                            "type": "yesOrNoType"
                         }
                     ],
                     "samples": [
                         "{goBackToSkippedQ}",
+                        "{moveToNextQ}",
                         "{exitYesOrNo}",
-                        "{yesOrNo}",
-                        "is it {answer}",
-                        "the answer is {answer}",
-                        "{skipOrAnswer}"
+                        "the answer is {answer}"
                     ]
                 },
                 {
-                    "name": "AMAZON.NavigateHomeIntent",
-                    "samples": []
-                },
-                {
-                    "name": "SkipIntent",
-                    "slots": [
-                        {
-                            "name": "skip",
-                            "type": "skipType"
-                        }
-                    ],
+                    "name": "AMAZON.FallbackIntent",
                     "samples": []
                 }
             ],
             "types": [
-                {
-                    "name": "skipOrAnswerType",
-                    "values": [
-                        {
-                            "name": {
-                                "value": "skip",
-                                "synonyms": [
-                                    "yes",
-                                    "skip",
-                                    "i want to skip",
-                                    "please skip",
-                                    "skip to the next question",
-                                    "i want to move to the next question",
-                                    "move on",
-                                    "i want to move on",
-                                    "please move on",
-                                    "skip the question",
-                                    "move on to the next question"
-                                ]
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "answer",
-                                "synonyms": [
-                                    "no",
-                                    "answer",
-                                    "i want to answer",
-                                    "please let me amswer",
-                                    "answer the question"
-                                ]
-                            }
-                        }
-                    ]
-                },
                 {
                     "name": "challengeNameType",
                     "values": [
@@ -157,29 +117,6 @@
                             }
                         }
                     ]
-                },
-                {
-                    "name": "skipType",
-                    "values": [
-                        {
-                            "name": {
-                                "value": "skip",
-                                "synonyms": [
-                                    "yes",
-                                    "skip",
-                                    "i want to skip",
-                                    "please skip",
-                                    "skip to the next question",
-                                    "i want to move to the next question",
-                                    "move on",
-                                    "i want to move on",
-                                    "please move on",
-                                    "skip the question",
-                                    "move on to the next question"
-                                ]
-                            }
-                        }
-                    ]
                 }
             ]
         },
@@ -194,56 +131,37 @@
                             "name": "answer",
                             "type": "AMAZON.SearchQuery",
                             "confirmationRequired": false,
-                            "elicitationRequired": false,
-                            "prompts": {}
-                        },
-                        {
-                            "name": "skipOrAnswer",
-                            "type": "skipOrAnswerType",
-                            "confirmationRequired": false,
-                            "elicitationRequired": false,
-                            "prompts": {},
-                            "validations": [
-                                {
-                                    "type": "hasEntityResolutionMatch",
-                                    "prompt": "Slot.Validation.351773218643.1359885924807.146205133045"
-                                }
-                            ]
-                        },
-                        {
-                            "name": "yesOrNo",
-                            "type": "yesOrNoType",
-                            "confirmationRequired": false,
-                            "elicitationRequired": false,
-                            "prompts": {}
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.119627704872.743520004445"
+                            }
                         },
                         {
                             "name": "exitYesOrNo",
                             "type": "yesOrNoType",
                             "confirmationRequired": false,
-                            "elicitationRequired": false,
-                            "prompts": {}
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.119627704872.357078955927"
+                            }
                         },
                         {
                             "name": "goBackToSkippedQ",
                             "type": "yesOrNoType",
                             "confirmationRequired": false,
-                            "elicitationRequired": false,
-                            "prompts": {}
-                        }
-                    ]
-                },
-                {
-                    "name": "SelectChallengeIntent",
-                    "confirmationRequired": false,
-                    "prompts": {},
-                    "slots": [
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.119627704872.433657409398"
+                            }
+                        },
                         {
-                            "name": "challengeName",
-                            "type": "challengeNameType",
+                            "name": "moveToNextQ",
+                            "type": "yesOrNoType",
                             "confirmationRequired": false,
-                            "elicitationRequired": false,
-                            "prompts": {}
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.119627704872.619980035270"
+                            }
                         }
                     ]
                 }
@@ -252,65 +170,38 @@
         },
         "prompts": [
             {
-                "id": "Elicit.Slot.351773218643.1359885924807",
+                "id": "Elicit.Slot.119627704872.743520004445",
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "please say answer or skip to continue"
+                        "value": "sorry but i didnt get it, what is your answer "
                     }
                 ]
             },
             {
-                "id": "Slot.Validation.351773218643.1359885924807.146205133045",
+                "id": "Elicit.Slot.119627704872.357078955927",
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "sorry, but you didnt mention a correct action. please say what you want to do - answer the question or skip it?"
+                        "value": "sorry but i didnt get it. you want to exit the skill?"
                     }
                 ]
             },
             {
-                "id": "Elicit.Slot.351773218643.733416538530",
+                "id": "Elicit.Slot.119627704872.433657409398",
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "sorry, but you didnt mention an answer. please say the answer is following the answer."
+                        "value": "sorry but i didnt get it. do you want to go back to skipped questions?"
                     }
                 ]
             },
             {
-                "id": "Confirm.Slot.351773218643.733416538530",
+                "id": "Elicit.Slot.119627704872.619980035270",
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "your answer is {answer} . is it correct?"
-                    }
-                ]
-            },
-            {
-                "id": "Elicit.Slot.399009765214.203442322629",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "sorry, but we didnt get that. please specify the name of the challenge you want to start"
-                    }
-                ]
-            },
-            {
-                "id": "Elicit.Slot.668654732539.202665657490",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "im sorry, but i didnt understood. you want to move to the next question"
-                    }
-                ]
-            },
-            {
-                "id": "Elicit.Slot.163978917980.797260176044",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "i didnt get that. would you like to skip to answer the question, or skip to the next question?"
+                        "value": "sorry but i didnt get it. do you want to move to the next question?"
                     }
                 ]
             }

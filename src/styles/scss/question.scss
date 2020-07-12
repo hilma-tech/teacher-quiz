@@ -1,0 +1,106 @@
+.question-page{
+    margin-right: 3vw;
+    margin-left: 4vw;
+    display: flex;
+    flex-direction: column;
+
+    .top-bar{
+        display: flex;
+        flex-direction: row-reverse;
+        margin-top: 1vh;
+
+        .MuiSvgIcon-root{
+            font-size: 2.5rem;
+            color: rgba(19, 27, 103, 1);
+        }
+    }
+
+
+    h1{
+        margin-top: 2vh;
+        direction: ltr;
+        color: rgba(19, 27, 103, 1);  
+    }
+    
+    hr{
+        margin-top: 1.5vh;
+        height: 1.5px;
+        font-weight: bold; 
+        background-color: rgba(19, 27, 103, 1); 
+        border: none;
+     }
+
+     p{
+         margin-top: 5vh;
+         color: rgba(17, 171, 185, 1);
+         font-size: 1rem;
+         direction: ltr;
+         margin-left: 4vw;
+
+     }
+
+     .chips{
+        direction: ltr;
+        color: white;
+        display: flex;
+        flex-wrap: wrap;
+
+
+        .chip{
+            color: white;
+            display: flex;
+            direction: ltr;
+            flex-wrap: wrap;
+            flex-direction: row;
+             
+             .MuiChip-root{
+               background-color: rgba(17, 171, 185, 1); 
+               color: white;
+               margin: 1vh 2vh 1vh 0vh;
+               min-width: 10vw;
+               width: fit-content;
+               display: flex;
+               flex-direction: row-reverse;
+               justify-content: space-between;
+               padding: 2vh;
+
+               .MuiChip-label{
+                color: white;
+               }
+               
+               .MuiChip-deleteIcon{
+                color: white;   
+               }
+             }
+         }
+
+     }
+
+     .add{
+         color: rgba(166, 34, 92, 1);
+         font-weight: bold;
+         direction: ltr;
+         margin-top: 2vh;
+     }
+
+
+     .save{
+         width: 45vw;
+         align-self: center;
+         display: flex;
+         justify-content: center;
+         position: fixed;
+         top: 87vh;
+         border: 1px solid rgba(166, 34, 92, 1);
+         background-color: rgba(166, 34, 92, 1);
+         color: white;
+         padding: 1.5vh;
+         font-weight: bold;
+         font-size: 1.3rem;
+         height: 7vh;;
+         text-align: center;
+         border-radius: 25px;
+     }
+
+
+}

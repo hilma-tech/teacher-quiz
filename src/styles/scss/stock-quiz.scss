@@ -5,7 +5,7 @@
     .top-bar{
         margin-top: 2vh;
         display: flex;
-        flex-direction: row;
+        flex-direction: row-reverse;
         justify-content: space-between;
 
         .MuiSvgIcon-root{
@@ -20,6 +20,7 @@
         font-size: 2.2rem;
         font-family: 'Assistant', sans-serif;
         font-weight: bold;
+        direction: ltr;
     }
 
     .filter-bar{
@@ -72,7 +73,7 @@
         padding-top: 2vh;
         position: fixed;
         top: 86vh;
-        right: 80vw;
+        right: 7vw;
         box-shadow: -0.1vh 1vh 1vh -0.15vh rgba(0, 0, 0, 0.24);
 
         .plus-sign{
@@ -90,8 +91,7 @@
     margin-top: 2vh;
     display: flex;
     flex-direction: row;
-    width: 80vw;
-    height: 10vh;
+    height: 11vh;
     background-color: white;
     justify-content: space-between;
     padding: 2vh;
@@ -101,7 +101,6 @@
     div{
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
 
         .category{
             color: rgba(19, 27, 103, 1);
@@ -110,21 +109,22 @@
         }
 
         .unit-name{
-            color: rgba(166, 34, 92, 1);
-            font-size: 1.1rem;
-        }
-
-        .grade{
             color: rgba(19, 27, 103, 1);
-        }
+            font-size: 1rem;
+            align-self: flex-end;
+            padding-top: 1vh;
+            padding-left: 0.5vh;
 
+        }
         .ans-num{
+            padding: 4vh 2vh 1vh 0vh;    
             display: flex;
             flex-direction: row;
 
             div{
                 color: rgba(17, 171, 185, 1);
                 font-weight: bold;
+                padding: 1vh 1vh 0.5vh 0vh;
             }
         }
     }

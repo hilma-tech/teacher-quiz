@@ -1,7 +1,7 @@
 'use strict';
 
 let CustomModel = require('./CustomModel');
-
+200
 //student_id, quest_id, challenge_id  vvvvv
 module.exports = (sequelize, DataTypes) => {
 
@@ -61,8 +61,13 @@ module.exports = (sequelize, DataTypes) => {
   };
 
 
+<<<<<<< HEAD
   Answers.helloAyelet = () => {
     return 'hello ayelet!!!'
+=======
+  Answers.nice = (req) => {
+    return 'nice'
+>>>>>>> c8b4983d056056428066dadc2e1cfc9de68b3e72
   }
 
 

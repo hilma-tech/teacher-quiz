@@ -1,6 +1,6 @@
 const Alexa = require('ask-sdk-core');
 const store = require('../../store');
-const { firstQuest, AnswerProcessing, nextQuest } = require('../../const').quest;
+const { firstQuest, AnswerProcessing, nextQuest, skipQuest } = require('../../const').quest;
 const { clearChallSlots } = require('../../const').updateSlotsInElicit;
 const { EndOfChallengeHandler, EndOfOrderedQHandler } = require('./Handlers');
 
@@ -44,25 +44,27 @@ const FirstAnswerhandler = {
             .addElicitSlotDirective('answer', clearChallSlots)
             .speak(speechOutput)
             .reprompt(reprompt)
+            // .addDelegateDirective(clearChallSlots)
             .getResponse();
     }
 };
 
 const AnswerProcessingHandler = {
     canHandle(handlerInput) {
+
         return Alexa.getRequestType(handlerInput.requestEnvelope) === "IntentRequest"
             && Alexa.getIntentName(handlerInput.requestEnvelope) === "ChallengeIntent"
-            && !Alexa.getSlotValue(handlerInput.requestEnvelope, 'yesOrNo')
             && Alexa.getSlotValue(handlerInput.requestEnvelope, 'answer')
     },
 
     handle(handlerInput) {
+        const answer = Alexa.getSlotValue(handlerInput.requestEnvelope, 'answer');
+
         const at = handlerInput.attributesManager.getSessionAttributes();
         at.answeredQ[at.counter] = true;
         handlerInput.attributesManager.setSessionAttributes(at);
 
         const { aText } = store.currChall.questions[at.counter];
-        const answer = Alexa.getSlotValue(handlerInput.requestEnvelope, 'answer');
         ///check if the answer is correct
         ///
         store.setAnswers(at.counter, answer, 100);
@@ -75,7 +77,7 @@ const AnswerProcessingHandler = {
         const [speechOutput, reprompt] = AnswerProcessing(aScore);
 
         return handlerInput.responseBuilder
-            .addElicitSlotDirective('yesOrNo', clearChallSlots)
+            .addElicitSlotDirective('moveToNextQ', clearChallSlots)
             .speak(speechOutput)
             .reprompt(reprompt)
             .getResponse();
@@ -88,15 +90,15 @@ const NextQuestionHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === "IntentRequest"
             && Alexa.getIntentName(handlerInput.requestEnvelope) === "ChallengeIntent"
             && !Alexa.getSlotValue(handlerInput.requestEnvelope, 'answer')
-            && (Alexa.getSlotValue(handlerInput.requestEnvelope, 'yesOrNo')
+            && (Alexa.getSlotValue(handlerInput.requestEnvelope, 'moveToNextQ')
                 || Alexa.getSlotValue(handlerInput.requestEnvelope, 'goBackToSkippedQ'))
     },
 
     handle(handlerInput) {
-        const yesOrNo = Alexa.getSlotValue(handlerInput.requestEnvelope, 'yesOrNo');
+        const moveToNextQ = Alexa.getSlotValue(handlerInput.requestEnvelope, 'moveToNextQ');
         const goBackToSkippedQ = Alexa.getSlotValue(handlerInput.requestEnvelope, 'goBackToSkippedQ');
 
-        const currYesOrNo = yesOrNo || goBackToSkippedQ;
+        const currYesOrNo = moveToNextQ || goBackToSkippedQ;
         let att = handlerInput.attributesManager.getSessionAttributes();
 
         if (currYesOrNo === 'no' && goBackToSkippedQ) {
@@ -106,6 +108,7 @@ const NextQuestionHandler = {
 
 
         const [speechOutput, reprompt, slotToElicit] = nextQuest(currYesOrNo, att, Boolean(goBackToSkippedQ));
+        if (currYesOrNo === 'yes' && goBackToSkippedQ) att.questMode = true;
         handlerInput.attributesManager.setSessionAttributes(att);
 
         return handlerInput.responseBuilder
@@ -116,20 +119,44 @@ const NextQuestionHandler = {
     }
 };
 
+const SkipHandler = {
+    canHandle(handlerInput) {
+        const att = handlerInput.attributesManager.getSessionAttributes();
+
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === "IntentRequest"
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === "AMAZON.NextIntent"
+            && att.questMode
+
+    },
+    handle(handlerInput) {
+        let att = handlerInput.attributesManager.getSessionAttributes();
+
+        const endSession = returnEndSessionHandler({ ...att }, handlerInput);
+        if (endSession) return endSession;
+
+        handlerInput.attributesManager.setSessionAttributes(att);
+        const [speechOutput, reprompt] = skipQuest(att);
+
+
+        return handlerInput.responseBuilder
+            .addElicitSlotDirective('answer', clearChallSlots)
+            .speak(speechOutput)
+            .reprompt(reprompt)
+            .getResponse();
+    }
+};
 
 module.exports = {
+    SkipHandler,
     FirstAnswerhandler,
     NextQuestionHandler,
     AnswerProcessingHandler
 }
 
 
-
 function returnEndSessionHandler(at, handlerInput, sSo = '') {
-    if (!store.lastQ && !at.answeredQ[at.counter] || (at.skipMode && at.counter !== at.currLastQ)) return;
-
     const isSkippedQ = Object.values(at.answeredQ).includes(false);
-    const isLast = at.counter === at.currLastQ;
+    const isLast = (at.counter === at.currLastQ);
 
     //end of ordered q
     if (isLast && isSkippedQ)

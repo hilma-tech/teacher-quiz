@@ -1,5 +1,4 @@
 const store = require('./store');
-const { EndOfChallengeHandler, ExitSkill } = require('./intentHandlers/ChallengeIntentHandlars/Handlers');
 
 
 const launch = Object.freeze({
@@ -11,7 +10,7 @@ const launch = Object.freeze({
         const { ONE_CHALLENGE, SEVERAL_CHALLENGES } = launch
 
         const cSum = Object.keys(store.challenges).length;
-        const listOfCNames = createStrList(store.challenges.map(({ name }) => name));
+        const listOfCNames = createStrList(store.challenges);
 
         const reprompt = `you have ${cSum} challenges available, ${listOfCNames}.\
         ${cSum === 1 ? ONE_CHALLENGE : SEVERAL_CHALLENGES}`;
@@ -34,17 +33,17 @@ const quest = Object.freeze({
     ANSWER_OR_SKIP_LAST_Q_QUEST: 'would you like to skip it?',
     LAST_Q: 'its your last question',
     MOVE_TO_NEXT_Q_QUEST: 'would you like to move to the next question?',
-    // GO_BACK_TO_SKIPPED_Q: 'you finished all your questions. however you skipped some of them. would you like to come back and answer them?',
 
     //get speechOutPut and reprompt for each handler 
     firstQuest(qSum) {
         const { name: cName, questions: { 1: { qText } } } = store.currChall
-        console.log('qText: ', qText);
 
-        const reprompt = quest.getReprompt(qText);
-        const speechOutput = `you have chosen ${cName} challenge.\
-        you have ${qSum} questions in this challenge. starting question number 1.\
-         ${reprompt}`;
+        const reprompt = `${quest.START_OF_REPROMPT} ${qText}`;
+        const speechOutput = `you have chosen ${cName} challenge. \
+        you have ${qSum} questions in this challenge. \
+        remember, you can always skip a question any time by saying skip. \
+        starting question number 1. \
+        ${reprompt}`;
 
         return [speechOutput, reprompt];
     },
@@ -65,6 +64,7 @@ const quest = Object.freeze({
             if (goBackToSkippedQ) {
                 att.counter = 0;
                 att.currLastQ = undefined;
+                att.skipMode = true;
             }
             slotToElicit = 'answer';
             ([speechOutput, reprompt] = quest.createQResponse(att));
@@ -77,27 +77,23 @@ const quest = Object.freeze({
         return [speechOutput, reprompt, slotToElicit];
     },
 
-    //general funcs
-    getReprompt(qText) {
-        return `${quest.START_OF_REPROMPT} ${qText}.`
+    skipQuest(att) {
+        return quest.createQResponse(att);
     },
 
     createQResponse(att) {
-        const { getReprompt, SKIPPED_Q, ORDER_Q } = quest;
+        const { SKIPPED_Q, ORDER_Q } = quest;
         quest.getCurrentQuestIndex(att);
         const { qText } = store.currChall.questions[att.counter];
 
-        const reprompt = getReprompt(qText)
+        const reprompt = `${quest.START_OF_REPROMPT} ${qText}`;
         const speechOutput = `${att.skipMode ? SKIPPED_Q : ORDER_Q} ${att.counter}. ${reprompt}`;
 
-        return [
-            speechOutput,
-            reprompt
-        ]
+        return [speechOutput, reprompt];
     },
 
     getCurrentQuestIndex(att) {
-        let prevCounter = att.counter;
+        store.lastQ = (att.counter === att.currLastQ)
 
         if (att.skipMode) {
             let max = null, currLastQ = null;
@@ -111,8 +107,6 @@ const quest = Object.freeze({
         }
         else if (att.qSum !== 1 && att.counter < att.qSum) att.counter++;
         else return;
-
-        store.lastQ = (prevCounter === att.currLastQ);
     }
 });
 
@@ -126,13 +120,14 @@ const exit = Object.freeze({
         let speechOutput, reprompt, slotToElicit, updateSlotsInElicit;
         //if you finished the challenges
         if (att.counter === att.currLastQ) {
-            const aChallList = createStrList(store.availChalls.map(({ name }) => name));
+            const aChallList = createStrList(store.availChalls);
             const cNum = store.availChalls.length;
 
             slotToElicit = 'challengeName';
             updateSlotsInElicit = clearChallName;
-            speechOutput = reprompt = `you currently have ${cNum} available challenge - ${aChallList}.\
-                 ${cNum === 1 ? exit.ONE_CHALL_AVAIL : exit.SEVERAL_CHALL_AVAIL}`
+            speechOutput = reprompt = `you currently have ${cNum} available challenge - \
+            ${aChallList}. \
+            ${cNum === 1 ? exit.ONE_CHALL_AVAIL : exit.SEVERAL_CHALL_AVAIL}`
         }
         // in the middle of challenge.between questions.
         else {
@@ -147,26 +142,54 @@ const exit = Object.freeze({
 });
 
 
+const handler = Object.freeze({
+    GO_BACK_TO_SKIPPED_Q: 'you finished all your questions. \
+    however you skipped some of them. would you like to come back and answer them?',
+
+    endOfOrderedQ(sSo) {
+        const reprompt = handler.GO_BACK_TO_SKIPPED_Q;
+        const speechOutput = `${sSo} ${reprompt}`;
+
+        return [speechOutput, reprompt];
+    },
+
+    startOfSpeech(sSo) {
+        return `${sSo} you have finished the challenge, wall done!`;
+    },
+
+    endOfChallengeWithAvailChall(sSo) {
+        const reprompt = 'would you like to move to another challenge?'
+        const speechOutput = `${handler.startOfSpeech(sSo)} \
+        you have other challenges available. ${reprompt}`;
+
+        return [speechOutput, reprompt];
+    },
+
+    endOfChallenge(sSo) {
+        const speechOutput = `${handler.startOfSpeech(sSo)} \
+        you dont have other challenges. see you soon!`;
+
+        return [speechOutput];
+    }
+})
+
+
 const clearChallSlots = Object.freeze({
     name: 'ChallengeIntent',
     confirmationStatus: 'NONE',
     slots: {
-        skipOrAnswer: {
-            name: 'skipOrAnswer',
-            confirmationStatus: 'NONE'
-        },
         answer: {
             name: 'answer',
             confirmationStatus: 'NONE'
         },
-        yesOrNo: {
-            name: 'yesOrNo',
+        moveToNextQ: {
+            name: 'moveToNextQ',
             confirmationStatus: 'NONE'
         },
-        exitYesOrNo: {
-            name: 'exitYesOrNo',
-            confirmationStatus: 'NONE'
-        },
+        // exitYesOrNo: {
+        //     name: 'exitYesOrNo',
+        //     confirmationStatus: 'NONE'
+        // },
         goBackToSkippedQ: {
             name: 'goBackToSkippedQ',
             confirmationStatus: 'NONE'
@@ -184,6 +207,7 @@ module.exports = Object.freeze({
     launch,
     quest,
     exit,
+    handler,
     updateSlotsInElicit: {
         clearChallName,
         clearChallSlots
@@ -192,6 +216,7 @@ module.exports = Object.freeze({
 
 
 function createStrList(arr) {
+    arr = arr.map(({ name }) => name);
     const last = arr.pop();
     return arr.join(', ') + (arr.length ? ' and ' : '') + last
 }

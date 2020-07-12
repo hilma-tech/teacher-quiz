@@ -1,48 +1,27 @@
 // console.log('quest ', require('../../const'));
-// const { GO_BACK_TO_SKIPPED_Q } = require('../../const.js').quest;
+const { endOfOrderedQ, endOfChallengeWithAvailChall, endOfChallenge } = require('../../const').handler;
+const { clearChallSlots } = require('../../const.js').updateSlotsInElicit;
 const store = require('../../store');
-const clearChallSlots = Object.freeze({
-    name: 'ChallengeIntent',
-    confirmationStatus: 'NONE',
-    slots: {
-        skipOrAnswer: {
-            name: 'skipOrAnswer',
-            confirmationStatus: 'NONE'
-        },
-        answer: {
-            name: 'answer',
-            confirmationStatus: 'NONE'
-        },
-        yesOrNo: {
-            name: 'yesOrNo',
-            confirmationStatus: 'NONE'
-        },
-        exitYesOrNo: {
-            name: 'exitYesOrNo',
-            confirmationStatus: 'NONE'
-        },
-        goBackToSkippedQ: {
-            name: 'goBackToSkippedQ',
-            confirmationStatus: 'NONE'
-        }
-    }
-});
 
 module.exports = {
     EndOfOrderedQHandler: {
         handle(handlerInput, sSo = '') {
-            const GO_BACK_TO_SKIPPED_Q = 'you finished all your questions. \
-            however you skipped some of them. would you like to come back and answer them?';
-
             let att = handlerInput.attributesManager.getSessionAttributes();
-            if (!att.skipMode) att.skipMode = true;
-            att.nextCurrLastQ = undefined;
-            handlerInput.attributesManager.setSessionAttributes(att);
+
+            handlerInput.attributesManager.setSessionAttributes({
+                ...att,
+                questMode: false,
+                skipMode: true,
+                counter: 0,
+                currLastQ: undefined
+            });
+
+            const [speechOutput, reprompt] = endOfOrderedQ(sSo);
 
             return handlerInput.responseBuilder
+                .speak(speechOutput)
+                .reprompt(reprompt)
                 .addElicitSlotDirective('goBackToSkippedQ', clearChallSlots)
-                .speak(`${sSo} ${GO_BACK_TO_SKIPPED_Q}`)
-                .reprompt(GO_BACK_TO_SKIPPED_Q)
                 .getResponse();
         }
     },
@@ -52,20 +31,22 @@ module.exports = {
         handle(handlerInput, sSo = '') {
             ///sending the answers somewhere
             store.addCompChall();
-            const startOfSpeech = `${sSo} you have finished the challenge, wall done!`;
+
+            let att = handlerInput.attributesManager.getSessionAttributes();
+            att.questMode = false;
+            handlerInput.attributesManager.setSessionAttributes(att);
 
             if (store.availChalls.length) {
-                const reprompt = 'would you like to move to another challenge?'
-                const speechOutput = `${startOfSpeech} you have other challenges available. ${reprompt}`
+                const [speechOutput, reprompt] = endOfChallengeWithAvailChall(sSo);
 
                 return handlerInput.responseBuilder
-                    .addElicitSlotDirective('exitYesOrNo', clearChallSlots)
                     .speak(speechOutput)
                     .reprompt(reprompt)
+                    .addElicitSlotDirective('exitYesOrNo', clearChallSlots)
                     .getResponse();
             }
             else {
-                const speechOutput = `${startOfSpeech} you dont have other challenges. see you soon!`;
+                const [speechOutput] = endOfChallenge(sSo);
 
                 return handlerInput.responseBuilder
                     .speak(speechOutput)
@@ -78,6 +59,10 @@ module.exports = {
 
     ExitSkill: {
         handle(handlerInput) {
+            let att = handlerInput.attributesManager.getSessionAttributes();
+            att.questMode = false;
+            handlerInput.attributesManager.setSessionAttributes(att);
+
             return handlerInput.responseBuilder
                 .speak('i will save your progress. see you soon!')
                 .withShouldEndSession(true)

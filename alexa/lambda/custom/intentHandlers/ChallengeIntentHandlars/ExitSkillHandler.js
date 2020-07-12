@@ -24,9 +24,9 @@ const ExitSkillHandler = {
         else {
             const [speechOutput, reprompt, slotToElicit, updateSlotsInElicit] = exit(ifYes, att);
             return handlerInput.responseBuilder
-                .addElicitSlotDirective(slotToElicit, updateSlotsInElicit)
                 .speak(speechOutput)
                 .reprompt(reprompt)
+                .addElicitSlotDirective(slotToElicit, updateSlotsInElicit)
                 .getResponse();
         }
     }

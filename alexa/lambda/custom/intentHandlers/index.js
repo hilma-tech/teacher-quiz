@@ -6,17 +6,18 @@ const IntentReflectorHandler = require('./IntentReflectorHandler');
 const SessionEndedRequestHandler = require('./SessionEndedRequestHandler');
 const ErrorHandler = require('./ErrorHandler');
 const AIHandlars = require('./ChallengeIntentHandlars/index.js');
-
-
+const HelloWorldIntentHandler = require('./HelloWorldIntent');
 
 module.exports = {
     intentHandlers: [
         LaunchRequestHandler,
         HelpIntentHandler,
+        HelloWorldIntentHandler,
         ...AIHandlars,
         CancelAndStopIntentHandler,
         FallbackIntentHandler,
-        IntentReflectorHandler
+        IntentReflectorHandler,
+        SessionEndedRequestHandler
     ],
     errorHandler: ErrorHandler
 }

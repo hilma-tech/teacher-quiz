@@ -10,6 +10,10 @@
             }
         }
 
+        h1{
+            direction: ltr;
+        }
+
         hr{
            margin-top: 1.5vh;
            height: 1px;
@@ -18,40 +22,11 @@
            border: none;
         }
 
-        .filters{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-evenly;
-            margin-top: 2vh;
-
-            div{
-                color: rgba(166, 34, 92, 1);
-                border: 2px solid rgba(166, 34, 92, 1);
-                border-radius: 25px;
-                padding: 1vh;
-                width: 40vw;
-                display: flex;
-                flex-direction: row;
-                
-                select{
-                    border: 0px;
-                    outline: 0px;
-                    background-color: transparent;
-                    color: rgba(166, 34, 92, 1);
-                    font-weight: bold;
-                    -webkit-appearance: none;
-                    text-indent: 1px;
-                    -moz-appearance: none;
-                    text-overflow: '';
-                }
-
-                img{
-                    width: 4vw;
-                    height: 2vh;
-                    margin-right: 7vh;
-                    align-self: center;
-                }
-            }
+        p{
+            font-size: 1.2rem;
+            color: rgba(19, 27, 103, 1);
+            direction: ltr;
+            margin: 2vh 0vh 0vh 1vh;
         }
 
         .add-quest-btn{
@@ -73,6 +48,9 @@
             flex-direction: column;
             margin-top: 2vh;
             padding: 2vh;
+            border-radius: 5px;
+            box-shadow: 0 0.3vh 1vh 0vh rgba(0, 0, 0, 0.16), 0 0.3vh 1vh 0vh rgba(0, 0, 0, 0.16);
+    
             
             .delete{
                 margin-right: 70vw;

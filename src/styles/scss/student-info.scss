@@ -3,91 +3,70 @@
     margin-right: 7vw;
     
     .top-bar{
+        direction: ltr;
         margin-top: 2vh;
+
         .MuiSvgIcon-root{
             font-size: 2.5rem;
             color: rgba(19, 27, 103, 1);
         }
     }
 
-    .filter{
-        border: 2px solid rgba(166, 34, 92, 1);
-        color: rgba(166, 34, 92, 1);
-        border-radius: 25px;
-        padding: 1vh;
-        width: 35vw;
-        display: flex;
-        flex-direction: row;
-
-        select{
-            border: 0px;
-            outline: 0px;
-            background-color: transparent;
-            color: rgba(166, 34, 92, 1);
-            font-weight: bold;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            text-indent: 1px;
-            text-overflow: '';
-        }
-
-        img{
-            width: 4vw;
-            height: 2vh;
-            margin-right: 4vh;
-            align-self: center;
-        }
-
-    }
-
-    
-    .student-details{
-        display: flex;
-        flex-direction: column;
-        margin-right: 15vw;
-
-        .profile-img{
-            width: 20vw;
-            height: 10vh;
-            margin-right: 15vw;
-        }
-        
         h1{
-            font-size: 1.7rem;
+            font-size: 2rem;
+            margin-top: 3vh;
+            direction: ltr;
+            font-weight: bold;
+            color: rgba(19, 27, 103, 1);
         }
 
         .total-score{
-            margin-right: 15vw;
-            padding: 2vh;
             display: flex;
             flex-direction: row;
-            align-items: center;
-            
-            h3{
-                color: rgba(17, 171, 185, 1);
+            direction: ltr;
+            color: rgba(17, 171, 185, 1);
+            margin-top: 2vh;
+
+            .MuiSvgIcon-root{
+                 color: rgba(17, 171, 185, 1);
             }
 
-            color: rgba(17, 171, 185, 1);
-            display: flex;
-            flex-direction: row;
+            div{
+                font-size: 1.3rem;
+                align-self: center;
+                color: rgba(17, 171, 185, 1);
+                padding-right: 0.5vh;
+            }
         }
+
     }
 
     .challenge-unit{
         background-color: white;
         margin-top: 2vh;
         display: flex;
-        flex-direction: row;
+        flex-direction: row-reverse;
         justify-content: space-between;
         padding: 2vh;
+        height: 11vh;
+        border-radius: 5px;
+        box-shadow: 0 0.3vh 1vh 0vh rgba(0, 0, 0, 0.16), 0 0.3vh 1vh 0vh rgba(0, 0, 0, 0.16);
 
-        .unit-name{
-            color: rgba(166, 34, 92, 1);
-        }
-
-        .category{
-            color: rgba(19, 27, 103, 1);
-            font-weight: bold;
+        .left-side{
+            display: flex;
+            flex-direction: column;
+            
+            .unit-name{
+                color: rgba(19, 27, 103, 1);
+                align-self: center;
+                padding: 1vh 4vh 0vh 0vh;                
+            }
+    
+            .category{
+                color: rgba(19, 27, 103, 1);
+                font-weight: bold;
+                align-self: center;
+            }
         }
 
         .score{
@@ -96,11 +75,13 @@
             flex-direction: row;
             align-items: center;
             justify-content: space-evenly;
+            padding: 4vh 2vh 1vh 0vh;
 
             div{
-                color: rgba(17, 171, 185, 1);                
+                color: rgba(17, 171, 185, 1);
+                padding: 1vh 1vh 0.5vh 0vh;
+                font-weight: bold;                
             }
 
         }
     }
-}
