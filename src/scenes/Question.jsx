@@ -25,17 +25,28 @@ class Question extends Component {
     }
 
 
-    handleDelete = (e) => {
-        console.log("deleted");
+    handleDelete = (index, e) => {
+        console.log("deleted", index);
+        let { chips } = this.state
+        delete chips[index]
+        this.setState({ chips })
     }
 
     handleClick = (e) => {
         console.log("clicked");
     }
 
+    addWord = () =>{
+        console.log("added");
+    }
+
+    save = () =>{
+        console.log("saved");
+    }
+
 
     render() {
-        let { chips } = this.state
+        const { chips } = this.state
 
         return (
             <div className="question-page">
@@ -44,35 +55,29 @@ class Question extends Component {
                 </div>
                 <h1>New Question</h1>
                 <hr />
-                <div>
-                    <select>
-                        <option>כל הרמות</option>
-                    </select>
-                    {/* <img
-                        src={DropDownArrow}
-                        onClick={this.openSelectList}
-                    /> */}
-                </div>
                 <p>word</p>
                 <div className="chips">
                     {chips.map((chip, index) => {
                         return (
                             <div className="chip">
                                 <Chip
-                                    index={index}
                                     label={chip.value}
                                     onClick={this.handleClick}
-                                    onDelete={this.handleDelete}
+                                    onDelete={() => this.handleDelete(index)}
                                     deleteIcon={<Clear />}
                                 />
                             </div>
                         )
                     })}
                 </div>
-                <div className="add">
+                <div className="add"
+                     onClick={this.addWord}
+                >
                     + Add word
                 </div>
-                <div className="save">
+                <div className="save"
+                     onClick={this.save}
+                >
                     Save
                 </div>
             </div>

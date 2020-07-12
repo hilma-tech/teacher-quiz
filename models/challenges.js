@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
 
-  Challenges.hello = (rej) => {
+  Challenges.hello = (req) => {
     return 'hello'
   }
 

@@ -21,7 +21,7 @@ function OpeningPage() {
                 <Link to="/student-list" className="link">
                 <div className="pink btn">Students</div>
                 </Link>
-                <Link to="/" className="link">
+                <Link to="/question" className="link">
                 <div className="blue btn">Question</div>
                 </Link>
             </div>
