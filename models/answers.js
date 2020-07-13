@@ -61,13 +61,12 @@ module.exports = (sequelize, DataTypes) => {
   };
 
 
-<<<<<<< HEAD
   Answers.helloAyelet = () => {
     return 'hello ayelet!!!'
-=======
+
+  }
   Answers.nice = (req) => {
     return 'nice'
->>>>>>> c8b4983d056056428066dadc2e1cfc9de68b3e72
   }
 
 

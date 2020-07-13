@@ -1,33 +1,35 @@
 import React from 'react';
 import '../styles/scss/opening-page.scss';
-import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
+import { Navbar } from '../components/PageTools';
 
 
-function OpeningPage() {
-
+export default function OpeningPage() {
     return (
         <div className="opening-page">
-            <MenuIcon />
+            {/* <Menu /> */}
+            <Navbar icon='menu' />
+
             <div className="title">
-            <h1 className="bold">English</h1>
-            <h1>with</h1>
-            <h1 className="bold">Alexa</h1>
+                <h1>English</h1>
+                <p>with</p>
+                <h1>Alexa</h1>
             </div>
+
             <div className="buttons">
-                <Link to="/stock-quiz" className="link">
-                <div className="blue btn">Questionnaires</div>
+                <Link to="/stock-quiz">
+                    <div className="blue">Questionnaires</div>
                 </Link>
-                <Link to="/student-list" className="link">
-                <div className="pink btn">Students</div>
+
+                <Link to="/student-list">
+                    <div className="pink">Students</div>
                 </Link>
-                <Link to="/question" className="link">
-                <div className="blue btn">Question</div>
+
+                <Link to="/question">
+                    <div className="blue">Question</div>
                 </Link>
             </div>
 
         </div>
     )
 }
-
-export default OpeningPage;

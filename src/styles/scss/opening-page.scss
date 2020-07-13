@@ -1,62 +1,41 @@
-.opening-page{
-    height: 100vh;
-    width:100vw;
-    background-color: rgba(233, 233, 234, 1);
-    display: flex;
-    flex-direction: column;
+@import '../mixin.scss';
 
-    .MuiSvgIcon-root{
-        align-self: flex-end;
-        font-size: 3rem;
-        color: rgba(27, 37, 128, 1);
-        font-weight: bold;
-        margin: 2vh 0vh 0vh 2vh;
-    }
+.opening-page{
+    @include page();
 
     .title{
-        margin-top: 10vh;
+        margin-top: 3rem;
+
+        &>*{
+            color: rgba(19, 27, 103, 1);
+            font-size: 3.7rem;
+            text-align: center;
+            line-height: 95%;
+        }
         
-            h1{
-                color: rgba(19, 27, 103, 1);
-                font-size: 3.7rem;
-                text-align: center;
-            }
+        p{font-weight: 100;}
+        h1{font-weight: bolder;}
     }
 
     .buttons{
         align-self: center;
-        margin-top: 6vh;
         display: flex;
         flex-direction: column;
-
-        .btn{
-            width: 55vw;
-            height: 7vh;
-            border-radius: 25px;
-            padding: 1.5vh 4vh 2vh 1vh;
-            font-size: 1.5rem;
-            color: rgba(255, 255, 255, 1);
-            font-weight: 400;
-            margin-top: 4vh;
-            align-self: center;
-            direction: ltr;
-            text-align: center;
+        margin-top:1rem;
+       
+        a{
+            text-decoration: none;
+            margin-top:1.7rem;
+            
+            div{padding:0.4rem 2.2rem;}
         }
 
         .blue{
-            background-color: rgba(17, 171, 185, 1);            
+            @include btn(false);
         }
-
         .pink{
-            background-color: rgba(166, 34, 92, 1);
+            @include btn();
         }
     }
 }
 
-.bold{
-    font-weight: bold;
-}
-
-.link{
-    text-decoration: none;
-}

@@ -5,6 +5,7 @@ const mysql = require('mysql2');
 const sDB = require('../models');
 const env = process.env.NODE_ENV || 'development';
 const configSqlz = require('../config/config.json')[env];
+const { exec } = require("child_process");
 
 const port = normalizePort(process.env.SVR_PORT || '8080');
 app.set('port', port);
@@ -34,7 +35,7 @@ con.connect((err) => {
       .sequelize
       .query('SET FOREIGN_KEY_CHECKS = 0', { raw: true })
       .then((res) => {
-        sDB.sequelize.sync({ force: true }).then(() => {
+        sDB.sequelize.sync().then(() => {
           server.listen(port, function () {
             debug('Express server listening on port ' + server.address().port);
           });
@@ -45,7 +46,6 @@ con.connect((err) => {
       })
   })
 })
-
 
 /**
  * Normalize a port into a number, string, or false.
