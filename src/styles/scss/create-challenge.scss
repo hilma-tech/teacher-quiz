@@ -4,6 +4,8 @@
 
         .top-bar{
             margin-top: 2vh;
+            display: flex;
+            flex-direction: row-reverse;
             
             .MuiSvgIcon-root{
                 font-size: 3rem;

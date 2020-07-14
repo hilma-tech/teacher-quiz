@@ -85,16 +85,17 @@
                 top: -1vh;
                 left: -3vw;
                 right: -2vw;
+                z-index: -1;
             }
 
             .icons{
                 position: absolute;
                 z-index: 1;
                 top: 22vh;
-                right: 9vh;
+                left: 12vw;
 
                 .second-icon{
-                    margin-right: 4vh;
+                    margin-right: 3vh;
                 } 
             }
         }
@@ -104,7 +105,7 @@
             .background{
                 width: 106vw;
                 position: absolute;
-                top: -1vh;
+                top: 2.5vh;
                 left: -3vw;
                 right: -2vw;
             }
@@ -113,10 +114,10 @@
                 position: absolute;
                 z-index: -1;
                 top: 22vh;
-                right: 9vh;
+                left: 12vw;
 
                 .second-icon{
-                    margin-right: 4vh;
+                    margin-right: 3vh;
                 }
             }
         }

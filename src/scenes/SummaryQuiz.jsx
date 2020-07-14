@@ -200,10 +200,6 @@ export class StudentList extends Component {
                 {this.state.students.map((student) => {
                     return (
                         <div className="student-card">
-                            <img
-                                className="profile-img"
-                                src={student.image || DefaultImage}>
-                            </img>
                             <div className="name">{student.name}</div>
                             <div className="score">
                                 {student.score}
