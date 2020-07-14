@@ -3,7 +3,7 @@
     "publishingInformation": {
       "locales": {
         "en-US": {
-          "name": "teacher-quiz",
+          "name": "teacher-quiz-new",
           "summary": "Sample Short Description",
           "description": "Sample Full Description",
           "examplePhrases": [
@@ -22,7 +22,7 @@
     "apis": {
       "custom": {
         "endpoint": {
-          "uri": "https://38f2f32f7916.ngrok.io",
+          "uri": "https://3451d8ce2e3d.ngrok.io",
           "sslCertificateType": "Wildcard"
         }
       }

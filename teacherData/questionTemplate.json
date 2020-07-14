@@ -1,6 +1,6 @@
 [
     {
-        "name": "preferences",
+        "name": "lala",
         "questions": {
             "1": {
                 "qText": "what is your name?",
@@ -20,7 +20,7 @@
         }
     },
     {
-        "name": "english words",
+        "name": "bla",
         "questions": {
             "1": {
                 "qText": "what is the translation of apple in english?",

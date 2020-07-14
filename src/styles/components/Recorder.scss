@@ -1,4 +1,4 @@
-@import '../scss/varibales.scss';
+@import '../varibales.scss';
 
 
 .recorder{
@@ -9,7 +9,7 @@
         box-shadow:none;
         margin:0.7rem auto 0 auto;
         .MuiButtonBase-root.MuiButton-root {
-            color:$darkest-blue;
+            color:$dBlue;
             background-color: $turquoise;
         }
 

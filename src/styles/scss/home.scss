@@ -1,6 +1,6 @@
 $blue: rgb(113, 206, 240);
 
-@import 'varibales';
+@import '../varibales.scss';
 
 .home{
     background-color: $light-gray;
@@ -48,7 +48,7 @@ $blue: rgb(113, 206, 240);
         $fontSize:1.3rem;
 
         // background-color: $turquoise;
-        border:1px solid $darkest-blue;
+        border:1px solid $blue;
         width: 100%;
         display: flex;
         border-radius: 5px;

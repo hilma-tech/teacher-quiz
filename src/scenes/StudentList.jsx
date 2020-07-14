@@ -1,28 +1,8 @@
 import React, { Component } from 'react';
 import '../styles/scss/student-list.scss';
-import { Link } from 'react-router-dom';
-import { Menu, Search, Star, Add } from '@material-ui/icons';
-import DefaultImage from '../images/default-profile.png';
-import DropDownArrow from '../images/chevron.svg';
+import { Navbar, ListUnit, PlusBtn } from '../components/PageTools';
 
-
-// const studentCard = ({ student }) => {
-//     return (
-//         <div className="student-card">
-//             <img
-//                 className="profile-img"
-//                 src={student.image ? student.image : DefaultImage}>
-//             </img>
-//             <div>{student.name}</div>
-//             <div>
-//                 <Star />
-//                 {student.score}
-//             </div>
-//         </div>
-//     )
-// }
-
-class StudentList extends Component {
+export default class StudentList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -39,38 +19,27 @@ class StudentList extends Component {
     }
 
     render() {
+        const { students } = this.state;
+
         return (
             <div className="student-list">
-                <div className="top-bar">
-                    <Menu />
-                </div>
+                <Navbar icon='menu' />
+
                 <h1>Students</h1>
-                <div className="list">
-                {this.state.students.map((student) => {
-                    return (
-                        <Link to="student-info" className="link">
-                        <div className="student-card">
-                            <div className="name">{student.name}</div>
-                            <div className="score">
-                                <Star />
-                                {student.score}
-                            </div>
-                        </div>
-                        </Link>
-                    )
-                })}
-                </div>
-                <div className="plus-btn">
-                    <div className="plus-sign">
-                        <Link to="add-new-student">
-                            <Add />
-                        </Link>
-                    </div>
-                </div>
+
+                    {students.map(({ name, score }) =>
+                        <ListUnit
+                            mode={2}
+                            info={{
+                                title: name,
+                                numInfo: score
+                            }}
+                        />
+                    )}
+
+                <PlusBtn />
             </div>
         )
 
     }
 }
-
-export default StudentList;

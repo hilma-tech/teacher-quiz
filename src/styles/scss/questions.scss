@@ -1,4 +1,4 @@
-@import 'varibales.scss';
+@import '../varibales.scss';
 
 
 .questions{
@@ -24,7 +24,7 @@
             width:20vw;
             margin:0 auto;
             .quest-unit{
-                border:1px solid $darkest-blue;
+                border:1px solid $dBlue;
                 height: 2.5rem;
                 border-radius: 5px;
                 display: flex;
@@ -55,7 +55,7 @@
 
         .MuiButton-root.publish-btn{
             // margin-top:auto;
-            background-color: $dark-blue;
+            background-color: $dBlue;
             // display: inline-block;
             margin:auto auto 0 auto;
             width:10rem;

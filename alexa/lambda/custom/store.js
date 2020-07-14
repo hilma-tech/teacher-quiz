@@ -1,60 +1,63 @@
+const challengesArr = require('../../../teacherData/questionTemplate.json');
 
-let dbReceivedData = (function () {
-    let instance;
+const yesNo = [
+    { name: { value: "yes", synonyms: ["yep", "yeah"] } },
+    { name: { value: "no", synonyms: ["nope", "I do not", "no thank you"] } }
+]
 
-    function init() {
+class Store {
 
-        let challenges = [], currChall, currChallQ;
-        let completeChallenges = []
-        let availableChallenges = []
-        let answers = {}
+    challenges = [];
+    currChall = {};
+    compChalls = [];
+    availChalls = [];
+    answers = {};
+    lastQ = false;
 
-        // Public methods and variables (the init function return)
-        return {
-            get challenges() { return challenges; },
-            get currChall() { return currChall; },
-            get currChallQ() { return currChallQ; },
-            get completeChallenges() { return completeChallenges; },
-            get answers() { return answers; },
-            get aChall() { return availableChallenges; },
+    get lastQ() { return lastQ; }
+    set lastQ(lastQ) { lastQ = lastQ; }
 
-            setChallenges(challengesArr) {
-                challenges = [...challengesArr];
-                availableChallenges = [...challengesArr];
-            },
+    getChallenges() {
+        this.challenges = [...challengesArr];
+        this.availChalls = [...challengesArr];
+    }
 
-            setCurrChall(challengeId = undefined) {
-                if (challengeId) currChall = { ...challenges[challengeId], challengeId };
-                else currChall = availableChallenges[0];
-            },
+    setCurrChall(challengeId = undefined) {
+        if (challengeId) this.currChall = { ...this.challenges[challengeId], challengeId };
+        else this.currChall = this.availChalls[0];
+    }
 
-            setCompleteChallenges() {
-                const { challengeId: id, name } = currChall;
-                completeChallenges.push(challenges[id]);
-                availableChallenges = availableChallenges.filter(chall => chall.name !== name);
-                currChall = undefined;
-            },
-
-            setAnswers(qIndex, answer, score) {
-                answers[qIndex] = { answer, score };
-            }
-
-        };
-    };
-
-    return {
-        getInstance: function () {
-
-            if (!instance) {
-                instance = init();
-            }
-            return instance;
-        }
-    };
-})();
+    addCompChall() {
+        const { challengeId: id, name } = this.currChall;
+        this.compChalls.push(this.challenges[id]);
+        this.availChalls = this.availChalls.filter(chall => chall.name !== name);
+        this.currChall = undefined;
+    }
 
 
-module.exports = dbReceivedData;
+    setAnswers(qIndex, answer, score) {
+        this.answers[qIndex] = { answer, score };
+    }
+
+    getChallAsSlotVal() {
+        const slotValues = this.challenges
+            .map(({ name }, id) => ({ id, name: { value: name } }));
+        return [...slotValues, ...yesNo];
+    }
+
+
+}
+
+
+
+getInstance = () => {
+    let ins;
+    if (!ins) ins = new Store();
+    return ins;
+}
+
+
+module.exports = getInstance();
 
 
 

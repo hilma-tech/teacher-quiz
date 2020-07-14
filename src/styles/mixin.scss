@@ -1,0 +1,26 @@
+// $pink:#A6225C;
+// $turquoise:#11ABB9;
+// $light-gray:#E9E9EA;
+
+@import 'varibales';
+
+@mixin btn($pinkColor:true){
+    border-radius: 25px;
+    font-size: 1.7rem;
+    color: rgba(255, 255, 255, 1);
+    font-weight: 600;
+    // margin-top: 4vh;
+    text-align: center;
+    box-shadow: 0  2.25px 4.50px #00000029;
+
+    @if $pinkColor {background-color:$pink;}
+    @else {background-color:$turquoise;}
+}
+
+@mixin page(){
+    height: 100vh;
+    width: 100vw;
+    background-color: $light-gray;
+    display: flex;
+    flex-direction: column;
+}

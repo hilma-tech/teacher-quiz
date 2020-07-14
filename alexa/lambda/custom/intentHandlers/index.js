@@ -2,22 +2,22 @@ const LaunchRequestHandler = require('./LaunchRequestHandler');
 const HelpIntentHandler = require('./HelpIntentHandler');
 const CancelAndStopIntentHandler = require('./CancelAndStopIntentHandler');
 const FallbackIntentHandler = require('./FallbackIntentHandler');
-const SessionEndedRequestHandler = require('./SessionEndedRequestHandler');
 const IntentReflectorHandler = require('./IntentReflectorHandler');
+const SessionEndedRequestHandler = require('./SessionEndedRequestHandler');
 const ErrorHandler = require('./ErrorHandler');
-const AIHandlars = require('./ChallengeIntentHandlars/ChallHandlerIndex.js');
-
-
+const AIHandlars = require('./ChallengeIntentHandlars/index.js');
+const HelloWorldIntentHandler = require('./HelloWorldIntent');
 
 module.exports = {
     intentHandlers: [
         LaunchRequestHandler,
         HelpIntentHandler,
+        HelloWorldIntentHandler,
         ...AIHandlars,
         CancelAndStopIntentHandler,
         FallbackIntentHandler,
-        SessionEndedRequestHandler,
-        IntentReflectorHandler
+        IntentReflectorHandler,
+        SessionEndedRequestHandler
     ],
     errorHandler: ErrorHandler
 }
