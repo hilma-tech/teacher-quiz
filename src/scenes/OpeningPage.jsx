@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../styles/scss/opening-page.scss';
 import { Link } from 'react-router-dom';
 import { Navbar } from '../components/PageTools';
-
+import superFetch from '../superFetch';
 
 export default function OpeningPage() {
+    useEffect(() => {
+        (async () => {
+            const [res, err] = await superFetch('/challenges/hello');
+            console.log('res: ', res);
+        })()
+    }, [])
+
+
     return (
         <div className="opening-page">
             {/* <Menu /> */}
-            <Navbar icon='menu' />
+            <Navbar mode={1} />
 
             <div className="title">
                 <h1>English</h1>
@@ -17,7 +25,7 @@ export default function OpeningPage() {
             </div>
 
             <div className="buttons">
-                <Link to="/stock-quiz">
+                <Link to="/list-of-quiz">
                     <div className="blue">Questionnaires</div>
                 </Link>
 

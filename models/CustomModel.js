@@ -73,8 +73,22 @@ class CustomModel extends Model {
                     const rPath = path.replace(/[{()}]/g, '');
 
                     app[op](rPath, async (req, res, next) => {
-                        const result = this[method](req);
-                        res.send(result);
+                        try {
+                            const result = this[method](req);
+                            return res.json({
+                                json: result,
+                                statusCode: 200,
+                                ok: true,
+                                method: req.method
+                            })
+                        }
+                        catch (err) {
+                            return res.json({
+                                statusCode: 400,
+                                method: req.method,
+                                massage: err
+                            })
+                        }
                     });
                 } else { console.log('route already exist') }
 

@@ -7,10 +7,10 @@ import Home from './scenes/Home';
 import AnswersAndRecords from './scenes/Answers';
 import OpeningPage from './scenes/OpeningPage';
 import StudentList from './scenes/StudentList';
-import StockQuiz from './scenes/StockQuiz';
+import ListStockQuizs from './scenes/ListStockQuizs';
 import StudentQuizInfo from './scenes/StudentQuizInfo';
 import StudentInfo from './scenes/StudentInfo';
-import SummaryQuiz from './scenes/SummaryQuiz';
+import QuizInfo from './scenes/QuizInfo';
 import CreateChallenge from './scenes/CreateChallenge';
 import AddNewStudent from './scenes/AddNewStudent';
 import Question from './scenes/Question';
@@ -18,7 +18,7 @@ import Questionnaire from './scenes/Questionnaire';
 
 
 
-function App() {
+export default function App() {
   return (
     <div className="App">
       <Router>
@@ -26,10 +26,10 @@ function App() {
           <Route exact path='/' component={OpeningPage} />
           <Route exact path='/home' component={Home} />
           <Route exact path='/student-list' component={StudentList} />
-          <Route exact path='/stock-quiz' component={StockQuiz} />
+          <Route exact path='/list-of-quiz' component={ListStockQuizs} />
           <Route exact path='/student-quiz-info' component={StudentQuizInfo} />
           <Route exact path='/student-info' component={StudentInfo} />
-          <Route exact path='/summary-quiz' component={SummaryQuiz} />
+          <Route exact path='/quiz-info' component={QuizInfo} />
           <Route exact path='/create-challenge' component={CreateChallenge} />
           <Route exact path='/add-new-student' component={AddNewStudent} />
           <Route exact path='/question' component={Question} />
@@ -43,5 +43,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
