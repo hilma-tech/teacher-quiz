@@ -74,7 +74,16 @@ class CustomModel extends Model {
 
                     app[op](rPath, async (req, res, next) => {
                         const result = this[method](req);
-                        res.send(result);
+                        // if (!res.headers) res.headers = {};
+                        // res.headers = {
+                        //     ...res.headers,
+                        //     'Content-Type': 'application/json',
+                        //     'origin': 'http://localhost:8080',
+                        //     'Access-Control-Allow-Origin': '*',
+                        //     "Access-Control-Allow-Credentials": true
+                        // }
+                        // console.log('res: ', res.headers);
+                        res.send(JSON.stringify({ result }));
                     });
                 } else { console.log('route already exist') }
 

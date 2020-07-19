@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/scss/questionnaire.scss';
+import { inject, observer } from 'mobx-react';
 import { ArrowBack, Clear } from '@material-ui/icons';
 import Text from '../images/Group 459.svg';
 import Mic from '../images/Group 582.svg';
@@ -11,12 +12,22 @@ class Questionnaire extends Component {
         this.state = {
             serialNum: 1353468,
             questions: [
-                {quest:'', answers:[{ans:''}, {ans:''}, {ans:''}]}
+                { quest: '', answers: [{ ans: '' }, { ans: '' }, { ans: '' }] }
             ],
             records: [
-                {record: '', answers:[{ans: ''}]}
+                { record: '', answers: [{ ans: '' }] }
             ]
         }
+    }
+
+
+    componentDidMount() {
+        (async () => {
+
+            const lala = await this.props.QuestionnairesStore;
+            console.log('store here', lala);
+        })()
+
     }
 
     addQuestion = () => {
@@ -24,21 +35,21 @@ class Questionnaire extends Component {
     }
 
     addAnswer = (index, e) => {
-        let {questions} = this.state
-        questions[index].answers.push({ans: ''})
-        this.setState({questions});
+        let { questions } = this.state
+        questions[index].answers.push({ ans: '' })
+        this.setState({ questions });
     }
 
     addQuestSection = (e) => {
         console.log("event occurred", e.target);
-        let {type} = e.target
-        let {questions} = this.state
+        let { type } = e.target
+        let { questions } = this.state
 
-        if(type==="record"){
-            questions.push({quest:'', answers:[{ans:''}]})
+        if (type === "record") {
+            questions.push({ quest: '', answers: [{ ans: '' }] })
         }
 
-        else{
+        else {
 
         }
     }
@@ -64,8 +75,7 @@ class Questionnaire extends Component {
     }
 }
 
-export default Questionnaire;
-
+export default inject('QuestionnairesStore')(observer(Questionnaire));
 
 
 export function Choose({
@@ -99,3 +109,4 @@ export function QuestionCard({
         </div>
     )
 }
+

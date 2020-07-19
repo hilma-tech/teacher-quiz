@@ -25,12 +25,37 @@ models
     }
   });
 
-app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:8080'
+}
+// app.use(function (req, res, next) {
+//   console.log('hereee')
+//   res.setHeader('Content-Type', 'application/json');
+//   res.setHeader('origin', 'http://localhost:8080');
+//   console.log('res: ', res);
+//   next()
+// })
+// app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+// app.all('*', (req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, PATCH, OPTIONS');
+//   res.header('Access-Control-Allow-Headers', '*');
+//   res.header('Access-Control-Allow-Credentials', true);
+//   next();
+// });
 
 
 // require('./routes')(app);
