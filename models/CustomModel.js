@@ -73,6 +73,7 @@ class CustomModel extends Model {
                     const rPath = path.replace(/[{()}]/g, '');
 
                     app[op](rPath, async (req, res, next) => {
+<<<<<<< HEAD
                         const result = this[method](req);
                         // if (!res.headers) res.headers = {};
                         // res.headers = {
@@ -84,6 +85,24 @@ class CustomModel extends Model {
                         // }
                         // console.log('res: ', res.headers);
                         res.send(JSON.stringify({ result }));
+=======
+                        try {
+                            const result = this[method](req);
+                            return res.json({
+                                json: result,
+                                statusCode: 200,
+                                ok: true,
+                                method: req.method
+                            })
+                        }
+                        catch (err) {
+                            return res.json({
+                                statusCode: 400,
+                                method: req.method,
+                                massage: err
+                            })
+                        }
+>>>>>>> 5948a47a94306478885b6466d9a5850764790ee0
                     });
                 } else { console.log('route already exist') }
 

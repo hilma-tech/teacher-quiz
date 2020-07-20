@@ -1,5 +1,7 @@
 import { ShoppingCartSharp } from "@material-ui/icons";
 
+export default function superFetch(url, payload) {
+    url = `http://localhost:8080${url}`;
 
 var fetch = require("fetch").fetchUrl;
 
@@ -25,15 +27,13 @@ function superFetch(url, payload = {}) {
     return new Promise((resolve, reject) => {
         console.log('--------0', fPromise)
         fPromise
-            .then(p => {
-                console.log('------------1')
-                let lala = p.parseJSON
-                // console.log('lala: ', lala);
+            .then((res) => {
+                let lala = res.json()
+                console.log('lala: ', lala);
                 return lala;
-
-            }) // this trys to parse- get origin error when you have one.
+            })// this trys to parse- get origin error when you have one.
             .then((response) => {
-                console.log('----3', response)
+                console.log('response: ', response);
                 if (response.ok) {
                     console.log('hereee')
                     return resolve([response.json, null]);
@@ -45,12 +45,6 @@ function superFetch(url, payload = {}) {
     });
 }
 
-export default async function superAuthFetch(url, payload = null, redirOnFailure = false) {
-    let [res, err] = await superFetch(url, payload);
-    if (err && err.error && err.error.statusCode === 401 && redirOnFailure === true) {
-        console.log('error');
-    }
-    return [res, err];
 
 
 }

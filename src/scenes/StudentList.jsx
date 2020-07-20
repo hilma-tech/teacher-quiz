@@ -23,10 +23,11 @@ export default class StudentList extends Component {
 
         return (
             <div className="student-list">
-                <Navbar icon='menu' />
+                <Navbar mode={1} />
 
                 <h1>Students</h1>
 
+                <div className='students-container'>
                     {students.map(({ name, score }) =>
                         <ListUnit
                             mode={2}
@@ -36,6 +37,7 @@ export default class StudentList extends Component {
                             }}
                         />
                     )}
+                </div>
 
                 <PlusBtn />
             </div>

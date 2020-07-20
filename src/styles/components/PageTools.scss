@@ -1,8 +1,19 @@
 @import '../varibales.scss';
 
+@mixin whiteUnits($py){
+    margin: 1rem auto 0 auto;
+    padding:$py 0;
+    width:20rem;
+   background-color: $white;
+   border-radius: 5px;
+   box-shadow: $shadow-box;
+}
+
 .pageTools_navbar{
     width:100%;
-    height: 3rem;
+    height: 3.5rem;
+    display: flex;
+    flex-direction: row;
 
     .MuiSvgIcon-root{
         display:block;
@@ -10,22 +21,28 @@
         font-size: 3rem;
         color: rgba(27, 37, 128, 1);
         font-weight: bold;
-        height: 2.3rem;
-        width: 2.3rem;
+        height: 2.4rem;
+        width: 2.4rem;
         margin: 0.7rem auto 0 0.7rem;
+    }
+
+    .right{
+        margin:0 1rem 0.3rem auto;
+        display: flex;
+
+        .MuiSvgIcon-root{
+            color:$pink;
+            margin:0 0.6rem;
+            width:1.5rem;
+            height: 1.5rem;
+        }
     }
 }
 
 .pageTools_listUnit{
-    margin: 1rem auto 0 auto;
+    @include whiteUnits(0.8rem);
     display: flex;
-    flex-direction: row;
-    padding:0.8rem 0;
-    width:20rem;
-    background-color: white;
     justify-content: space-between;
-    border-radius: 6px;
-    box-shadow: $shadow-box;
     align-items: flex-end;
 
     .numInfo{
@@ -82,4 +99,56 @@ a.pageTools_plusBtn{
         margin:auto;
         display: block;
     }
+}
+
+
+.pageTools_questUnit{
+    @include whiteUnits(0.6rem);
+    min-height: 9rem;
+    padding:0.6rem 1rem;
+    
+        .MuiSvgIcon-root{
+            color: $pink;
+            margin-left:auto;
+            display: block;
+        }
+    
+        p{
+            color: $turquoise;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+    
+        textarea{
+            background-color: transparent;
+            width: 80vw;
+            margin:0.3rem auto 0.9rem auto;
+            display: block;
+            font-size: 1rem;
+            font-weight: bold;
+            padding:0.5rem 1em;
+            min-height: 2rem;
+            color: $dBlue;
+            border:solid 0.75px rgba($color:$turquoise, $alpha: 0.3);
+            border-radius:18px;
+
+            &::placeholder{font-weight: normal;}
+        }
+
+        .speaker{
+            background-color: $pink;
+            border-radius: 50%;
+            width:1.4rem;
+            height: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            bottom:2.8rem;
+            left:15.5rem;
+        }
+
+        &:last-child{
+            margin-bottom:2rem ;
+        }
 }
