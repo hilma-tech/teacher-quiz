@@ -1,21 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/components/PageTools.scss';
-import { Menu, ArrowBack, Clear, Add, Star } from '@material-ui/icons';
-import Conversation from '../images/conversation-blue.svg';
+import { TextareaAutosize } from '@material-ui/core';
+import { Menu, ArrowBack, Clear, Add, Star, Delete, Edit, MoreHoriz } from '@material-ui/icons';
 
 
-export const Navbar = ({ icon }) => {
-    const dIcon = (() => {
-        switch (icon) {
-            case 'menu': return <Menu />;
-            case 'x': return <Clear />;
-            case 'back': return <ArrowBack />;
+export const Navbar = ({ mode }) => {
+    const icon = (() => {
+        //1-menu 2-back 3-clear 4-clear with icons
+        switch (mode) {
+            case 1: return <Menu />;
+            case 2: return <ArrowBack />;
+            case 3: return <Clear />
+            case 4: return (
+                <React.Fragment>
+                    <Clear />
+                    <div className='right'>
+                        <Edit />
+                        <Delete />
+                    </div>
+                </React.Fragment>
+            );
             default: console.log('icon wasnt found'); return;
         }
     })()
 
-    return (<div className='pageTools_navbar'>{dIcon}</div>);
+    const style = mode === 4 ? { zIndex: 5, position: 'absolute' } : {};
+
+    return (
+        <div className='pageTools_navbar' style={style}>
+            {icon}
+        </div>);
 }
 
 
@@ -26,7 +41,7 @@ export const ListUnit = ({
 }) => {
     const niIcon = (() => {
         switch (mode) {
-            case 1: return <img src={Conversation} />
+            case 1: return <img src='images/conversation-blue.svg' />
             case 2: return <Star />
             default: return;
         }
@@ -55,4 +70,48 @@ export const PlusBtn = ({ redirect }) => {
             <Add />
         </Link>
     );
+}
+
+
+export const QuestUnit = ({
+    mode = true,//true- watch, false- edit
+    quest: { qVal, setQuests },
+    // ans: { ansArr, setAns }
+}) => {
+
+
+    const Speaker = () => (
+        <div className='speaker'>
+            <img src='/images/speaker.svg' />
+        </div>
+    );
+
+    return (
+        <div className="pageTools_questUnit">
+            <MoreHoriz />
+            <p>Question</p>
+            <TextareaAutosize
+                rowsMin={1}
+                // onChange={setQuests}
+                value={qVal}
+                placeholder="Please specify your question"
+                disabled={mode}
+                readOnly={mode} />
+            {/* <Speaker /> */}
+            <p>Answer</p>
+            {/* 
+            {ansArr &&
+                ansArr.map((ans, i) => (
+                    <div className="answer special-color">
+                        <input
+                            key={i}
+                            value={ans}
+                            onChange={setAns}
+                        >
+                        </input>
+                    </div>
+                ))} */}
+        </div>
+
+    )
 }
