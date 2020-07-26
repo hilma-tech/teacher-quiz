@@ -7,7 +7,6 @@ import superFetch from '../superFetch';
 export default function OpeningPage() {
     useEffect(() => {
         (async () => {
-            console.log('you are here', await superFetch('/challenges/hello'));
             const [res, err] = await superFetch('/challenges/hello');
             console.log('res: ', res);
         })()

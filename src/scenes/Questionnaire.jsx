@@ -40,9 +40,7 @@ class Questionnaire extends Component {
         this.setState({ questions });
     }
 
-    addQuestSection = (e) => {
-        console.log("event occurred", e.target);
-        let { type } = e.target
+    addQuestSection = ({target:{type}}) => {
         let { questions } = this.state
 
         if (type === "record") {
@@ -55,7 +53,8 @@ class Questionnaire extends Component {
     }
 
     render() {
-        let { state: { serialNum } } = this
+        const {serialNum } = this.state;
+        
         return (
             <div className="questionnaire">
                 <div className="top-bar">
