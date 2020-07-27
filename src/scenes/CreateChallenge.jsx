@@ -147,17 +147,3 @@ export default class CreateChallenge extends Component {
     }
 }
 
-
-
-// const questionCard = ()=>{
-//     return(
-//         <div className="quest-card">
-//             <DeleteIcon />
-//             <p>שאלה</p>
-//             <input onChange={}></input>
-//             <p>תשובה</p>
-//             <input onChange={}></input>
-//             <div onClick={}>הוסף תשובה +</div>
-//         </div>
-//     )
-// }

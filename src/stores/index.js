@@ -1,7 +1,4 @@
 import QuestionnairesStore from './QuestionnairesStore';
-// import TChallengeStore from './tchallenge.store';
-// import TopicStore from './topic.store';
-// import MovieStore from './movie.store';
-// import UsersStore from './users.store'
+import StudentsStore from './StudentsStore';
 
-export default {QuestionnairesStore}
+export default { QuestionnairesStore, StudentsStore }

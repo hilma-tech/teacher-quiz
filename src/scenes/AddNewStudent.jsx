@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/scss/add-new-student.scss';
+import { inject, observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import { Menu, Search, Star, Share, Clear } from '@material-ui/icons';
 import Social from '../images/social.svg';
@@ -30,7 +31,6 @@ class AddNewStudent extends Component {
 
     render() {
         let details = this.state.details
-        
         return (
             <div className="add-new-student">
                 <div className="top-bar">
@@ -63,7 +63,10 @@ class AddNewStudent extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="save-btn">
+                <div 
+                className="save-btn"
+                onClick={this.props.StudentsStore.addNewStudent}
+                >
                     Save
                 </div>
             </div>
@@ -72,4 +75,5 @@ class AddNewStudent extends Component {
     }
 }
 
-export default AddNewStudent;
+
+export default inject('StudentsStore')(observer(AddNewStudent));
