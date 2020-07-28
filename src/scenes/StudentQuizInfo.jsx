@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../styles/scss/student-quiz-info.scss';
 import { Link } from 'react-router-dom';
 import { Close, HighlightOff, CheckCircleOutline, RemoveCircleOutline, PlayCircleOutline } from '@material-ui/icons';
+import { Navbar} from '../components/PageTools';
 
 class StudentQuizInfo extends Component {
     constructor(props) {
@@ -19,9 +20,7 @@ class StudentQuizInfo extends Component {
     render() {
         return (
             <div className="student-quiz-info">
-                <div className="top-bar">
-                    <Close />
-                </div>
+                <Navbar mode={3}/>
                 <h1> Capital City</h1>
                 <div className="summary">
                     <h1>Or Cohen</h1>

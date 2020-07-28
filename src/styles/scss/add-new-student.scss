@@ -1,23 +1,14 @@
+@import '../varibales.scss';
+
 .add-new-student{
     margin-right: 7vw;
     margin-left: 7vw;
     display: flex;
     flex-direction: column;
 
-    .top-bar{
-        margin-top: 2vh;
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: space-between;
-
-        .MuiSvgIcon-root{
-            font-size: 3rem;
-        }
-    }
-
         h1{
             direction: ltr;
-            color: rgba(19, 27, 103, 1);
+            color: $dBlue;
         }
     }
 
@@ -25,16 +16,14 @@
         margin-top: 4vh;
         padding: 2vh;
         align-self: center;
-        background-color: white;
+        background-color: $white;
         width: 85vw;
         height: 35vh; 
         border-radius: 5px;
-        box-shadow: 0 0.3vh 1vh 0vh rgba(0, 0, 0, 0.16), 0 0.3vh 1vh 0vh rgba(0, 0, 0, 0.16);
-    
-    
+        box-shadow: $shadow-box;
 
         p{
-          color: rgba(17, 171, 185, 1);
+          color: $turquoise;
           font-weight: bold;
           font-size: 1rem;
           margin-top: 2vh;
@@ -43,7 +32,7 @@
         }
 
         input{
-            border: 1px solid  rgba(17, 171, 185, 1);
+            border: 1px solid $turquoise;
             border-radius: 25px;
             width: 80vw;
             height: 5vh;
@@ -51,7 +40,7 @@
             background-color: transparent;
             align-self: center;
             padding: 1.5vh;
-            color: rgba(19, 27, 103, 1);
+            color: $dBlue;
             direction: ltr;
             font-size: 1rem;
         }
@@ -65,7 +54,7 @@
             .code-input{
                 display: flex;
                 flex-direction: row;
-                border: 1px solid  rgba(17, 171, 185, 1);
+                border: 1px solid  $turquoise;
                 border-radius: 25px;
                 width: 80vw;
                 height: 5vh;
@@ -77,14 +66,14 @@
                     border: none;
                     background-color: transparent;
                     padding: 1vh;
-                    color: rgba(19, 27, 103, 1);
+                    color: $dBlue;
                     direction: ltr;
                     font-weight: bold;
                     font-size: 1rem;
                 }
                 
                 .MuiSvgIcon-root{
-                    color: rgba(166, 34, 92, 1); 
+                    color: $pink; 
                     align-self: center;
                 }
             }
@@ -96,10 +85,10 @@
         justify-content: center;
         position: fixed;
         top: 90vh;
-        border: 1px solid rgba(166, 34, 92, 1);
+        border: 1px solid $pink;
         border-radius: 25px;
-        background-color: rgba(166, 34, 92, 1);
-        color: white;
+        background-color: $pink;
+        color: $white;
         padding: 1.5vh;
         font-weight: bold;
         font-size: 1.3rem;

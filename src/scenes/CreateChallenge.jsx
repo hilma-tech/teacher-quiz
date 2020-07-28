@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import '../styles/scss/create-challenge.scss';
 import { Link } from 'react-router-dom';
 import {ArrowBack, Delete, Clear} from '@material-ui/icons';
+import { Navbar} from '../components/PageTools';
+
 
 
 export default class CreateChallenge extends Component {
@@ -77,9 +79,7 @@ export default class CreateChallenge extends Component {
         let {serialNum, questions} = this.state
         return (
             <div className="create-challenge">
-                <div className="top-bar">
-                    <ArrowBack />
-                </div>
+               <Navbar mode={2}/>
                 <h1>Questionnaire name</h1>
                 <hr />
                 <p>Serial Number: {serialNum}</p>

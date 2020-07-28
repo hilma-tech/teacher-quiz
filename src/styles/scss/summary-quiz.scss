@@ -1,3 +1,5 @@
+@import '../varibales.scss';
+
 .summary-quiz{
     
     .top-section{
@@ -18,7 +20,7 @@
 
                 .MuiSvgIcon-root{
                     font-size: 1.5rem;
-                    color: rgba(166, 34, 92, 1);
+                    color: $pink;
                     margin-left: 1vh;
             }
             }
@@ -26,7 +28,7 @@
             .MuiSvgIcon-root{
                 font-size: 2.5rem;
                 margin-right: 2vh;
-                color: rgba(19, 27, 103, 1);
+                color: $dBlue;
             }
         }
 
@@ -59,7 +61,7 @@
                 justify-content: space-around;
                 
                 p{
-                  color: rgba(19, 27, 103, 1);
+                  color: $dBlue;
                   font-size: 1rem;
                   font-weight: 500;
                 }
@@ -69,7 +71,7 @@
                     flex-direction: row; 
         
                     p{  
-                      color: rgba(17, 171, 185, 1);
+                      color: $turquoise;
                       font-weight: bold;
                       align-self: center;
                     }

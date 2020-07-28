@@ -1,3 +1,5 @@
+@import '../varibales.scss';
+
 .student-info{
     margin-left: 7vw;
     margin-right: 7vw;
@@ -8,7 +10,7 @@
 
         .MuiSvgIcon-root{
             font-size: 2.5rem;
-            color: rgba(19, 27, 103, 1);
+            color: $dBlue;
         }
     }
 
@@ -17,24 +19,24 @@
             margin-top: 3vh;
             direction: ltr;
             font-weight: bold;
-            color: rgba(19, 27, 103, 1);
+            color: $dBlue;
         }
 
         .total-score{
             display: flex;
             flex-direction: row;
             direction: ltr;
-            color: rgba(17, 171, 185, 1);
+            color: $turquoise;
             margin-top: 2vh;
 
             .MuiSvgIcon-root{
-                 color: rgba(17, 171, 185, 1);
+                 color: $turquoise;
             }
 
             div{
                 font-size: 1.3rem;
                 align-self: center;
-                color: rgba(17, 171, 185, 1);
+                color: $turquoise;
                 padding-right: 0.5vh;
             }
         }
@@ -42,7 +44,7 @@
     }
 
     .challenge-unit{
-        background-color: white;
+        background-color: $white;
         margin-top: 2vh;
         display: flex;
         flex-direction: row-reverse;
@@ -50,27 +52,27 @@
         padding: 2vh;
         height: 11vh;
         border-radius: 5px;
-        box-shadow: 0 0.3vh 1vh 0vh rgba(0, 0, 0, 0.16), 0 0.3vh 1vh 0vh rgba(0, 0, 0, 0.16);
+        box-shadow: $shadow-box;
 
         .left-side{
             display: flex;
             flex-direction: column;
             
             .unit-name{
-                color: rgba(19, 27, 103, 1);
+                color: $dBlue;
                 align-self: center;
                 padding: 1vh 4vh 0vh 0vh;                
             }
     
             .category{
-                color: rgba(19, 27, 103, 1);
+                color: $dBlue;
                 font-weight: bold;
                 align-self: center;
             }
         }
 
         .score{
-            color: rgba(17, 171, 185, 1);
+            color: $turquoise;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -78,7 +80,7 @@
             padding: 4vh 2vh 1vh 0vh;
 
             div{
-                color: rgba(17, 171, 185, 1);
+                color: $turquoise;
                 padding: 1vh 1vh 0.5vh 0vh;
                 font-weight: bold;                
             }

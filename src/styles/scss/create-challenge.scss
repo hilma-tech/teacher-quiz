@@ -1,3 +1,5 @@
+@import '../varibales.scss';
+
 .create-challenge{
     margin-left: 7vw;
     margin-right: 7vw;
@@ -20,20 +22,20 @@
            margin-top: 1.5vh;
            height: 1px;
            font-weight: bold; 
-           background-color: rgba(19, 27, 103, 1); 
+           background-color: $dBlue; 
            border: none;
         }
 
         p{
             font-size: 1.2rem;
-            color: rgba(19, 27, 103, 1);
+            color: $dBlue;
             direction: ltr;
             margin: 2vh 0vh 0vh 1vh;
         }
 
         .add-quest-btn{
-            background-color: rgba(166, 34, 92, 1);
-            color: white;
+            background-color: $pink;
+            color: $white;
             border-radius: 25px;
             padding: 2vh;
             width: fit-content;
@@ -45,26 +47,26 @@
         }
 
         .question-unit{
-            background-color: white;
+            background-color: $white;
             display: flex;
             flex-direction: column;
             margin-top: 2vh;
             padding: 2vh;
             border-radius: 5px;
-            box-shadow: 0 0.3vh 1vh 0vh rgba(0, 0, 0, 0.16), 0 0.3vh 1vh 0vh rgba(0, 0, 0, 0.16);
+            box-shadow: $shadow-box;
     
             
             .delete{
                 margin-right: 70vw;
     
                 .MuiSvgIcon-root{
-                    color: rgba(166, 34, 92, 1);
+                    color: $pink;
                     font-size: 1.5rem;
                 }
             }
     
             p{
-                color: rgba(17, 171, 185, 1);
+                color: $turquoise;
                 margin-right: 5vw;
                 padding: 1vh;
             }
@@ -73,7 +75,7 @@
                 text-align: start;
                 padding-right: 4vh;
                 padding-top: 1vh;
-                border: 1px solid rgba(17, 171, 185, 1);
+                border: 1px solid $turquoise;
                 border-radius: 25px;
                 height: 5vh;
                 
@@ -84,7 +86,7 @@
                     min-width: 90vw;
                     font-size: 1rem;
                     font-weight: bold;
-                    color: rgba(19, 27, 103, 1);
+                    color: $dBlue;
                     outline: none;
                     border:none;
                 }
@@ -96,10 +98,10 @@
                 justify-content: center;
                 text-align: center;
                 padding-top: 1vh;
-                border: 1px solid rgba(17, 171, 185, 1);
+                border: 1px solid $turquoise;
                 border-radius: 25px;
                 height: 5vh;
-                color: rgba(19, 27, 103, 1);
+                color: $dBlue;
                 font-weight: bold;
                 margin-bottom: 2vh;
                 background-color: transparent;
@@ -110,19 +112,19 @@
                     padding-top: 4vh;
                     font-size: 1rem;
                     font-weight: bold;
-                    color: rgba(19, 27, 103, 1);
+                    color: $dBlue;
                     outline: none;
                 }
 
                 div{
                     .MuiSvgIcon-root{
-                        color: rgba(166, 34, 92, 1);                
+                        color: $pink;                
                     }
                 }
             }
 
             .add-answer{
-                color: rgba(166, 34, 92, 1);
+                color: $pink;
                 font-weight: bold;
                 padding: 1vh;
             }

@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import '../styles/scss/add-new-student.scss';
 import { inject, observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
-import { Menu, Search, Star, Share, Clear } from '@material-ui/icons';
+import { Share } from '@material-ui/icons';
 import Social from '../images/social.svg';
 import Upload from '../images/upload.svg';
+import { Navbar} from '../components/PageTools';
+
 
 
 class AddNewStudent extends Component {
@@ -33,9 +35,7 @@ class AddNewStudent extends Component {
         let details = this.state.details
         return (
             <div className="add-new-student">
-                <div className="top-bar">
-                    <Clear />
-                </div>
+                <Navbar mode={3}/>
                     <h1>New Student</h1>
                 <div className="student-details">
                     <p>First Name</p>

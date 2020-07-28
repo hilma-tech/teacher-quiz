@@ -1,3 +1,5 @@
+@import '../varibales.scss';
+
 .student-quiz-info{
     margin-right: 7vw;
     margin-left: 7vw;
@@ -9,7 +11,7 @@
 
         .MuiSvgIcon-root{
             font-size: 2.5rem;
-            color: rgba(19, 27, 103, 1);
+            color: $dBlue;
         } 
     }
 
@@ -23,14 +25,14 @@
         flex-direction: row-reverse;
 
         h1{
-            color:rgba(17, 171, 185, 1);
+            color:$turquoise;
             margin-top: 2vh;
             margin-right: 2vh;
         }
     }
 
     .quest-unit{
-        background-color: white;
+        background-color: $white;
         display: flex;
         flex-direction: column;
         margin-top: 2vh;
@@ -40,7 +42,7 @@
         .right{
         
             .MuiSvgIcon-root{
-                color: rgba(17, 171, 185, 1);
+                color: $turquoise;
                 font-size: 2rem;
             }
         }
@@ -48,7 +50,7 @@
         .wrong{
 
             .MuiSvgIcon-root{
-                color: rgba(166, 34, 92, 1);
+                color: $pink;
                 font-size: 2rem;
             }
         }
@@ -56,13 +58,13 @@
         .none{
             
             .MuiSvgIcon-root{
-                color: rgba(19, 27, 103, 1);
+                color: $dBlue;
                 font-size: 2rem;
             }
         }
 
         p{
-            color: rgba(17, 171, 185, 1);
+            color: $turquoise;
             margin-right: 5vw;
             padding: 1vh;
             direction: ltr;
@@ -77,7 +79,7 @@
             border: 1px solid rgba(17, 171, 185, 0.2);
             border-radius: 25px;
             height: 5vh;
-            color: rgba(19, 27, 103, 1);
+            color: $dBlue;
             font-weight: bold;
 
             div{
@@ -85,7 +87,7 @@
                 padding: 1vh 2vh 1.5vh 1.5vh;
 
                 .MuiSvgIcon-root{
-                    color: rgba(17, 171, 185, 1);
+                    color: $turquoise;
                     font-size: 1.2rem;
                 }
             }
