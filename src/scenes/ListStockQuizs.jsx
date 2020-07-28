@@ -3,7 +3,7 @@ import '../styles/scss/ListStockQuizs.scss';
 import { Navbar, ListUnit, PlusBtn } from '../components/PageTools';
 
 
-export default function ListStockQuizs(props) {
+export default function ListStockQuizs({ history }) {
     const [quizzes, setQuizzes] = useState([
         {
             category: 'Capital City', unitName: '123456',
@@ -31,6 +31,10 @@ export default function ListStockQuizs(props) {
         },
     ])
 
+    const moveToQuestionnaire = () => {
+        history.push('quiz-info');
+    }
+
     return (
         <div className="list-stock-quiz">
             <Navbar mode={1} />
@@ -38,15 +42,16 @@ export default function ListStockQuizs(props) {
             <h1>Questionnaires</h1>
 
             <div className='quizzes-container'>
-            {quizzes.map(({ category, ansNum, unitName }) =>
-                <ListUnit
-                    mode={1}
-                    info={{
-                        title: category,
-                        subTitle: unitName,
-                        numInfo: ansNum
-                    }} />
-            )}
+                {quizzes.map(({ category, ansNum, unitName }) =>
+                    <ListUnit
+                        mode={1}
+                        onClick={moveToQuestionnaire}
+                        info={{
+                            title: category,
+                            subTitle: unitName,
+                            numInfo: ansNum
+                        }} />
+                )}
             </div>
 
             <PlusBtn redirect="create-challenge" />

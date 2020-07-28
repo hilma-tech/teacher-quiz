@@ -1,18 +1,8 @@
-import React, { useState, Component } from 'react';
+import React, { useState } from 'react';
 import '../styles/scss/QuizInfo.scss';
-import { MoreHoriz, Clear, Delete, Edit, Menu, Search, Star } from '@material-ui/icons';
-import checkList from '../images/check-list.svg';
-import cCheckList from '../images/check-list-colored.svg';
-import ConversationBlue from '../images/conversation-blue.svg';
-import cConversation from '../images/conversation-colored.svg';
-import conversation from '../images/conversation.svg';
-import StudentsTab from '../images/questions_tab.svg';
-import QuestionsTab from '../images/student_tab.svg';
-import DefaultImage from '../images/default-profile.png';
-
 import { Navbar, QuestUnit, ListUnit } from '../components/PageTools';
 
-export default function QuizInfo(props) {
+export default function QuizInfo({ history }) {
     const [questMode, setQuestMode] = useState(true);
     const [quests, setQuests] = useState([
         { quest: '?מה היא עיר הבירה של ישראל', ans: ['ירושלים', 'ירושלים'] },
@@ -22,14 +12,18 @@ export default function QuizInfo(props) {
 
     const changeQuestMode = () => setQuestMode(!questMode);
 
+    const navIconFn = () => {
+        history.back();
+    }
 
     return (
-        <div className="summary-quiz">
-            <Navbar mode={4} />
+        <div className="quiz-info">
+            <Navbar mode={4} iconFn={navIconFn} />
             <TopSection questMode={questMode} changeQuestMode={changeQuestMode} />
             {questMode ?
-                quests.map(({ quest, ans }) =>
+                quests.map(({ quest, ans }, i) =>
                     <QuestUnit
+                        key={i}
                         quest={{
                             qVal: quest
                         }} />
@@ -43,22 +37,21 @@ export default function QuizInfo(props) {
             }
         </div >
     )
-
 }
-
 
 function TopSection({ changeQuestMode, questMode }) {
 
     return (
         <div className='top-section'>
+
             <img
-                src={QuestionsTab}
+                src='/images/questions_tab.svg'
                 className="bg"
                 style={{ zIndex: questMode ? 0 : 1 }}
             />
 
             <img
-                src={StudentsTab}
+                src='/images/student_tab.svg'
                 className="bg"
                 style={{ zIndex: questMode ? 1 : 0 }}
             />
@@ -72,55 +65,20 @@ function TopSection({ changeQuestMode, questMode }) {
                     <p>grade 12</p>
                     <div>
                         <p>25</p>
-                        <img src={ConversationBlue} />
+                        <img src='images/conversation-blue.svg' />
                     </div>
                 </div>
             </div>
 
             <div className='toggle-icons'>
-                <img src={questMode ? cCheckList : checkList} onClick={changeQuestMode} />
-                <img src={questMode ? conversation : cConversation} onClick={changeQuestMode} />
+                <img
+                    src={`../images/check-list${questMode ? '-colored' : ''}.svg`}
+                    onClick={changeQuestMode} />
+
+                <img
+                    src={`../images/conversation${questMode ? '' : '-colored'}.svg`}
+                    onClick={changeQuestMode} />
             </div>
-        </div>
+        </div >
     );
 }
-
-export class StudentList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            students: [
-                { name: 'אור כהן', score: '8/10', image: '' },
-                { name: 'שלמה לוי', score: '8/10', image: '' },
-                { name: 'תום טרגר', score: '8/10', image: '' },
-                { name: "פיטר קפלדי", score: '8/10', image: '' },
-                { name: "מאט סמית'", score: '8/10', image: '' },
-                { name: 'אמיר אלון', score: '8/10', image: '' },
-                { name: 'נוי כספי', score: '8/10', image: '' }
-            ]
-        }
-    }
-
-    render() {
-        return (
-            <div className="student-list">
-                {this.state.students.map((student) => {
-                    return (
-                        <div className="student-card">
-                            <img
-                                className="profile-img"
-                                src={student.image || DefaultImage}>
-                            </img>
-                            <div className="name">{student.name}</div>
-                            <div className="score">
-                                {student.score}
-                            </div>
-                        </div>
-                    )
-                })}
-            </div>
-        )
-
-    }
-}
-

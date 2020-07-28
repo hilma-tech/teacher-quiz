@@ -1,12 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "t q",
-            "modelConfiguration": {
-                "fallbackIntentSensitivity": {
-                    "level": "LOW"
-                }
-            },
+            "invocationName": "hello world",
             "intents": [
                 {
                     "name": "AMAZON.CancelIntent",
@@ -21,190 +16,28 @@
                     "samples": []
                 },
                 {
-                    "name": "AMAZON.NavigateHomeIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.NextIntent",
-                    "samples": []
-                },
-                {
                     "name": "HelloWorldIntent",
                     "slots": [],
                     "samples": [
-                        "hello"
+                        "hello",
+                        "how are you",
+                        "say hi world",
+                        "say hi",
+                        "hi",
+                        "say hello world",
+                        "say hello"
                     ]
                 },
                 {
-                    "name": "SelectChallengeIntent",
-                    "slots": [
-                        {
-                            "name": "challengeName",
-                            "type": "challengeNameType"
-                        }
-                    ],
-                    "samples": [
-                        "start {challengeName}",
-                        "{challengeName}"
-                    ]
-                },
-                {
-                    "name": "ChallengeIntent",
-                    "slots": [
-                        {
-                            "name": "answer",
-                            "type": "AMAZON.SearchQuery"
-                        },
-                        {
-                            "name": "exitYesOrNo",
-                            "type": "yesOrNoType"
-                        },
-                        {
-                            "name": "goBackToSkippedQ",
-                            "type": "yesOrNoType"
-                        },
-                        {
-                            "name": "moveToNextQ",
-                            "type": "yesOrNoType"
-                        }
-                    ],
-                    "samples": [
-                        "{goBackToSkippedQ}",
-                        "{moveToNextQ}",
-                        "{exitYesOrNo}",
-                        "the answer is {answer}"
-                    ]
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
                 },
                 {
                     "name": "AMAZON.FallbackIntent",
                     "samples": []
                 }
             ],
-            "types": [
-                {
-                    "name": "challengeNameType",
-                    "values": [
-                        {
-                            "name": {
-                                "value": "aaa"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "yesOrNoType",
-                    "values": [
-                        {
-                            "name": {
-                                "value": "no",
-                                "synonyms": [
-                                    "nope",
-                                    "I do not",
-                                    "no thank you"
-                                ]
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "yes",
-                                "synonyms": [
-                                    "yep",
-                                    "yeah",
-                                    "I do",
-                                    "yes please",
-                                    "you know it"
-                                ]
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        "dialog": {
-            "intents": [
-                {
-                    "name": "ChallengeIntent",
-                    "confirmationRequired": false,
-                    "prompts": {},
-                    "slots": [
-                        {
-                            "name": "answer",
-                            "type": "AMAZON.SearchQuery",
-                            "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.119627704872.743520004445"
-                            }
-                        },
-                        {
-                            "name": "exitYesOrNo",
-                            "type": "yesOrNoType",
-                            "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.119627704872.357078955927"
-                            }
-                        },
-                        {
-                            "name": "goBackToSkippedQ",
-                            "type": "yesOrNoType",
-                            "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.119627704872.433657409398"
-                            }
-                        },
-                        {
-                            "name": "moveToNextQ",
-                            "type": "yesOrNoType",
-                            "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.119627704872.619980035270"
-                            }
-                        }
-                    ]
-                }
-            ],
-            "delegationStrategy": "ALWAYS"
-        },
-        "prompts": [
-            {
-                "id": "Elicit.Slot.119627704872.743520004445",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "sorry but i didnt get it, what is your answer "
-                    }
-                ]
-            },
-            {
-                "id": "Elicit.Slot.119627704872.357078955927",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "sorry but i didnt get it. you want to exit the skill?"
-                    }
-                ]
-            },
-            {
-                "id": "Elicit.Slot.119627704872.433657409398",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "sorry but i didnt get it. do you want to go back to skipped questions?"
-                    }
-                ]
-            },
-            {
-                "id": "Elicit.Slot.119627704872.619980035270",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "sorry but i didnt get it. do you want to move to the next question?"
-                    }
-                ]
-            }
-        ]
+            "types": []
+        }
     }
 }

@@ -35,7 +35,7 @@ con.connect((err) => {
       .sequelize
       .query('SET FOREIGN_KEY_CHECKS = 0', { raw: true })
       .then((res) => {
-        sDB.sequelize.sync().then(() => {
+        sDB.sequelize.sync({alter:true}).then(() => {
           server.listen(port, function () {
             debug('Express server listening on port ' + server.address().port);
           });

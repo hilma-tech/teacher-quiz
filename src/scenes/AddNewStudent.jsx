@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import '../styles/scss/add-new-student.scss';
 import { Link } from 'react-router-dom';
 import { Menu, Search, Star, Share, Clear } from '@material-ui/icons';
-import Social from '../images/social.svg';
-import Upload from '../images/upload.svg';
+// import Social from '../images/social.svg';
+// import Upload from '../images/upload.svg';
 
 
 class AddNewStudent extends Component {

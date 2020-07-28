@@ -1,8 +1,6 @@
 'use strict';
 
 let CustomModel = require('./CustomModel');
-let { Model } = require('sequelize');
-
 
 module.exports = (sequelize, DataTypes) => {
 
@@ -40,6 +38,20 @@ module.exports = (sequelize, DataTypes) => {
   };
 
 
+
+  User.check = async (req) => {
+    let users = await User.findAll();
+    console.log(users.every(user => user instanceof User)); // true
+    console.log("All users:", JSON.stringify(users, null, 2));
+    return lala;
+  }
+
+  User.routes = {
+    '/check': [{
+      method: 'check',
+      op: 'get'
+    }]
+  }
 
   return User;
 };

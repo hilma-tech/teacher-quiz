@@ -9,6 +9,7 @@ module.exports = {
       Example:
       */
     return queryInterface.bulkInsert('user', [{
+      // id:-1,
       userName: 'admin',
       code: '546656',
       createdAt: new Date(),

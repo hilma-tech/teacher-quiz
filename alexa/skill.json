@@ -22,8 +22,8 @@
     "apis": {
       "custom": {
         "endpoint": {
-          "uri": "https://3451d8ce2e3d.ngrok.io",
-          "sslCertificateType": "Wildcard"
+          "sourceDir": "lambda/custom",
+          "uri": "ask-teacherQuiz-default"
         }
       }
     },

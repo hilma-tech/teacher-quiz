@@ -1,31 +1,49 @@
 @import '../varibales.scss';
 
 
-@function vh($quantity) {
-    @return calc(var(--vh, 1vh) * #{$quantity});
-  }
-  @function vw($quantity) {
-    @return calc(var(--vw, 1vw) * #{$quantity});
-  }
+// @function vh($quantity) {
+//     @return calc(var(--vh, 1vh) * #{$quantity});
+//   }
+//   @function vw($quantity) {
+//     @return calc(var(--vw, 1vw) * #{$quantity});
+//   }
 
-.summary-quiz{
-    
+.quiz-info{
+    position: relative;
+    width: 100vw;
+    overflow-x: hidden;
     .top-section{
         margin-bottom: 3rem;
 
         .bg{
-            width: vw(100);
+            width:106vw;
             position: absolute;
-            top: -1vh;
+            top: -0.9rem;
             left: -3vw;
-            right: -7vw;
             height: 15.5rem;
-            // object-fit: cover; 
+            
+            &:first-child{
+                height: 16.8rem;
+            }
         }
 
-        .bg:first-child{
-            height: 16.8rem;
-        }
+        // .bg1{
+        //     width:100vw;
+        //     height: 20rem;
+        //     object-fit: contain;
+
+
+        //     &:first-child{
+        //         background-image: url("/images/questions_tab.svg");
+        //     }
+
+        //     &:last-child{
+        //         background-image: url("/images/student_tab.svg");
+
+        //     }
+        // }
+
+      
         .details{
             margin:4rem 1rem 0.5rem 1rem;
             position: relative;

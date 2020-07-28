@@ -6,13 +6,8 @@ export default function superFetch(url, payload) {
 
     return new Promise((resolve, reject) => {
         fPromise
-            .then((res) => {
-                let lala = res.json()
-                console.log('lala: ', lala);
-                return lala;
-            })// this trys to parse- get origin error when you have one.
+            .then((res) => res.json())// this trys to parse- get origin error when you have one.
             .then((response) => {
-                console.log('response: ', response);
                 if (response.ok) {
                     return resolve([response.json, null]);
                 }

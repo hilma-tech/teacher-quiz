@@ -1,0 +1,31 @@
+{
+  "deploy_settings": {
+    "default": {
+      "skill_id": "amzn1.ask.skill.9c99f1ec-2c89-4928-9489-259ea77a6274",
+      "resources": {
+        "manifest": {
+          "eTag": "41f5318564345acf784265dd88431540"
+        },
+        "interactionModel": {
+          "en-US": {
+            "eTag": "2ed78a65bd6789fcb8946ea6055e08ea"
+          }
+        },
+        "lambda": [
+          {
+            "alexaUsage": [
+              "custom/default"
+            ],
+            "arn": "arn:aws:lambda:us-east-1:330439476094:function:ask-teacher-quiz-new-default",
+            "awsRegion": "us-east-1",
+            "codeUri": "lambda/custom",
+            "functionName": "ask-teacher-quiz-new-default",
+            "handler": "index.handler",
+            "revisionId": "6f780963-126b-4bce-97b7-14ff9600fd8c",
+            "runtime": "nodejs10.x"
+          }
+        ]
+      }
+    }
+  }
+}

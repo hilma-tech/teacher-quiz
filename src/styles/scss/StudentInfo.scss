@@ -1,0 +1,31 @@
+@import '../varibales.scss';
+
+.student-info{
+    .personal-info{
+        margin:1rem 0 0 1.2rem;
+        font-size: 1rem;
+        font-weight: 900;
+
+        div{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width:fit-content;
+            height:fit-content;
+            
+            &>*{
+                display: inline-block;
+                color:$turquoise;
+            }
+
+            p{
+                margin-right:0.2rem;
+                font-size: 1.1rem;
+            }
+        }
+    }
+
+    .chall-container{
+        margin-bottom: 2rem;
+    }
+}

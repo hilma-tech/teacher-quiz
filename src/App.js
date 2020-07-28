@@ -14,7 +14,7 @@ import QuizInfo from './scenes/QuizInfo';
 import CreateChallenge from './scenes/CreateChallenge';
 import AddNewStudent from './scenes/AddNewStudent';
 import Question from './scenes/Question';
-import Questionnaire from './scenes/Questionnaire';
+import CreateNewQuestionnaire from './scenes/CreateNewQuestionnaire';
 
 
 
@@ -33,7 +33,7 @@ export default function App() {
           <Route exact path='/create-challenge' component={CreateChallenge} />
           <Route exact path='/add-new-student' component={AddNewStudent} />
           <Route exact path='/question' component={Question} />
-          <Route exact path='/questionnaire' component={Questionnaire} />
+          <Route exact path='/create-new-questionnaire' component={CreateNewQuestionnaire} />
 
           <Route exact path='/questions' component={Questions} />
           <Route exact path='/answers' component={AnswersAndRecords} />

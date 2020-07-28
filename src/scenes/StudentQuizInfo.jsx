@@ -1,66 +1,50 @@
-import React, { Component } from 'react';
-import '../styles/scss/student-quiz-info.scss';
+import React, { useState } from 'react';
+import '../styles/scss/StudentQuizInfo.scss';
 import { Link } from 'react-router-dom';
 import { Close, HighlightOff, CheckCircleOutline, RemoveCircleOutline, PlayCircleOutline } from '@material-ui/icons';
+import { Navbar, QuestUnit } from '../components/PageTools';
 
-class StudentQuizInfo extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            challenges: [
-                { question: "?What is Israel's capital city", answer: 'Jerusalem', status: 'wrong' },
-                { question: "?What is Israel's capital city", answer: 'Tel-Aviv', status: 'right' },
-                { question: "?What is Israel's capital city", answer: '', status: 'no status' }
+export default function StudentQuizInfo(props) {
+    const [challInfo, setChallInfo] = useState({
+        challName: 'Capital City',
+        studentName: 'Or Cohen',
+        quests: [
+            { quest: "?What is Israel's capital city", answer: 'Jerusalem', status: 0 },
+            { quest: "?What is Israel's capital city", answer: 'Tel-Aviv', status: 1 },
+            { quest: "?What is Israel's capital city", answer: undefined, status: undefined }
 
-            ]
-        }
+        ]
+    })
+
+
+    const correctAnswersFromAll = () => {
+        const corrSum = quests.filter(x => x.status === 1).length;
+        return `${corrSum}/${quests.length}`;
     }
 
-    render() {
-        return (
-            <div className="student-quiz-info">
-                <div className="top-bar">
-                    <Close />
-                </div>
-                <h1> Capital City</h1>
-                <div className="summary">
-                    <h1>Or Cohen</h1>
-                    <h1>6/10</h1>
-                </div>
-                {this.state.challenges.map((challenge) => {
-                    return (
-                        <div className="quest-unit">
-                            {challenge.status === 'right' ?
-                                <div className="right"><CheckCircleOutline /></div> :
-                                challenge.status === 'wrong' ?
-                                    <div className="wrong"><HighlightOff /></div> :
-                                    <div className="none"><RemoveCircleOutline /></div>}
-                            <p>Question</p>
-                            <div className="text-box">
-                                {challenge.question}
-                                <div>
-                                    <Link to="">
-                                        <PlayCircleOutline />
-                                    </Link>
-                                </div>
-                            </div>
-                            <p>Answer</p>
-                            <div className="text-box">
-                                {challenge.answer}
-                                <div>
-                                    <Link to="">
-                                        <PlayCircleOutline />
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    )
-                })}
+    const { challName, studentName, quests } = challInfo;
 
+    return (
+        <div className="student-quiz-info">
+            <Navbar mode={3} />
+
+            <div className='info'>
+                <h1>{challName}</h1>
+                <div>
+                    <h2>{studentName}</h2>
+                    <h2>{correctAnswersFromAll()}</h2>
+                </div>
             </div>
-        )
 
-    }
+            {quests.map(({ quest, answer, status }) =>
+                <QuestUnit
+                    quest={{
+                        qVal: quest,
+                        // setQuests
+                    }} />
+            )}
+
+        </div>
+    )
 }
 
-export default StudentQuizInfo;

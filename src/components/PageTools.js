@@ -5,19 +5,19 @@ import { TextareaAutosize } from '@material-ui/core';
 import { Menu, ArrowBack, Clear, Add, Star, Delete, Edit, MoreHoriz } from '@material-ui/icons';
 
 
-export const Navbar = ({ mode }) => {
+export const Navbar = ({ mode, iconFn, editFn, delFn }) => {
     const icon = (() => {
         //1-menu 2-back 3-clear 4-clear with icons
         switch (mode) {
             case 1: return <Menu />;
-            case 2: return <ArrowBack />;
-            case 3: return <Clear />
+            case 2: return <ArrowBack onClick={iconFn} />;
+            case 3: return <Clear onClick={iconFn} />
             case 4: return (
                 <React.Fragment>
-                    <Clear />
+                    <Clear onClick={iconFn} />
                     <div className='right'>
-                        <Edit />
-                        <Delete />
+                        <Edit onClick={editFn} />
+                        <Delete onClick={delFn} />
                     </div>
                 </React.Fragment>
             );
@@ -50,7 +50,7 @@ export const ListUnit = ({
         <div className="pageTools_listUnit" onClick={onClick} >
             <div className='stInfo' >
                 <h3>{title}</h3>
-                {mode === 1 && subTitle && <h4>{subTitle}</h4>}
+                {subTitle && <h4>{subTitle}</h4>}
             </div>
 
             <div className="numInfo">
