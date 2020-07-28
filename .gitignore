@@ -27,3 +27,6 @@ alexa/lambda/custom/node_modules
 alexa/lambda/custom/package-lock.json
 alexa/lambda/custom/.DS_Store
 
+alexa2/lambda/custom/node_modules
+alexa2/lambda/custom/package-lock.json
+alexa2/lambda/custom/.DS_Store
