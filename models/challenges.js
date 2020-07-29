@@ -5,26 +5,37 @@ let CustomModel = require('./CustomModel');
 
 module.exports = (sequelize, DataTypes) => {
 
-  class Challenges extends CustomModel { }
-
-  Challenges.init({
+  const Challenges = sequelize.define('Challenges', {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-      allowNull: false
-    }
+          type: DataTypes.INTEGER,
+          autoIncrement: true,
+          primaryKey: true,
+          allowNull: false
+        }
   }, {
-    // Other model options go here
-    sequelize, // We need to pass the connection instance
-    modelName: 'Challenges', // We need to choose the model name
     tableName: 'challenges'
   });
+
+  // class Challenges extends CustomModel { }
+
+  // Challenges.init({
+  //   id: {
+  //     type: DataTypes.INTEGER,
+  //     autoIncrement: true,
+  //     primaryKey: true,
+  //     allowNull: false
+  //   }
+  // }, {
+  //   // Other model options go here
+  //   sequelize, // We need to pass the connection instance
+  //   modelName: 'Challenges', // We need to choose the model name
+  //   tableName: 'challenges'
+  // });
 
   Challenges.associate = function (models) {
     // associations can be defined here
     const {
-      Answers, Questions,
+      Answers,
       ChallengeStock, User
     } = models;
 

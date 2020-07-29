@@ -4,22 +4,34 @@ let CustomModel = require('./CustomModel');
 
 module.exports = (sequelize, DataTypes) => {
 
-    class RoleMapping extends CustomModel { }
-
-    RoleMapping.init({
+    const RoleMapping = sequelize.define('RoleMapping', {
         id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            primaryKey: true,
-            allowNull: false
+          type: DataTypes.INTEGER,
+          autoIncrement: true,
+          primaryKey: true,
+          allowNull: false
         }
-    }, {
-        // Other model options go here
-        sequelize, // We need to pass the connection instance
-        modelName: 'RoleMapping', // We need to choose the model name
+      }, {
         tableName: 'RoleMapping',
         timestamps: false
-    });
+      });
+
+    // class RoleMapping extends CustomModel { }
+
+    // RoleMapping.init({
+    //     id: {
+    //         type: DataTypes.INTEGER,
+    //         autoIncrement: true,
+    //         primaryKey: true,
+    //         allowNull: false
+    //     }
+    // }, {
+    //     // Other model options go here
+    //     sequelize, // We need to pass the connection instance
+    //     modelName: 'RoleMapping', // We need to choose the model name
+    //     tableName: 'RoleMapping',
+    //     timestamps: false
+    // });
 
     RoleMapping.associate = function (models) {
         // associations can be defined here
