@@ -25,19 +25,10 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
 
+  Role.associate = function (models) { };
 
-
-  Role.associate = function (models) {
-    // associations can be defined here
-    const { RoleMapping, User } = models;
-
-    // Role.hasMany(RoleMapping, { foreignKey: 'roleId' });
-    // Role.belongsToMany(User, {
-    //   through: 'RoleMapping',
-    //   foreignKey: 'roleId'
-    // });
-  };
-
+  Role.create({name:'lala'})
+  .then(()=>{console.log('createdd------------')})
 
   return Role;
 };

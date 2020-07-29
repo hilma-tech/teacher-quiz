@@ -8,32 +8,13 @@ function to(promise) {
         .catch(err => [err]);
 }
 
-// async function resStatus1(req, cb) {
-//     try {
-//         const result = await cb();
-//         return {
-//             json: result,
-//             statusCode: 200,
-//             ok: true,
-//             method: req.method
-//         }
-//     }
-//     catch (err) {
-//         return {
-//             statusCode: 400,
-//             method: req.method,
-//             massage: err
-//         }
-//     }
-// }
-
-async function resStatus(req, cb) {
+async function resStatus(cb) {
     try {
         const data = await cb();
         return [200, data];
     }
     catch (err) {
-        console.log('err in res status',err)
+        console.log('err in res status', err)
         return [400];
     }
 }
@@ -51,35 +32,33 @@ class CustomModel extends Model {
 
         app.route(`/${cName}`)
             .get(async (req, res) => {
-                const [sCode, data] = await resStatus(req, async () =>
+                const [sCode, data] = await resStatus(async () =>
                     await this.findAll({ where: req.query, raw: true })
 
                 )
                 return res.status(sCode).send(data);
             })
             .post(async (req, res) => {
-                console.log('im hereee',req)
-                // console.log('req.body: ', req.body);
-                const [sCode, data] = await resStatus(req, async () => await this.create(req.body,
-                 { raw: true,fields:["name"],logging:true }
-                 ))
+                // console.log('im hereee',req)
+                console.log('req.body: ', req.body);
+                const [sCode, data] = await resStatus(async () => await this.create(req.body, { raw: true }))
                 return res.status(sCode).send(data);
             })
 
         app.route(`/${cName}/:id`)
             .get(async (req, res) => {
                 const { id } = req.params;
-                const [sCode, data] = await resStatus(req, async () => await this.findByPk(id, { raw: true }));
+                const [sCode, data] = await resStatus(async () => await this.findByPk(id, { raw: true }));
                 return res.status(sCode).send(data);
             })
             .delete(async (req, res) => {
                 const { id } = req.params;
-                const [sCode, data] = await resStatus(req, async () => await this.destroy({ where: { id }, raw: true }));
+                const [sCode, data] = await resStatus(async () => await this.destroy({ where: { id }, raw: true }));
                 return res.status(sCode).send(data);
             })
             .put(async (req, res) => {
                 const { id } = rereq.params;
-                const [sCode, data] = await resStatus(req, async () => await this.update(req.body, { where: { id }, raw: true }));
+                const [sCode, data] = await resStatus(async () => await this.update(req.body, { where: { id }, raw: true }));
                 return res.status(sCode).send(data);
             })
 
