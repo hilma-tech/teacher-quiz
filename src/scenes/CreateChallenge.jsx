@@ -10,6 +10,7 @@ export default class CreateChallenge extends Component {
         this.state = {
             serialNum: '1323456',
             questions: [
+                { question: { value: '' } },
                 { question: { value: '?מה היא עיר הבירה של ישראל' }, answers: [{ value: 'ירושלים' }, { value: 'ירושלים' }] },
                 { question: { value: '?מה היא עיר הבירה של ישראל' }, answers: [{ value: 'תל אביב' }] },
                 { question: { value: '?מה היא עיר הבירה של ישראל' }, answers: [{ value: 'חיפה' }] }
@@ -65,12 +66,61 @@ export default class CreateChallenge extends Component {
 
     addQuestion = () => {
         let { questions } = this.state;
-        questions.push({ question: '', answers: [{ value: '' }] })
+        questions.unshift({ question: '', answers: [{ value: '' }] })
         this.setState({ questions })
     }
 
     openSelectList = () => {
 
+    }
+
+    displayQuestionsCards = () => {
+        let { questions } = this.state
+        return (
+            questions.map((quest, index) => {
+                if (!quest.question.value) return (<div>hii</div>)
+                else {
+                    return (
+                        <div key={`quest-con-${index}`} className="question-unit" >
+                            <div className="delete" index={index} onClick={this.deleteQuestion}>
+                                <Delete />
+                            </div>
+                            <p>שאלה</p>
+                            <div className="question">
+                                <input tag="quest" index={index} onChange={this.handleValue} value={quest.question.value} />
+                            </div>
+                            <p>תשובה</p>
+                            {quest.answers && this.displayAnswers(quest.answers, index)}
+                            <div className="add-answer" onClick={this.addAnswer} index={index}>
+                                + הוסף תשובה
+                            </div >
+                        </div >
+                    );
+                }
+            })
+        )
+    }
+
+    displayAnswers = (questAnswers, index) => {
+        return (
+            questAnswers.map((answer, id) => (
+                <div key={`answer-con-${id}`} className="answer">
+                    <input
+                        key={`answer-input-${id}`}
+                        tag="answer"
+                        index={index}
+                        id={id}
+                        value={answer.value}
+                        onChange={this.handleValue} />
+                    <div key={`answer-clear-icon-con-${id}`}
+                        index={index}
+                        id={id}
+                        onClick={this.deleteAnswer}>
+                        <Clear />
+                    </div>
+                </div>
+            ))
+        )
     }
 
     render() {
@@ -83,60 +133,7 @@ export default class CreateChallenge extends Component {
                 <h1>Questionnaire name</h1>
                 <hr />
                 <p>Serial Number: {serialNum}</p>
-                {questions.map((quest, index) => {
-                    return (
-                        <div  key={`quest-con-${index}`}  className="question-unit">
-                            <div
-                                className="delete"
-                                index={index}
-                                onClick={this.deleteQuestion}
-                            >
-                                <Delete />
-                            </div>
-                            <p>שאלה</p>
-                            <div
-                                className="question">
-                                <input
-                                    tag="quest"
-                                    index={index}
-                                    onChange={this.handleValue}
-                                    value={quest.question.value}
-                                >
-                                </input>
-                            </div>
-                            <p>תשובה</p>
-                            {quest.answers &&
-                                quest.answers.map((answer, id) => (
-                                    <div key={`answer-con-${id}`} className="answer">
-                                        <input
-                                            key={`answer-input-${id}`}
-                                            tag="answer"
-                                            index={index}
-                                            id={id}
-                                            value={answer.value}
-                                            onChange={this.handleValue}
-                                        >
-                                        </input>
-                                        <div
-                                            key={`answer-clear-icon-con-${id}`}
-                                            index={index}
-                                            id={id}
-                                            onClick={this.deleteAnswer}>
-                                            <Clear />
-                                        </div>
-                                    </div>
-                                ))}
-                            <div
-                                className="add-answer"
-                                onClick={this.addAnswer}
-                                index={index}
-                            >
-                                + הוסף תשובה
-                            </div>
-                        </div>
-                    )
-                })}
-
+                {this.displayQuestionsCards()}
                 <div
                     className="add-quest-btn"
                     onClick={this.addQuestion}
