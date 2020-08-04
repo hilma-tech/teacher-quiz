@@ -1,6 +1,8 @@
 .create-challenge{
-    margin-left: 7vw;
-    margin-right: 7vw;
+    // margin-left: 7vw;
+    // margin-right: 7vw;
+    width: 88%;
+    margin: auto;
 
         .top-bar{
             margin-top: 2vh;
@@ -32,6 +34,8 @@
         }
 
         .add-quest-btn{
+            position: fixed;
+            bottom: 3vh;
             background-color: rgba(166, 34, 92, 1);
             color: white;
             border-radius: 25px;
@@ -81,7 +85,7 @@
                     background-color: transparent;
                     text-align: start;
                     width: fit-content;
-                    min-width: 90vw;
+                    // min-width: 90vw;
                     font-size: 1rem;
                     font-weight: bold;
                     color: rgba(19, 27, 103, 1);

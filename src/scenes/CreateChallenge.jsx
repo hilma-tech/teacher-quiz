@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/scss/create-challenge.scss';
 import { Link } from 'react-router-dom';
-import {ArrowBack, Delete, Clear} from '@material-ui/icons';
+import { ArrowBack, Delete, Clear } from '@material-ui/icons';
 
 
 export default class CreateChallenge extends Component {
@@ -19,7 +19,7 @@ export default class CreateChallenge extends Component {
 
     addAnswer = (event) => {
         let index = event.target.getAttribute("index");
-        let {questions} = this.state;
+        let { questions } = this.state;
         questions[index].answers.push({ value: '' })
         this.setState({ questions })
     }
@@ -70,11 +70,11 @@ export default class CreateChallenge extends Component {
     }
 
     openSelectList = () => {
-        
+
     }
 
     render() {
-        let {serialNum, questions} = this.state
+        let { serialNum, questions } = this.state
         return (
             <div className="create-challenge">
                 <div className="top-bar">
@@ -85,7 +85,7 @@ export default class CreateChallenge extends Component {
                 <p>Serial Number: {serialNum}</p>
                 {questions.map((quest, index) => {
                     return (
-                        <div className="question-unit">
+                        <div  key={`quest-con-${index}`}  className="question-unit">
                             <div
                                 className="delete"
                                 index={index}
@@ -107,8 +107,9 @@ export default class CreateChallenge extends Component {
                             <p>תשובה</p>
                             {quest.answers &&
                                 quest.answers.map((answer, id) => (
-                                    <div className="answer">
+                                    <div key={`answer-con-${id}`} className="answer">
                                         <input
+                                            key={`answer-input-${id}`}
                                             tag="answer"
                                             index={index}
                                             id={id}
@@ -117,6 +118,7 @@ export default class CreateChallenge extends Component {
                                         >
                                         </input>
                                         <div
+                                            key={`answer-clear-icon-con-${id}`}
                                             index={index}
                                             id={id}
                                             onClick={this.deleteAnswer}>
