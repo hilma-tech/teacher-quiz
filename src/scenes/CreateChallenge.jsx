@@ -3,7 +3,7 @@ import '../styles/scss/create-challenge.scss';
 import { Link } from 'react-router-dom';
 import { ArrowBack, Delete, Clear } from '@material-ui/icons';
 import { Choose } from './CreateNewQuestionnaire'
-
+import { Navbar } from '../components/PageTools'
 
 export default class CreateChallenge extends Component {
     constructor(props) {
@@ -124,13 +124,19 @@ export default class CreateChallenge extends Component {
         )
     }
 
+    navIconFn = () => {
+        console.log("12313213")
+        this.props.history.goBack()
+    }
+
     render() {
         let { serialNum, questions } = this.state
         return (
             <div className="create-challenge">
-                <div className="top-bar">
+                {/* <div className="top-bar">
                     <ArrowBack />
-                </div>
+                </div> */}
+                <Navbar mode={2} iconFn={this.navIconFn} />
                 <h1>Questionnaire name</h1>
                 <hr />
                 <p>Serial Number: {serialNum}</p>
