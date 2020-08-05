@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../styles/scss/QuizInfo.scss';
 import { Navbar, QuestUnit, ListUnit } from '../components/PageTools';
 
-export default function QuizInfo({ history }) {
+export default function QuizInfo({history}) {
     const [questMode, setQuestMode] = useState(true);
     const [quests, setQuests] = useState([
         { quest: '?מה היא עיר הבירה של ישראל', ans: ['ירושלים', 'ירושלים'] },
@@ -13,7 +13,7 @@ export default function QuizInfo({ history }) {
     const changeQuestMode = () => setQuestMode(!questMode);
 
     const navIconFn = () => {
-        history.back();
+        history.goBack();
     }
 
     return (

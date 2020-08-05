@@ -42,8 +42,9 @@ export default function ListStockQuizs({ history }) {
             <h1>Questionnaires</h1>
 
             <div className='quizzes-container'>
-                {quizzes.map(({ category, ansNum, unitName }) =>
+                {quizzes.map(({ category, ansNum, unitName }, index) =>
                     <ListUnit
+                        key={index}
                         mode={1}
                         onClick={moveToQuestionnaire}
                         info={{

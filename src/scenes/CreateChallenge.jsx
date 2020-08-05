@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../styles/scss/create-challenge.scss';
 import { Link } from 'react-router-dom';
 import { ArrowBack, Delete, Clear } from '@material-ui/icons';
-import {Choose} from './CreateNewQuestionnaire'
+import { Choose } from './CreateNewQuestionnaire'
 
 
 export default class CreateChallenge extends Component {
@@ -79,7 +79,7 @@ export default class CreateChallenge extends Component {
         let { questions } = this.state
         return (
             questions.map((quest, index) => {
-                if (!quest.question.value) return (<Choose/>)
+                if (!quest.question.value) return (<Choose addQuestSection={(e) => { console.log(e) }} />)
                 else {
                     return (
                         <div key={`quest-con-${index}`} className="question-unit" >

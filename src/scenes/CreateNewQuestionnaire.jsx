@@ -50,9 +50,7 @@ export default function CreateNewQuestionnaire() {
 
 
 
-export function Choose({
-    addQuestSection
-}) {
+export function Choose({ addQuestSection }) {
     return (
         <div className="choose">
             <p>Choose:</p>
