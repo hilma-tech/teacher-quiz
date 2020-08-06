@@ -44,8 +44,15 @@ export const Navbar = ({ mode, iconFn, editFn, delFn }) => {
 export const ListUnit = ({
     mode,//1-quiz, 2-student
     info: { title, subTitle, numInfo },
+    index,
     onClick
 }) => {
+    const [startAnimation, setStartAnimation] = React.useState(false)
+
+    useEffect(() => {
+        setTimeout(() => { setStartAnimation(true) }, 180 * (index));
+    }, [])
+
     const niIcon = (() => {
         switch (mode) {
             case 1: return <img src='images/conversation-blue.svg' />
@@ -54,17 +61,21 @@ export const ListUnit = ({
         }
     })()
     return (
-        <div className="pageTools_listUnit" onClick={onClick} >
-            <div className='stInfo' >
-                <h3>{title}</h3>
-                {subTitle && <h4>{subTitle}</h4>}
-            </div>
+        <Slide direction="right"
+            {...(startAnimation ? { timeout: (300) } : {})}
+            in={startAnimation} mountOnEnter unmountOnExit>
+            <div className="pageTools_listUnit" onClick={onClick} >
+                <div className='stInfo' >
+                    <h3>{title}</h3>
+                    {subTitle && <h4>{subTitle}</h4>}
+                </div>
 
-            <div className="numInfo">
-                <p>{numInfo}</p>
-                {niIcon}
+                <div className="numInfo">
+                    <p>{numInfo}</p>
+                    {niIcon}
+                </div>
             </div>
-        </div>
+        </Slide>
     );
 }
 

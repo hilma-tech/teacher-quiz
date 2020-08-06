@@ -19,11 +19,10 @@ class StudentList extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.StudentsStore.getStudentList()
     }
 
-    
 
     render() {
         const { students } = this.state;
@@ -35,8 +34,9 @@ class StudentList extends Component {
                 <h1>Students</h1>
 
                 <div className='students-container'>
-                    {students.map(({ name, score }) =>
+                    {students.map(({ name, score }, i) =>
                         <ListUnit
+                            index={i}
                             mode={2}
                             info={{
                                 title: name,
