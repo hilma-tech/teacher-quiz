@@ -25,15 +25,15 @@ export default function OpeningPage() {
             </div>
 
             <div className="buttons">
-                <Link to="/list-of-quiz">
+                <Link className="link" to="/list-of-quiz">
                     <div className="blue">Questionnaires</div>
                 </Link>
 
-                <Link to="/student-list">
+                <Link className="link" to="/student-list">
                     <div className="pink">Students</div>
                 </Link>
 
-                <Link to="/question">
+                <Link className="link" to="/question">
                     <div className="blue">Question</div>
                 </Link>
             </div>
