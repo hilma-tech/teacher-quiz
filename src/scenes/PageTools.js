@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/components/PageTools.scss';
 import { TextareaAutosize } from '@material-ui/core';
 import { Menu, ArrowBack, Clear, Add, Star, Delete, Edit, MoreHoriz } from '@material-ui/icons';
 import SideBarMenu from '../components/SideBarMenu/SideBarMenu'
+import { Slide } from '@material-ui/core';
+
 export const Navbar = ({ mode, iconFn, editFn, delFn }) => {
     const [open, setOpen] = React.useState(false)
 
@@ -70,7 +72,7 @@ export const ListUnit = ({
 export const PlusBtn = ({ redirect }) => {
     return (
         <Link
-            className="pageTools_plusBtn"
+            className="pageTools_plusBtn scale-in-center"
             to={redirect}>
             <Add />
         </Link>
@@ -81,8 +83,10 @@ export const PlusBtn = ({ redirect }) => {
 export const QuestUnit = ({
     mode = true,//true- watch, false- edit
     quest: { qVal, setQuests },
+    index
     // ans: { ansArr, setAns }
 }) => {
+    const [startAnimation, setStartAnimation] = React.useState(false)
 
 
     const Speaker = () => (
@@ -91,20 +95,27 @@ export const QuestUnit = ({
         </div>
     );
 
+    useEffect(() => {
+        setTimeout(() => { setStartAnimation(true) }, 180 * (index));
+    }, [])
+
     return (
-        <div className="pageTools_questUnit">
-            <MoreHoriz />
-            <p>Question</p>
-            <TextareaAutosize
-                rowsMin={1}
-                // onChange={setQuests}
-                value={qVal}
-                placeholder="Please specify your question"
-                disabled={mode}
-                readOnly={mode} />
-            {/* <Speaker /> */}
-            <p>Answer</p>
-            {/* 
+        <Slide direction="right"
+            {...(startAnimation ? { timeout: (300) } : {})}
+            in={startAnimation} mountOnEnter unmountOnExit>
+            <div className="pageTools_questUnit">
+                <MoreHoriz />
+                <p>Question</p>
+                <TextareaAutosize
+                    rowsMin={1}
+                    // onChange={setQuests}
+                    value={qVal}
+                    placeholder="Please specify your question"
+                    disabled={mode}
+                    readOnly={mode} />
+                {/* <Speaker /> */}
+                <p>Answer</p>
+                {/* 
             {ansArr &&
                 ansArr.map((ans, i) => (
                     <div className="answer special-color">
@@ -116,7 +127,8 @@ export const QuestUnit = ({
                         </input>
                     </div>
                 ))} */}
-        </div>
+            </div>
+        </Slide>
 
     )
 }

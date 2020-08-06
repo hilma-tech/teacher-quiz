@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './QuizInfo.scss';
 import { Navbar, QuestUnit, ListUnit } from '../PageTools';
 
-export default function QuizInfo({history}) {
+export default function QuizInfo({ history }) {
     const [questMode, setQuestMode] = useState(true);
     const [quests, setQuests] = useState([
         { quest: '?מה היא עיר הבירה של ישראל', ans: ['ירושלים', 'ירושלים'] },
@@ -23,6 +23,7 @@ export default function QuizInfo({history}) {
             {questMode ?
                 quests.map(({ quest, ans }, i) =>
                     <QuestUnit
+                        index={i}
                         key={i}
                         quest={{
                             qVal: quest

@@ -1,12 +1,13 @@
 @import '../varibales.scss';
+@import '../animations.scss';
 
 @mixin whiteUnits($py){
     margin: 1rem auto 0 auto;
     padding:$py 0;
     width:20rem;
-   background-color: $white;
-   border-radius: 5px;
-   box-shadow: $shadow-box;
+    background-color: $white;
+    border-radius: 5px;
+    box-shadow: $shadow-box;
 }
 
 .pageTools_navbar{
@@ -79,6 +80,10 @@
     }
 }
 
+.pageTools_plusBtn.scale-in-center {
+	-webkit-animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+} 
 
 a.pageTools_plusBtn{
     border-radius: 50%;
