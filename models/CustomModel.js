@@ -1,6 +1,43 @@
 let { Model } = require('sequelize');
 const fOpenapi = require('../openApi.json');
 
+function to(promise) {
+    return promise.then(data => {
+        return [null, data];
+    })
+        .catch(err => [err]);
+}
+
+// async function resStatus1(req, cb) {
+//     try {
+//         const result = await cb();
+//         return {
+//             json: result,
+//             statusCode: 200,
+//             ok: true,
+//             method: req.method
+//         }
+//     }
+//     catch (err) {
+//         return {
+//             statusCode: 400,
+//             method: req.method,
+//             massage: err
+//         }
+//     }
+// }
+
+async function resStatus(req, cb) {
+    try {
+        const data = await cb();
+        return [200, data];
+    }
+    catch (err) {
+        console.log('err in res status',err)
+        return [400];
+    }
+}
+
 class CustomModel extends Model {
 
     constructor() { super(); }
@@ -14,29 +51,34 @@ class CustomModel extends Model {
 
         app.route(`/${cName}`)
             .get(async (req, res) => {
-                const elements = await this.findAll(req.query);
-                res.send(elements)
+                const [sCode, data] = await resStatus(req, async () =>
+                    await this.findAll({ where: req.query, raw: true })
+
+                )
+                return res.status(sCode).send(data);
             })
             .post(async (req, res) => {
-                const newEl = await this.create(req.body);
-                res.send(newEl);
+                const [sCode, data] = await resStatus(req, async () => await this.create(req.body,
+                 { raw: true,fields:["name"],logging:true }
+                 ))
+                return res.status(sCode).send(data);
             })
 
         app.route(`/${cName}/:id`)
             .get(async (req, res) => {
-                const { id } = req.params
-                const el = await this.findByPk(id);
-                res.send(el);
+                const { id } = req.params;
+                const [sCode, data] = await resStatus(req, async () => await this.findByPk(id, { raw: true }));
+                return res.status(sCode).send(data);
             })
             .delete(async (req, res) => {
-                const { id } = req.params
-                const delEl = await this.destroy({ where: { id } });
-                res.send(delEl);
+                const { id } = req.params;
+                const [sCode, data] = await resStatus(req, async () => await this.destroy({ where: { id }, raw: true }));
+                return res.status(sCode).send(data);
             })
             .put(async (req, res) => {
-                const { id } = rereq.params
-                const upEl = await this.update(req.body, { where: { id } });
-                res.send(upEl);
+                const { id } = rereq.params;
+                const [sCode, data] = await resStatus(req, async () => await this.update(req.body, { where: { id }, raw: true }));
+                return res.status(sCode).send(data);
             })
 
         cmOpenapi.components.schemas = { ...cmOpenapi.components.schemas, ...this.basicSchemas }
@@ -73,23 +115,10 @@ class CustomModel extends Model {
                     const rPath = path.replace(/[{()}]/g, '');
 
                     app[op](rPath, async (req, res, next) => {
-                        try {
-                            const result = this[method](req);
-                            return res.json({
-                                json: result,
-                                statusCode: 200,
-                                ok: true,
-                                method: req.method
-                            })
-                        }
-                        catch (err) {
-                            return res.json({
-                                statusCode: 400,
-                                method: req.method,
-                                massage: err
-                            })
-                        }
+                        const [sCode, data] = await resStatus(req, async () => await this[method](req));
+                        return res.status(sCode).send(data);
                     });
+
                 } else { console.log('route already exist') }
 
                 //creating openapi info for this route
@@ -137,7 +166,7 @@ class CustomModel extends Model {
         return {
             [this.name.toLowerCase()]: {
                 type: 'object',
-                properties
+                properties: JSON.stringify(properties)
             },
             [`filter${this.name}`]: {
                 allOf: [
@@ -157,7 +186,7 @@ class CustomModel extends Model {
             [`${this.name}.fields`]: {
                 type: 'object',
                 properties:
-                    fields
+                    JSON.stringify(fields)
             }
         }
     }
@@ -214,7 +243,7 @@ class CustomModel extends Model {
                 }
             },
 
-            [`${cName}/{id}`]: {
+            [`/${cName}/{id}`]: {
                 get: {
                     tags: [cName],
                     parameters: [

@@ -1,0 +1,23 @@
+@import '../../styles/varibales.scss';
+
+.student-quiz-info{
+    .info{
+        width:fit-content;
+        height: fit-content;
+        margin-left:1.25rem;
+        
+        h1{
+            font-weight: 900;
+            font-size: 2rem;
+        }
+
+        div{
+            &>*{
+                display: inline-block;
+                color:$turquoise;
+
+            }
+            h2:first-child{margin-right:1rem;}
+        }
+    }
+}

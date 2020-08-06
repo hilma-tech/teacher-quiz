@@ -1,0 +1,41 @@
+@import '../../styles/mixin.scss';
+
+.opening-page{
+    @include page();
+
+    .title{
+        margin-top: 3rem;
+
+        &>*{
+            color: rgba(19, 27, 103, 1);
+            font-size: 3.7rem;
+            text-align: center;
+            line-height: 95%;
+        }
+        
+        p{font-weight: 100;}
+        h1{font-weight: bolder;}
+    }
+
+    .buttons{
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        margin-top:1rem;
+       
+        a{
+            text-decoration: none;
+            margin-top:1.7rem;
+            
+            div{padding:0.4rem 2.2rem;}
+        }
+
+        .blue{
+            @include btn(false);
+        }
+        .pink{
+            @include btn();
+        }
+    }
+}
+

@@ -1,0 +1,111 @@
+@import '../../styles/varibales.scss';
+
+
+// @function vh($quantity) {
+//     @return calc(var(--vh, 1vh) * #{$quantity});
+//   }
+//   @function vw($quantity) {
+//     @return calc(var(--vw, 1vw) * #{$quantity});
+//   }
+
+.quiz-info{
+    position: relative;
+    width: 100vw;
+    overflow-x: hidden;
+    .top-section{
+        margin-bottom: 3rem;
+
+        .bg{
+            width:106vw;
+            position: absolute;
+            top: -0.9rem;
+            left: -3vw;
+            height: 15.5rem;
+            
+            &:first-child{
+                height: 16.8rem;
+            }
+        }
+
+        // .bg1{
+        //     width:100vw;
+        //     height: 20rem;
+        //     object-fit: contain;
+
+
+        //     &:first-child{
+        //         background-image: url("/images/questions_tab.svg");
+        //     }
+
+        //     &:last-child{
+        //         background-image: url("/images/student_tab.svg");
+
+        //     }
+        // }
+
+      
+        .details{
+            margin:4rem 1rem 0.5rem 1rem;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+    
+            .right{
+                &>*{
+                    display: block;
+                }
+                h1{
+                    font-weight: 900;
+                }
+                p{
+                    font-size: 1.3rem;
+                }
+            }
+    
+            .left{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                
+                p{
+                    color: $dBlue;
+                    font-size: 1rem;
+                }
+    
+                div{
+                    display: flex;
+                    flex-direction: row; 
+        
+                    p{  
+                        color: $turquoise;
+                        font-weight: bold;
+                        align-self: center;
+                        margin-right:0.7rem;
+                    }
+                }
+            }
+        }
+
+        .toggle-icons{
+            position: relative;
+            z-index: 2;
+            margin:1rem 0 0 3.1rem;
+
+            img:nth-child(2){
+                margin-left:1.2rem;
+            }
+        }
+    }
+     
+
+
+    .comp{
+        margin-top: 10vh;
+    }
+}
+
+.special-color{
+    border: 1px solid rgba(17, 171, 185, 0.2) !important;
+}

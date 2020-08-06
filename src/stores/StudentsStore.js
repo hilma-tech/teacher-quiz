@@ -31,10 +31,13 @@ class StudentsStore {
         }
     }
 
+    getStudentList = async () => {
+        const [res, err] = await superAuthFetch('/user');
+        console.log('res: ', res);
+        return res;
+    }
+
 }
-
-
-
 
 
 
@@ -42,7 +45,8 @@ class StudentsStore {
 decorate(StudentsStore, {
     newStudentData: observable,
     students: observable,
-    addNewStudent: action
+    addNewStudent: action,
+    getStudentList: action
 
     //(observable, computed, action)
 });
