@@ -3,13 +3,18 @@ import { Link } from 'react-router-dom';
 import '../styles/components/PageTools.scss';
 import { TextareaAutosize } from '@material-ui/core';
 import { Menu, ArrowBack, Clear, Add, Star, Delete, Edit, MoreHoriz } from '@material-ui/icons';
-
-
+import SideBarMenu from '../components/SideBarMenu/SideBarMenu'
 export const Navbar = ({ mode, iconFn, editFn, delFn }) => {
+    const [open, setOpen] = React.useState(false)
+
     const icon = (() => {
         //1-menu 2-back 3-clear 4-clear with icons
         switch (mode) {
-            case 1: return <Menu />;
+            case 1: return (
+                <div>
+                    <Menu onClick={() => setOpen(true)} />
+                    <SideBarMenu isOpen={open} onCloseMenu={() => setOpen(false)} />
+                </div>);
             case 2: return <ArrowBack onClick={iconFn} />;
             case 3: return <Clear onClick={iconFn} />
             case 4: return (

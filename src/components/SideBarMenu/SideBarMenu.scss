@@ -1,0 +1,38 @@
+@import '../../styles/varibales.scss';
+
+.side-bar-menu{
+    text-align: center;
+    .MuiDrawer-paperAnchorLeft{
+        width: 100%;
+        background-color: $turquoise;
+        .menu-content{
+            height: 100%;
+            .close-menu-icon{
+                width:100%;
+                display: flex;
+                height: 15%;
+                align-items: center;
+                justify-content: center;
+                .MuiSvgIcon-root{
+                    height: 2em;
+                    width: 2em;
+                    color: $white;
+                }
+            }
+            .menu-links{
+                margin: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 60%;
+                justify-content: space-evenly;
+                .link{
+                    text-decoration: none;
+                    font-size: 1.5em;
+                    color:$white;
+                }
+            }
+        }
+    }
+}
