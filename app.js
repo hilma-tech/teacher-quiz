@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const swaggerUi = require('swagger-ui-express');
 const models = require('./models').sequelize.modelManager.models;
-
+const { createDefCrud, creatingCustomMethod, cmOpenapi } = require('./models/CustomModel');
 const app = express();
 
 // view engine setup
@@ -30,12 +30,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 models
   .forEach((Model, i) => {
-    Model.createDefCrud(app);
-    Model.creatingCustomMethod(app);
+    createDefCrud.call(Model, app);
+    creatingCustomMethod.call(Model, app);
 
     if (i + 1 === models.length) {
-      // console.log(Model.cmOpenapi, null, 4);
-      app.use('/explorer', swaggerUi.serve, swaggerUi.setup(Model.cmOpenapi))
+      app.use('/explorer', swaggerUi.serve, swaggerUi.setup(cmOpenapi))
     }
   });
 

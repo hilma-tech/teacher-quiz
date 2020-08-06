@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './CreateNewQuestionnaire.scss';
 import { Navbar } from '../PageTools';
 
-export default function CreateNewQuestionnaire() {
+export default function CreateNewQuestionnaire({ history }) {
     const [serialNum, setSerialNum] = useState(1353468);
     const [quests, setQuests] = useState([
         { quest: '', answers: [{ ans: '' }, { ans: '' }, { ans: '' }] }
@@ -28,10 +28,13 @@ export default function CreateNewQuestionnaire() {
 
         }
     }
+    const navIconFn = () => {
+        history.goBack()
+    }
 
     return (
         <div className="questionnaire">
-            <Navbar mode={2} />
+            <Navbar mode={2} iconFn={navIconFn} />
             <div className='container'>
                 <h1>Questionnaire name</h1>
                 <div className="serial-num">
@@ -50,9 +53,7 @@ export default function CreateNewQuestionnaire() {
 
 
 
-export function Choose({
-    addQuestSection
-}) {
+export function Choose({ addQuestSection }) {
     return (
         <div className="choose">
             <p>Choose:</p>

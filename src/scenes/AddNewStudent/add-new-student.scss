@@ -6,6 +6,17 @@
     display: flex;
     flex-direction: column;
 
+    .top-bar{
+        margin-top: 2vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .MuiSvgIcon-root{
+            font-size: 3rem;
+        }
+    }
+
         h1{
             direction: ltr;
             color: $dBlue;

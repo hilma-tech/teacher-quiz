@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import './create-challenge.scss';
 import { Link } from 'react-router-dom';
-import {ArrowBack, Delete, Clear} from '@material-ui/icons';
-import { Navbar} from '../PageTools';
-
-
+import { ArrowBack, Delete, Clear } from '@material-ui/icons';
+import { Choose } from '../CreateNewQuestionnaire/CreateNewQuestionnaire';
+import { Navbar } from '../PageTools';
 
 export default class CreateChallenge extends Component {
     constructor(props) {
@@ -12,6 +11,7 @@ export default class CreateChallenge extends Component {
         this.state = {
             serialNum: '1323456',
             questions: [
+                { question: { value: '' } },
                 { question: { value: '?מה היא עיר הבירה של ישראל' }, answers: [{ value: 'ירושלים' }, { value: 'ירושלים' }] },
                 { question: { value: '?מה היא עיר הבירה של ישראל' }, answers: [{ value: 'תל אביב' }] },
                 { question: { value: '?מה היא עיר הבירה של ישראל' }, answers: [{ value: 'חיפה' }] }
@@ -21,7 +21,7 @@ export default class CreateChallenge extends Component {
 
     addAnswer = (event) => {
         let index = event.target.getAttribute("index");
-        let {questions} = this.state;
+        let { questions } = this.state;
         questions[index].answers.push({ value: '' })
         this.setState({ questions })
     }
@@ -67,74 +67,80 @@ export default class CreateChallenge extends Component {
 
     addQuestion = () => {
         let { questions } = this.state;
-        questions.push({ question: '', answers: [{ value: '' }] })
+        questions.unshift({ question: '', answers: [{ value: '' }] })
         this.setState({ questions })
     }
 
     openSelectList = () => {
-        
+
     }
 
-    render() {
-        let {serialNum, questions} = this.state
+    displayQuestionsCards = () => {
+        let { questions } = this.state
         return (
-            <div className="create-challenge">
-               <Navbar mode={2}/>
-                <h1>Questionnaire name</h1>
-                <hr />
-                <p>Serial Number: {serialNum}</p>
-                {questions.map((quest, index) => {
+            questions.map((quest, index) => {
+                if (!quest.question.value) return (<Choose addQuestSection={(e) => { console.log(e) }} />)
+                else {
                     return (
-                        <div className="question-unit">
-                            <div
-                                className="delete"
-                                index={index}
-                                onClick={this.deleteQuestion}
-                            >
+                        <div key={`quest-con-${index}`} className="question-unit" >
+                            <div className="delete" index={index} onClick={this.deleteQuestion}>
                                 <Delete />
                             </div>
                             <p>שאלה</p>
-                            <div
-                                className="question">
-                                <input
-                                    tag="quest"
-                                    index={index}
-                                    onChange={this.handleValue}
-                                    value={quest.question.value}
-                                >
-                                </input>
+                            <div className="question">
+                                <input tag="quest" index={index} onChange={this.handleValue} value={quest.question.value} />
                             </div>
                             <p>תשובה</p>
-                            {quest.answers &&
-                                quest.answers.map((answer, id) => (
-                                    <div className="answer">
-                                        <input
-                                            tag="answer"
-                                            index={index}
-                                            id={id}
-                                            value={answer.value}
-                                            onChange={this.handleValue}
-                                        >
-                                        </input>
-                                        <div
-                                            index={index}
-                                            id={id}
-                                            onClick={this.deleteAnswer}>
-                                            <Clear />
-                                        </div>
-                                    </div>
-                                ))}
-                            <div
-                                className="add-answer"
-                                onClick={this.addAnswer}
-                                index={index}
-                            >
+                            {quest.answers && this.displayAnswers(quest.answers, index)}
+                            <div className="add-answer" onClick={this.addAnswer} index={index}>
                                 + הוסף תשובה
-                            </div>
-                        </div>
-                    )
-                })}
+                            </div >
+                        </div >
+                    );
+                }
+            })
+        )
+    }
 
+    displayAnswers = (questAnswers, index) => {
+        return (
+            questAnswers.map((answer, id) => (
+                <div key={`answer-con-${id}`} className="answer">
+                    <input
+                        key={`answer-input-${id}`}
+                        tag="answer"
+                        index={index}
+                        id={id}
+                        value={answer.value}
+                        onChange={this.handleValue} />
+                    <div key={`answer-clear-icon-con-${id}`}
+                        index={index}
+                        id={id}
+                        onClick={this.deleteAnswer}>
+                        <Clear />
+                    </div>
+                </div>
+            ))
+        )
+    }
+
+    navIconFn = () => {
+        console.log("12313213")
+        this.props.history.goBack()
+    }
+
+    render() {
+        let { serialNum, questions } = this.state
+        return (
+            <div className="create-challenge">
+                {/* <div className="top-bar">
+                    <ArrowBack />
+                </div> */}
+                <Navbar mode={2} iconFn={this.navIconFn} />
+                <h1>Questionnaire name</h1>
+                <hr />
+                <p>Serial Number: {serialNum}</p>
+                {this.displayQuestionsCards()}
                 <div
                     className="add-quest-btn"
                     onClick={this.addQuestion}
