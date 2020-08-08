@@ -26,26 +26,9 @@
                 height: 16.8rem;
             }
         }
-
-        // .bg1{
-        //     width:100vw;
-        //     height: 20rem;
-        //     object-fit: contain;
-
-
-        //     &:first-child{
-        //         background-image: url("/images/questions_tab.svg");
-        //     }
-
-        //     &:last-child{
-        //         background-image: url("/images/student_tab.svg");
-
-        //     }
-        // }
-
       
         .details{
-            margin:4rem 1rem 0.5rem 1rem;
+            margin:0 1rem 0.5rem 1rem;
             position: relative;
             z-index: 2;
             display: flex;

@@ -2,25 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/components/PageTools.scss';
 import { TextareaAutosize } from '@material-ui/core';
-import { Menu, ArrowBack, Clear, Add, Star, Delete, Edit, MoreHoriz } from '@material-ui/icons';
+import { Menu, ArrowBack, Clear, Add, Star, MoreHoriz } from '@material-ui/icons';
 
 
-export const Navbar = ({ mode, iconFn, editFn, delFn }) => {
+export const Navbar = ({ mode, iconFn, rightIcons='' }) => {
     const icon = (() => {
-        //1-menu 2-back 3-clear 4-clear with icons
+        //1-menu 2-back 3-clear
         switch (mode) {
             case 1: return <Menu />;
             case 2: return <ArrowBack onClick={iconFn} />;
             case 3: return <Clear onClick={iconFn} />
-            case 4: return (
-                <React.Fragment>
-                    <Clear onClick={iconFn} />
-                    <div className='right'>
-                        <Edit onClick={editFn} />
-                        <Delete onClick={delFn} />
-                    </div>
-                </React.Fragment>
-            );
             default: console.log('icon wasnt found'); return;
         }
     })()
@@ -30,6 +21,7 @@ export const Navbar = ({ mode, iconFn, editFn, delFn }) => {
     return (
         <div className='pageTools_navbar' style={style}>
             {icon}
+            {rightIcons}
         </div>);
 }
 
@@ -75,16 +67,22 @@ export const PlusBtn = ({ redirect }) => {
 
 export const QuestUnit = ({
     mode = true,//true- watch, false- edit
+    rightIcon,
     quest: { qVal, setQuests },
     // ans: { ansArr, setAns }
 }) => {
-
 
     const Speaker = () => (
         <div className='speaker'>
             <img src='/images/speaker.svg' />
         </div>
     );
+
+    // const rIcon=((){
+    //     switch(rightIcon){
+    //         case 1:
+    //     }
+    // })()
 
     return (
         <div className="pageTools_questUnit">

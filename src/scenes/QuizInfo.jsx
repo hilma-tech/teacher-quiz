@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../styles/scss/QuizInfo.scss';
 import { Navbar, QuestUnit, ListUnit } from '../components/PageTools';
+import { Delete, Edit } from '@material-ui/icons';
+
 
 export default function QuizInfo({ history }) {
     const [questMode, setQuestMode] = useState(true);
@@ -9,17 +11,27 @@ export default function QuizInfo({ history }) {
         { quest: '?מה היא עיר הבירה של ישראל', ans: ['תל אביב'] },
         { quest: '?מה היא עיר הבירה של ישראל', ans: ['חיפה'] }
     ])
+    //navigate fn
+    const navIconFn = () => history.go(-1);
+    const moveToStudentInfo = () => history.push('student-info');
+
 
     const changeQuestMode = () => setQuestMode(!questMode);
 
-    const navIconFn = () => {
-        history.back();
-    }
+
 
     return (
         <div className="quiz-info">
-            <Navbar mode={4} iconFn={navIconFn} />
+            <Navbar
+                mode={3}
+                iconFn={navIconFn}
+                rightIcons={<div>
+                    <Edit />
+                    <Delete />
+                </div>} />
+
             <TopSection questMode={questMode} changeQuestMode={changeQuestMode} />
+
             {questMode ?
                 quests.map(({ quest, ans }, i) =>
                     <QuestUnit
@@ -29,6 +41,7 @@ export default function QuizInfo({ history }) {
                         }} />
                 ) :
                 <ListUnit
+                    onClick={moveToStudentInfo}
                     info={{
                         title: 'Or Choen',
                         numInfo: '8/10'

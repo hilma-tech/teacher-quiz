@@ -34,12 +34,12 @@ export default function App() {
           <Route exact path='/add-new-student' component={AddNewStudent} />
           <Route exact path='/question' component={Question} />
           <Route exact path='/create-new-questionnaire' component={CreateNewQuestionnaire} />
-
+{/* 
           <Route exact path='/questions' component={Questions} />
           <Route exact path='/answers' component={AnswersAndRecords} />
-          <Route exact path='/test' component={Test} />
+          <Route exact path='/test' component={Test} /> */}
         </Switch>
-      </Router>
+      </Router> 
     </div>
   );
 }
