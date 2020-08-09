@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/components/PageTools.scss';
 import { TextareaAutosize, Slide, Chip } from '@material-ui/core';
@@ -87,8 +87,9 @@ export const QuestUnit = ({
     mode = true,//true- watch, false- edit
     rightIcon = '',
     enOnly = false,
+    type,//1-text, 2-record
     quest: { qVal, setQuests },
-    index
+    index,
     // ans: { ansArr, setAns }
 }) => {
     const [startAnimation, setStartAnimation] = React.useState(false)
@@ -97,36 +98,49 @@ export const QuestUnit = ({
         setTimeout(() => { setStartAnimation(true) }, 180 * (index));
     }, [])
 
+    const AnswerSection = () => {
+        return (
+            <Fragment>
+                <p className='answer-header'>Answer</p>
+                {/* <div className='chips'>
+                    {ansArr.map(ans =>
+                        <Chip label={ans} onDelete={() => { }} />
+                    )}
+                </div> */}
+            </Fragment>
+        );
+    }
+
+    const RecordAnswer = ({
+        inputVal, onChangeInputVal
+    }) => {
+        return (
+            <Fragment>
+                <CInput
+                    label='Question title'
+                    placeholder='Add question placeholder'
+                    value={inputVal} 
+                    onChange={onChangeInputVal}/>
+            </Fragment>
+        );
+
+    }
+
     return (
         <Slide direction="right"
             {...(startAnimation ? { timeout: (300) } : {})}
             in={startAnimation} mountOnEnter unmountOnExit>
             <div className="pageTools_questUnit unit">
-                <MoreHoriz
-                />
+                <MoreHoriz />
+
                 <CInput
-                    val={qVal}
+                    value={qVal}
                     placeholder="Please specify your question"
                     disabled={mode}
                     label='Question' />
                 {enOnly && <p className='only-en'>*Only in english</p>}
 
-                <p className='answer-header'>Answer</p>
-                <div className='chips'>
-                    <Chip label='lalala' onDelete={() => { }} />
-                </div>
-                {/* 
-            {ansArr &&
-                ansArr.map((ans, i) => (
-                    <div className="answer special-color">
-                        <input
-                            key={i}
-                            value={ans}
-                            onChange={setAns}
-                        >
-                        </input>
-                    </div>
-                ))} */}
+                <AnswerSection />
             </div>
         </Slide>
 
@@ -135,7 +149,7 @@ export const QuestUnit = ({
 
 
 
-export const CInput = ({ val, onChangeVal, label, placeholder = '', disabled = false }) => {
+export const CInput = ({ value, onChange, label, placeholder = '', disabled = false }) => {
     const Speaker = () => (
         <div className='speaker'>
             <img src='/images/speaker.svg' />
@@ -147,12 +161,12 @@ export const CInput = ({ val, onChangeVal, label, placeholder = '', disabled = f
             <label>{label}</label>
             <TextareaAutosize
                 rowsMin={1}
-                onChange={onChangeVal}
-                value={val}
+                onChange={onChange}
+                value={value}
                 placeholder={placeholder}
                 disabled={disabled}
                 readOnly={disabled} />
-            <Speaker />
+            {/* <Speaker /> */}
         </div>
     )
 }

@@ -14,7 +14,7 @@ export default function OpeningPage() {
 
 
     return (
-        <div className="opening-page">
+        <div className="opening-page page">
             {/* <Menu /> */}
             <Navbar mode={1} />
 

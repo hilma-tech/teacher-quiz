@@ -17,7 +17,7 @@ export default function CreateNewQuest(props) {
 const Choose = () => (
     <div className="choose unit">
         <p className='choose__p'>Choose:</p>
-        <div>
+        <div className='imgs'>
             <img
                 className='choose__img'
                 type="text"
@@ -33,12 +33,4 @@ const Choose = () => (
         </div>
     </div>
 );
-
-const RecordQuest = () => {
-    return (
-        <div>
-
-        </div>
-    )
-}
 

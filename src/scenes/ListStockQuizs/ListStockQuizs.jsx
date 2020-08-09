@@ -36,7 +36,7 @@ export default function ListStockQuizs({ history }) {
     }
 
     return (
-        <div className="list-stock-quiz">
+        <div className="list-stock-quiz page">
             <Navbar mode={1} />
 
             <h1>Questionnaires</h1>

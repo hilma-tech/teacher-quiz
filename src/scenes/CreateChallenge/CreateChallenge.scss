@@ -145,8 +145,13 @@
         font-size: 1.2rem;
     }
 
-    .choose__img{
-        margin:0 0.5rem;
+    .imgs{
+        width:fit-content;
+        margin:0 auto;
+        .choose__img{
+            margin:0 0.5rem;
+        }
+
     }
 
 

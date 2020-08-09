@@ -15,8 +15,8 @@ h1,h2,h3,h4,h5,h6,span,p,div,a{
 }
 
 .App{
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     background-color: $light-gray;
     display: flex;
     flex-direction: column;
@@ -33,4 +33,10 @@ h1,h2,h3,h4,h5,h6,span,p,div,a{
     border-radius: 5px;
     box-shadow: $shadow-box;
     padding:0.6rem 1rem;
+}
+
+.page{
+    padding:0 1.25rem;
+    display: flex;
+    flex-direction: column;
 }
