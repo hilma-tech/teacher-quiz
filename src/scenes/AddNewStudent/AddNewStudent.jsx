@@ -27,29 +27,30 @@ class AddNewStudent extends Component {
         let name = event.target.getAttribute("name");
         details[name] = value;
         this.setState({ details });
+    }
 
+    navIconFn = () => {
+        this.props.history.goBack()
     }
 
     render() {
         let details = this.state.details
         return (
             <div className="add-new-student">
-                <Navbar mode={3} />
+                <Navbar mode={3} iconFn={this.navIconFn}/>
                 <h1>New Student</h1>
+                
                 <div className="student-details">
                     <p>First Name</p>
                     <input
                         name="firstName"
                         value={details.firstName}
-                        onChange={this.handleValue}
-                    >
-                    </input>
+                        onChange={this.handleValue} />
                     <p>Last Name</p>
                     <input
                         name="lastName"
                         value={details.lastName}
-                        onChange={this.handleValue}
-                    ></input>
+                        onChange={this.handleValue} />
                     <div className="personal-code">
                         <p>Personal Code</p>
                         <div className="code-input">
