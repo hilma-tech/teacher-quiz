@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import '../styles/scss/student-list.scss';
-import { Navbar, ListUnit, PlusBtn } from '../components/PageTools';
+import './student-list.scss';
+import { inject, observer } from 'mobx-react';
+import { Navbar, ListUnit, PlusBtn } from '../PageTools';
 
-export default class StudentList extends Component {
+class StudentList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,6 +19,11 @@ export default class StudentList extends Component {
         }
     }
 
+    componentDidMount() {
+        this.props.StudentsStore.getStudentList()
+    }
+
+
     render() {
         const { students } = this.state;
 
@@ -28,8 +34,9 @@ export default class StudentList extends Component {
                 <h1>Students</h1>
 
                 <div className='students-container'>
-                    {students.map(({ name, score }) =>
+                    {students.map(({ name, score }, i) =>
                         <ListUnit
+                            index={i}
                             mode={2}
                             info={{
                                 title: name,
@@ -45,3 +52,5 @@ export default class StudentList extends Component {
 
     }
 }
+
+export default inject('StudentsStore')(observer(StudentList));

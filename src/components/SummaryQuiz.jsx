@@ -9,7 +9,6 @@ import ConversationColored from '../images/conversation-colored.svg';
 import Conversation from '../images/conversation.svg';
 import StudentsTab from '../images/Path 419.svg';
 import QuestionsTab from '../images/Path 420.svg';
-import DefaultImage from '../images/default-profile.png';
 
 
 

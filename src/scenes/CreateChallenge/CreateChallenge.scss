@@ -1,0 +1,170 @@
+@import '../../styles/varibales.scss';
+@import '../../styles/mixin.scss';
+
+.create-challenge{
+    @include page();
+
+    //questionnaire name input
+    .MuiInputLabel-root{
+        color:rgba($color: $dBlue, $alpha: .5);
+        font-family: 'Assistant';
+        font-size: 1.8rem;
+        font-weight: 900;
+      }
+      .MuiInputBase-input{
+          height: 2.2rem;
+      }
+      .MuiInput-underline:after{
+         border-bottom-color:$dBlue;   
+    }
+    /// 
+   
+    .cc__p{
+        margin-top:1rem;
+    font-size: 1.2rem;
+    font-weight: 900;
+
+    span{margin-left: 1rem;}
+
+    }
+        
+        // .add-quest-btn{
+        //     position: fixed;
+        //     bottom: 3vh;
+        //     background-color: rgba(166, 34, 92, 1);
+        //     color: white;
+        //     border-radius: 25px;
+        //     padding: 2vh;
+        //     width: fit-content;
+        //     margin-top: 3vh;
+        //     margin-right: 25vw;
+        //     font-weight: bold;
+        //     font-size: 1.3rem;
+
+        // }
+
+        // .question-unit{
+        //     background-color: $white;
+        //     display: flex;
+        //     flex-direction: column;
+        //     margin-top: 2vh;
+        //     padding: 2vh;
+        //     border-radius: 5px;
+        //     box-shadow: $shadow-box;
+    
+            
+        //     .delete{
+        //         margin-right: 70vw;
+    
+        //         .MuiSvgIcon-root{
+        //             color: $pink;
+        //             font-size: 1.5rem;
+        //         }
+        //     }
+    
+        //     p{
+        //         color: $turquoise;
+        //         margin-right: 5vw;
+        //         padding: 1vh;
+        //     }
+    
+        //     .question{
+        //         text-align: start;
+        //         padding-right: 4vh;
+        //         padding-top: 1vh;
+        //         border: 1px solid $turquoise;
+        //         border-radius: 25px;
+        //         height: 5vh;
+                
+        //         input{
+        //             background-color: transparent;
+        //             text-align: start;
+        //             width: fit-content;
+        //             // min-width: 90vw;
+        //             font-size: 1rem;
+        //             font-weight: bold;
+        //             color: $dBlue;
+        //             outline: none;
+        //             border:none;
+        //         }
+        //     }
+
+        //     .answer{
+        //         display: flex;
+        //         flex-direction: row;
+        //         justify-content: center;
+        //         text-align: center;
+        //         padding-top: 1vh;
+        //         border: 1px solid $turquoise;
+        //         border-radius: 25px;
+        //         height: 5vh;
+        //         color: $dBlue;
+        //         font-weight: bold;
+        //         margin-bottom: 2vh;
+        //         background-color: transparent;
+
+        //         input{
+        //             background-color: transparent;
+        //             text-align: start;
+        //             padding-top: 4vh;
+        //             font-size: 1rem;
+        //             font-weight: bold;
+        //             color: $dBlue;
+        //             outline: none;
+        //         }
+
+        //         div{
+        //             .MuiSvgIcon-root{
+        //                 color: $pink;                
+        //             }
+        //         }
+        //     }
+
+        //     .add-answer{
+        //         color: $pink;
+        //         font-weight: bold;
+        //         padding: 1vh;
+        //     }
+        // }
+}
+
+
+.create-new-quest{
+    height: 9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:1rem 0;
+
+    //choose comp
+    .choose__p{
+        text-align: center;
+        margin-bottom: 1rem;
+        font-weight: 900;
+        font-size: 1.2rem;
+    }
+
+    .choose__img{
+        margin:0 0.5rem;
+    }
+
+
+    .text-quest__p{
+        margin: 0.5rem 0 0 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    // .MuiChip-root{
+    //     background-color: $turquoise;
+    //     margin:0.2rem 0.2rem 0 0.2rem;
+    // }
+
+    // .MuiChip-label{
+    //     font-size: 1rem;
+    //     color: white;
+    //     font-weight: 900;
+    // }
+
+}
+

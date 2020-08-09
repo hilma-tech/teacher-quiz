@@ -1,12 +1,13 @@
 @import '../varibales.scss';
+@import '../animations.scss';
 
 @mixin whiteUnits($py){
     margin: 1rem auto 0 auto;
     padding:$py 0;
     width:20rem;
-   background-color: $white;
-   border-radius: 5px;
-   box-shadow: $shadow-box;
+    background-color: $white;
+    border-radius: 5px;
+    box-shadow: $shadow-box;
 }
 
 .pageTools_navbar{
@@ -81,6 +82,10 @@
     }
 }
 
+.pageTools_plusBtn.scale-in-center {
+	-webkit-animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+} 
 
 a.pageTools_plusBtn{
     border-radius: 50%;
@@ -105,52 +110,81 @@ a.pageTools_plusBtn{
 
 
 .pageTools_questUnit{
-    @include whiteUnits(0.6rem);
     min-height: 9rem;
-    padding:0.6rem 1rem;
         
-        .MuiSvgIcon-root{
+        .MuiSvgIcon-root:first-child{
             color: $pink;
             margin-left:auto;
             display: block;
-        }
-    
-        p{
-            color: $turquoise;
-            font-size: 0.9rem;
-            font-weight: 700;
-        }
-    
-        textarea{
-            background-color: transparent;
-            width: 80vw;
-            margin:0.3rem auto 0.9rem auto;
-            display: block;
-            font-size: 1rem;
-            font-weight: bold;
-            padding:0.5rem 1em;
-            min-height: 2rem;
-            color: $dBlue;
-            border:solid 0.75px rgba($color:$turquoise, $alpha: 0.3);
-            border-radius:18px;
-
-            &::placeholder{font-weight: normal;}
-        }
-
-        .speaker{
-            background-color: $pink;
-            border-radius: 50%;
-            width:1.4rem;
-            height: 1.4rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            bottom:2.8rem;
-            left:15.5rem;
         }
 
         &:last-child{
             margin-bottom:2rem ;
         }
+
+        .only-en{
+            margin: 0.5rem 0 0 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .answer-header{
+            color:$turquoise;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin:1rem 0 0.3rem 0.5rem;
+        }
+
+        .chips{
+            .MuiChip-root{
+                background-color: $turquoise;
+                margin:0.2rem 0.2rem 0 0.2rem;
+            }
+        
+            .MuiChip-label{
+                font-size: 1rem;
+                color: white;
+                font-weight: 900;
+            }
+        }
+}
+
+
+.pageTools_cInput{
+    label{
+        margin-left: 0.5rem;
+        color:$turquoise;
+        font-size: 0.8rem;
+        font-weight: 700;
+    }
+
+    textarea{
+        background-color: transparent;
+        width: 80vw;
+        margin-top: 0.3rem;
+        display: block;
+        font-size: 1rem;
+        font-weight: bold;
+        padding:0.5rem 1em;
+        min-height: 2rem;
+        color: $dBlue;
+        border:solid 0.75px rgba($color:$turquoise, $alpha: 0.3);
+        border-radius:18px;
+
+        &::placeholder{font-weight: normal;}
+    }
+
+    .speaker{
+        background-color: $pink;
+        border-radius: 50%;
+        width:1.4rem;
+        height: 1.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        bottom:1.8rem;
+        left:16rem;
+        margin-bottom: -1.4rem;
+    }
+
 }

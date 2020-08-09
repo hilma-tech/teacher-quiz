@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import '../styles/scss/QuizInfo.scss';
-import { Navbar, QuestUnit, ListUnit } from '../components/PageTools';
+import './QuizInfo.scss';
+import { Navbar, QuestUnit, ListUnit } from '../PageTools';
 import { Delete, Edit } from '@material-ui/icons';
-
 
 export default function QuizInfo({ history }) {
     const [questMode, setQuestMode] = useState(true);
@@ -15,10 +14,7 @@ export default function QuizInfo({ history }) {
     const navIconFn = () => history.go(-1);
     const moveToStudentInfo = () => history.push('student-info');
 
-
     const changeQuestMode = () => setQuestMode(!questMode);
-
-
 
     return (
         <div className="quiz-info">
@@ -35,6 +31,7 @@ export default function QuizInfo({ history }) {
             {questMode ?
                 quests.map(({ quest, ans }, i) =>
                     <QuestUnit
+                        index={i}
                         key={i}
                         quest={{
                             qVal: quest

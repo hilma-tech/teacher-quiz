@@ -1,4 +1,5 @@
-@import '../mixin.scss';
+@import '../../styles/mixin.scss';
+@import '../../styles/animations.scss';
 
 .opening-page{
     @include page();
@@ -18,6 +19,14 @@
     }
 
     .buttons{
+        @for $var from 1 through 3 {
+            & > .link:nth-child(#{$var}) {
+                -webkit-animation: slide-in-bottom 0.7s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+                animation: slide-in-bottom 0.7s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+              animation-delay: $var * (1s / 9);
+            }
+          }
+
         align-self: center;
         display: flex;
         flex-direction: column;

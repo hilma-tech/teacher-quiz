@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import '../styles/scss/ListStockQuizs.scss';
-import { Navbar, ListUnit, PlusBtn } from '../components/PageTools';
+import './ListStockQuizs.scss';
+import { Navbar, ListUnit, PlusBtn } from '../PageTools';
 
 
 export default function ListStockQuizs({ history }) {
@@ -42,8 +42,10 @@ export default function ListStockQuizs({ history }) {
             <h1>Questionnaires</h1>
 
             <div className='quizzes-container'>
-                {quizzes.map(({ category, ansNum, unitName }) =>
+                {quizzes.map(({ category, ansNum, unitName }, index) =>
                     <ListUnit
+                        index={index}
+                        key={index}
                         mode={1}
                         onClick={moveToQuestionnaire}
                         info={{

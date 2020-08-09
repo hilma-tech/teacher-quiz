@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Recorder from '../components/Recorder';
+import Recorder from '../scenes/Recorder';
 import '../styles/scss/answers.scss';
 import '../styles/css/answers.css';
 

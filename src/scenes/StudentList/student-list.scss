@@ -1,7 +1,8 @@
+@import '../../styles/varibales.scss';
 
 .student-list{  
     h1{
-        color: rgba(19, 27, 103, 1);
+        color: $dBlue;
         margin: 0.5rem 0 0 1.2rem;
         font-size: 1.8rem;
         font-weight: 900;

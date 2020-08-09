@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import '../styles/scss/StudentQuizInfo.scss';
+import './StudentQuizInfo.scss';
 import { Link } from 'react-router-dom';
 import { Close, HighlightOff, CheckCircleOutline, RemoveCircleOutline, PlayCircleOutline } from '@material-ui/icons';
-import { Navbar, QuestUnit } from '../components/PageTools';
+import { Navbar, QuestUnit } from '../PageTools';
 
 export default function StudentQuizInfo(props) {
     const [challInfo, setChallInfo] = useState({

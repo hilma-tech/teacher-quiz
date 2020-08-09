@@ -1,7 +1,7 @@
-import React, {useState } from 'react';
-import '../styles/scss/StudentInfo.scss';
+import React, { useState } from 'react';
+import './StudentInfo.scss';
 import { Star } from '@material-ui/icons';
-import { ListUnit, Navbar } from '../components/PageTools';
+import { ListUnit, Navbar } from '../PageTools';
 
 export default function StudentInfo({ history }) {
     const [sInfo, setSInfo] = useState({
@@ -36,8 +36,9 @@ export default function StudentInfo({ history }) {
 
             <div className='chall-container'>
                 {challenges &&
-                    challenges.map(({ category, score, unitName }) =>
+                    challenges.map(({ category, score, unitName }, i) =>
                         <ListUnit
+                            index={i}
                             mode={2}
                             onClick={moveToStudentQuizInfo}
                             info={{

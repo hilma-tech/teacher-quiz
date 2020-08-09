@@ -1,8 +1,6 @@
-
-export default function superFetch(url, payload) {
+export default function superFetch(url, payload = {}) {
     url = `http://localhost:8080${url}`;
-
-    let fPromise = payload == null ? fetch(url) : fetch(url, payload);
+    const fPromise = fetch(url);
 
     return new Promise((resolve, reject) => {
         fPromise
@@ -17,6 +15,3 @@ export default function superFetch(url, payload) {
             .catch((error) => resolve([null, "No response, check your network connectivity"]));
     });
 }
-
-
-
