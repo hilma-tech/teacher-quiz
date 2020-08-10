@@ -21,6 +21,18 @@ class AddNewStudent extends Component {
         }
     }
 
+    componentDidMount() {
+        this.createSerialNum()
+    }
+
+    createSerialNum = () => {
+        const num = Math.floor(1000 + Math.random() * 9000);
+        let { details } = this.state;
+        details.code = num;
+
+        this.setState({ details })
+    }
+
     handleValue = (event) => {
         let { details } = this.state
         let { value } = event.target
@@ -37,9 +49,9 @@ class AddNewStudent extends Component {
         let details = this.state.details
         return (
             <div className="add-new-student">
-                <Navbar mode={3} iconFn={this.navIconFn}/>
+                <Navbar mode={3} iconFn={this.navIconFn} />
                 <h1>New Student</h1>
-                
+
                 <div className="student-details">
                     <p>First Name</p>
                     <input
