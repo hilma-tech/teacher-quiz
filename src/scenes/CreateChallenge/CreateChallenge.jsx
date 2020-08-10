@@ -34,95 +34,93 @@ export default function CreateChallenge({ history }) {
         setQuestions(questions)
     }
 
-    const handleValue = ({ target: { id, value } }) => {
+    const handleValue = ({ target }) => {
         const index = target.getAttribute("index");
         const tag = target.getAttribute('tag');
+        const { id, value } = target
 
         if (tag === "quest") questions[index].question.value = value
         else if (tag === "answer") {
             questions[index].answers[id].value = value;
             setQuestions(questions);
         }
-
-        const deleteAnswer = ({ currentTarget: { id } }) => {
-            let index = target.getAttribute("index");
-            delete questions[index].answers[id];
-            setQuestions(questions);
-        }
-
-        const deleteQuestion = ({ currentTarget }) => {
-            let index = currentTarget.getAttribute("index");
-            delete questions[index]
-            setQuestions(questions)
-        }
-
-        const addQuestion = () => {
-            questions.unshift({ question: '', answers: [{ value: '' }] })
-            setQuestions(questions)
-        }
-
-        const openSelectList = () => {
-
-        }
-
-        const displayQuestionsCards = () => {
-            return (
-                questions.map((quest, index) => {
-                    if (!quest.question.value) return (<Choose addQuestSection={(e) => { console.log(e) }} />)
-                    else {
-                        return (
-                            <div key={`quest-con-${index}`} className="question-unit" >
-                                <div className="delete" index={index} onClick={deleteQuestion}>
-                                    <Delete />
-                                </div>
-                                <p>שאלה</p>
-                                <div className="question">
-                                    <input tag="quest" index={index} onChange={handleValue} value={quest.question.value} />
-                                </div>
-                                <p>תשובה</p>
-                                {quest.answers && displayAnswers(quest.answers, index)}
-                                <div className="add-answer" onClick={addAnswer} index={index}>
-                                    + הוסף תשובה
-                            </div >
-                            </div >
-                        );
-                    }
-                })
-            )
-        }
-
-        const displayAnswers = (questAnswers, index) => {
-            return (
-                questAnswers.map((answer, id) => (
-                    <div key={`answer-con-${id}`} className="answer">
-                        <input
-                            key={`answer-input-${id}`}
-                            tag="answer"
-                            index={index}
-                            id={id}
-                            value={answer.value}
-                            onChange={handleValue} />
-                        <div key={`answer-clear-icon-con-${id}`}
-                            index={index}
-                            id={id}
-                            onClick={deleteAnswer}>
-                            <Clear />
-                        </div>
-                    </div>
-                ))
-            )
-        }
-
-
-        return (
-            <div className="create-challenge">
-                <Navbar mode={2} iconFn={navIconFn} />
-                <TextField label="Questionnaire name" />
-
-                <p className='cc__p'>Serial Number:<span>{serialNum}</span></p>
-                <CreateNewQuest />
-
-            </div>
-        )
     }
 
+    const deleteAnswer = ({ currentTarget }) => {
+        let index = currentTarget.getAttribute("index");
+        const { id } = currentTarget
+        delete questions[index].answers[id];
+        setQuestions(questions);
+    }
+
+    const deleteQuestion = ({ currentTarget }) => {
+        let index = currentTarget.getAttribute("index");
+        delete questions[index]
+        setQuestions(questions)
+    }
+
+    const addQuestion = () => {
+        questions.unshift({ question: '', answers: [{ value: '' }] })
+        setQuestions(questions)
+    }
+
+    const openSelectList = () => {
+
+    }
+
+    const displayQuestionsCards = () => {
+        return questions.map((quest, index) => {
+            if (!quest.question.value) return (<Choose addQuestSection={(e) => { console.log(e) }} />)
+            return (
+                <div key={`quest-con-${index}`} className="question-unit" >
+                    <div className="delete" index={index} onClick={deleteQuestion}>
+                        <Delete />
+                    </div>
+                    <p>שאלה</p>
+                    <div className="question">
+                        <input tag="quest" index={index} onChange={handleValue} value={quest.question.value} />
+                    </div>
+                    <p>תשובה</p>
+                    {quest.answers && displayAnswers(quest.answers, index)}
+                    <div className="add-answer" onClick={addAnswer} index={index}>
+                        + הוסף תשובה
+                            </div >
+                </div >
+            );
+        })
+    }
+
+    const displayAnswers = (questAnswers, index) => {
+        return questAnswers.map((answer, id) => (
+            <div key={`answer-con-${id}`} className="answer">
+                <input
+                    key={`answer-input-${id}`}
+                    tag="answer"
+                    index={index}
+                    id={id}
+                    value={answer.value}
+                    onChange={handleValue} />
+                <div key={`answer-clear-icon-con-${id}`}
+                    index={index}
+                    id={id}
+                    onClick={deleteAnswer}>
+                    <Clear />
+                </div>
+            </div>
+        ))
+    }
+
+
+    return (
+        <div className="create-challenge">
+            <Navbar mode={2} iconFn={navIconFn} />
+            <TextField label="Questionnaire name" />
+
+            <p className='cc__p'>Serial Number:<span>{serialNum}</span></p>
+            <CreateNewQuest />
+
+        </div>
+    );
+
+
+}

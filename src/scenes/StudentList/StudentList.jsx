@@ -46,7 +46,7 @@ class StudentList extends Component {
                     )}
                 </div>
 
-                <PlusBtn />
+                <PlusBtn redirect='/add-new-student'/>
             </div>
         )
 
