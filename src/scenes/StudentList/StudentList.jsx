@@ -26,7 +26,6 @@ class StudentList extends Component {
 
     render() {
         const { students } = this.state;
-
         return (
             <div className="student-list">
                 <Navbar mode={1} />
@@ -45,11 +44,9 @@ class StudentList extends Component {
                         />
                     )}
                 </div>
-
                 <PlusBtn redirect='/add-new-student'/>
             </div>
         )
-
     }
 }
 

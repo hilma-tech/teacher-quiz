@@ -12,7 +12,6 @@ export default function OpeningPage() {
         })()
     }, [])
 
-
     return (
         <div className="opening-page page">
             {/* <Menu /> */}
@@ -37,7 +36,6 @@ export default function OpeningPage() {
                     <div className="blue">Question</div>
                 </Link>
             </div>
-
         </div>
     )
 }

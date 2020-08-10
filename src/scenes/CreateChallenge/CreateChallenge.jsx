@@ -69,7 +69,7 @@ function CreateChallenge({ history, QuestionnairesStore }) {
 
     const displayQuestionsCards = () => {
         if (!QuestionnairesStore.challengeQuestions.length) {
-            return (<Choose addQuestSection={(e) => { console.log(e) }} />)
+            return (<Choose addQuestSection={(e) =>  console.log(e)} />)
         }
         else {
             return (

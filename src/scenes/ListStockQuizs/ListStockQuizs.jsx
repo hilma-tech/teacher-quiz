@@ -6,7 +6,6 @@ import { inject, observer } from 'mobx-react';
 
 function ListStockQuizs({ history, QuestionnairesStore }) {
     // const [quizzes, setQuizzes] = useState([
-
     // ])
 
     const moveToQuestionnaire = (id) => {
@@ -38,7 +37,6 @@ function ListStockQuizs({ history, QuestionnairesStore }) {
                     />
                 )}
             </div>
-
             <PlusBtn redirect="create-challenge" />
         </div>
     )
