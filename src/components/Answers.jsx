@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Recorder from '../scenes/Recorder';
+// import Recorder from '../scenes/Recorder';
 import '../styles/scss/answers.scss';
 import '../styles/css/answers.css';
 
@@ -23,7 +23,7 @@ class AnswersAndRecords extends Component {
                 <div className='answer'>
                     <h1>איזור יצירת השאלות</h1>
                     <div className="recorder">
-                        <Recorder addedClasses='AQ-recorder' />
+                        {/* <Recorder addedClasses='AQ-recorder' /> */}
                         <input
                             pattern="[A-Za-z]" //doen't work :/
                             type="text"

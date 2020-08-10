@@ -4,7 +4,7 @@ import '../styles/components/PageTools.scss';
 import { TextareaAutosize, Slide, Chip } from '@material-ui/core';
 import { Menu, ArrowBack, Clear, Add, Star, MoreHoriz } from '@material-ui/icons';
 import SideBarMenu from '../components/SideBarMenu/SideBarMenu';
-
+import Recorder from '../components/Recorder/Recorder';
 
 export const Navbar = ({ mode, iconFn, rightIcons = '' }) => {
     const [open, setOpen] = useState(false);
@@ -114,13 +114,27 @@ export const QuestUnit = ({
     const RecordAnswer = ({
         inputVal, onChangeInputVal
     }) => {
+
+        const [level, setLevel] = useState(1);
+
+        const Record = () => {
+            return (
+                <div className='record'>
+                    <p>Record the question</p>
+                    <img src='images/recordIcon.svg' />
+                    <Recorder/>
+                </div>
+            )
+        }
+
         return (
             <Fragment>
                 <CInput
                     label='Question title'
                     placeholder='Add question placeholder'
-                    value={inputVal} 
-                    onChange={onChangeInputVal}/>
+                    value={inputVal}
+                    onChange={onChangeInputVal} />
+                <Record />
             </Fragment>
         );
 
@@ -133,12 +147,14 @@ export const QuestUnit = ({
             <div className="pageTools_questUnit unit">
                 <MoreHoriz />
 
-                <CInput
+                {/* <CInput
                     value={qVal}
                     placeholder="Please specify your question"
                     disabled={mode}
                     label='Question' />
-                {enOnly && <p className='only-en'>*Only in english</p>}
+                {enOnly && <p className='only-en'>*Only in english</p>} */}
+
+                <RecordAnswer />
 
                 <AnswerSection />
             </div>
