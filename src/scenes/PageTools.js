@@ -147,14 +147,14 @@ export const QuestUnit = ({
             <div className="pageTools_questUnit unit">
                 <MoreHoriz />
 
-                {/* <CInput
+                <CInput
                     value={qVal}
                     placeholder="Please specify your question"
                     disabled={mode}
                     label='Question' />
-                {enOnly && <p className='only-en'>*Only in english</p>} */}
+                {enOnly && <p className='only-en'>*Only in english</p>}
 
-                <RecordAnswer />
+                {/* <RecordAnswer /> */}
 
                 <AnswerSection />
             </div>
