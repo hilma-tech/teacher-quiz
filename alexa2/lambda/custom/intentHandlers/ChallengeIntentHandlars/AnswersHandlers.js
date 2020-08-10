@@ -19,8 +19,8 @@ const FirstAnswerhandler = {
 
             else return handlerInput.responseBuilder
                 .speak('Its looks like you dont want to start a challenge. hope to see you soon!')
-                .withShouldEndSession(true)
-                .getResponse();
+                                                                                                                                                                                                                                                                                                                        .withShouldEndSession(true)
+                                                                                                                                                                                                                                                                                                                        .getResponse();
         }
         else store.setCurrChall(id);
 

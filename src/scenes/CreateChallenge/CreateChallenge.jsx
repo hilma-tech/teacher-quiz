@@ -35,37 +35,25 @@ function CreateChallenge({ history, QuestionnairesStore }) {
         // setQuestions(questions)
     }
 
-    const handleValue = (event) => {
-        console.log('event: ', event.target);
-        let index = event.target.getAttribute("index");
-        let { id, value } = event.target;
+    const handleValue = ({ target }) => {
+        const index = target.getAttribute("index");
+        const tag = target.getAttribute('tag');
+        const { id, value } = target
 
-        const tag = event.target.getAttribute('tag');
-
-        if (tag === "quest") {
-            console.log('inside first if');
-            console.log('index: ', index);
-
-            QuestionnairesStore.challengeQuestions[index].question.value = value
-        }
-        else if (tag === "answer") {
-            console.log('inside second if');
-            QuestionnairesStore.challengeQuestions[index].answers[id].value = value;
-        }
+        if (tag === "quest") QuestionnairesStore.challengeQuestions[index].question.value = value;
+        else if (tag === "answer") QuestionnairesStore.challengeQuestions[index].answers[id].value = value;
         // setQuestions(questions)
     }
 
-    const deleteAnswer = (event) => {
-        console.log('event: ', event.currentTarget);
-        let index = event.currentTarget.getAttribute("index");
-        let { id } = event.currentTarget
+    const deleteAnswer = ({ currentTarget }) => {
+        let index = currentTarget.getAttribute("index");
+        let { id } = currentTarget
         delete QuestionnairesStore.challengeQuestions[index].answers[id];
         // setQuestions(questions);
-
     }
 
-    const deleteQuestion = (event) => {
-        let index = event.currentTarget.getAttribute("index");
+    const deleteQuestion = ({ currentTarget }) => {
+        let index = currentTarget.getAttribute("index");
         delete QuestionnairesStore.challengeQuestions[index]
         // setQuestions(questions)
     }
@@ -111,25 +99,23 @@ function CreateChallenge({ history, QuestionnairesStore }) {
     }
 
     const displayAnswers = (questAnswers, index) => {
-        return (
-            questAnswers.map((answer, id) => (
-                <div key={`answer-con-${id}`} className="answer">
-                    <input
-                        key={`answer-input-${id}`}
-                        tag="answer"
-                        index={index}
-                        id={id}
-                        value={answer.value}
-                        onChange={handleValue} />
-                    <div key={`answer-clear-icon-con-${id}`}
-                        index={index}
-                        id={id}
-                        onClick={deleteAnswer}>
-                        <Clear />
-                    </div>
+        return questAnswers.map((answer, id) => (
+            <div key={`answer-con-${id}`} className="answer">
+                <input
+                    key={`answer-input-${id}`}
+                    tag="answer"
+                    index={index}
+                    id={id}
+                    value={answer.value}
+                    onChange={handleValue} />
+                <div key={`answer-clear-icon-con-${id}`}
+                    index={index}
+                    id={id}
+                    onClick={deleteAnswer}>
+                    <Clear />
                 </div>
-            ))
-        )
+            </div>
+        ))
     }
 
 
@@ -141,13 +127,10 @@ function CreateChallenge({ history, QuestionnairesStore }) {
             <p className='cc__p'>Serial Number:<span>{serialNum}</span></p>
             {/* <CreateNewQuest /> */}
             {displayQuestionsCards()}
-            <div
-                className="add-quest-btn"
-                onClick={addQuestion}
-            >
+            <div className="add-quest-btn" onClick={addQuestion}>
                 הוסף שאלה +
                 </div>
-        </div>
+        </div >
     )
 }
 
