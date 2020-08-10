@@ -2,20 +2,21 @@ import React, { Component, useState, useEffect } from 'react';
 import './CreateChallenge.scss';
 import { Link } from 'react-router-dom';
 import { ArrowBack, Delete, Clear } from '@material-ui/icons';
-import {TextField} from '@material-ui/core';
+import { TextField } from '@material-ui/core';
+import { inject, observer } from 'mobx-react';
 
 import { Choose } from '../CreateNewQuestionnaire/CreateNewQuestionnaire';
 import { Navbar } from '../PageTools';
 import CreateNewQuest from './CreateNewQuest';
 
-export default function CreateChallenge({ history }) {
+function CreateChallenge({ history, QuestionnairesStore }) {
     const [serialNum, setSerialNum] = useState(0)
-    const [questions, setQuestions] = useState([
-        { question: { value: '' } },
-        { question: { value: '?מה היא עיר הבירה של ישראל' }, answers: [{ value: 'ירושלים' }, { value: 'ירושלים' }] },
-        { question: { value: '?מה היא עיר הבירה של ישראל' }, answers: [{ value: 'תל אביב' }] },
-        { question: { value: '?מה היא עיר הבירה של ישראל' }, answers: [{ value: 'חיפה' }] }
-    ])
+    // const [questions, setQuestions] = useState([
+    //     { question: { value: '' } },
+    //     { question: { value: '?מה היא עיר הבירה של ישראל' }, answers: [{ value: 'ירושלים' }, { value: 'ירושלים' }] },
+    //     { question: { value: '?מה היא עיר הבירה של ישראל' }, answers: [{ value: 'תל אביב' }] },
+    //     { question: { value: '?מה היא עיר הבירה של ישראל' }, answers: [{ value: 'חיפה' }] }
+    // ])
 
     useEffect(() => {
         createSerialNum();
@@ -30,8 +31,8 @@ export default function CreateChallenge({ history }) {
 
     const addAnswer = (event) => {
         let index = event.target.getAttribute("index");
-        questions[index].answers.push({ value: '' })
-        setQuestions(questions)
+        QuestionnairesStore.challengeQuestions[index].answers.push({ value: '' })
+        // setQuestions(questions)
     }
 
     const handleValue = (event) => {
@@ -45,33 +46,33 @@ export default function CreateChallenge({ history }) {
             console.log('inside first if');
             console.log('index: ', index);
 
-            questions[index].question.value = value
+            QuestionnairesStore.challengeQuestions[index].question.value = value
         }
         else if (tag === "answer") {
             console.log('inside second if');
-            questions[index].answers[id].value = value;
+            QuestionnairesStore.challengeQuestions[index].answers[id].value = value;
         }
-        setQuestions(questions )
+        // setQuestions(questions)
     }
 
     const deleteAnswer = (event) => {
         console.log('event: ', event.currentTarget);
         let index = event.currentTarget.getAttribute("index");
         let { id } = event.currentTarget
-        delete questions[index].answers[id];
-        setQuestions(questions);
+        delete QuestionnairesStore.challengeQuestions[index].answers[id];
+        // setQuestions(questions);
 
     }
 
     const deleteQuestion = (event) => {
         let index = event.currentTarget.getAttribute("index");
-        delete questions[index]
-        setQuestions(questions )
+        delete QuestionnairesStore.challengeQuestions[index]
+        // setQuestions(questions)
     }
 
     const addQuestion = () => {
-        questions.unshift({ question: '', answers: [{ value: '' }] })
-        setQuestions( questions )
+        QuestionnairesStore.challengeQuestions.unshift({ question: '', answers: [{ value: '' }] })
+        // setQuestions(questions)
     }
 
     const openSelectList = () => {
@@ -79,29 +80,34 @@ export default function CreateChallenge({ history }) {
     }
 
     const displayQuestionsCards = () => {
-        return (
-            questions.map((quest, index) => {
-                if (!quest.question.value) return (<Choose addQuestSection={(e) => { console.log(e) }} />)
-                else {
-                    return (
-                        <div key={`quest-con-${index}`} className="question-unit" >
-                            <div className="delete" index={index} onClick={deleteQuestion}>
-                                <Delete />
-                            </div>
-                            <p>שאלה</p>
-                            <div className="question">
-                                <input tag="quest" index={index} onChange={handleValue} value={quest.question.value} />
-                            </div>
-                            <p>תשובה</p>
-                            {quest.answers && displayAnswers(quest.answers, index)}
-                            <div className="add-answer" onClick={addAnswer} index={index}>
-                                + הוסף תשובה
+        if (!QuestionnairesStore.challengeQuestions.length) {
+            return (<Choose addQuestSection={(e) => { console.log(e) }} />)
+        }
+        else {
+            return (
+                QuestionnairesStore.challengeQuestions.map((quest, index) => {
+                    if (!quest.question.value) return (<Choose addQuestSection={(e) => { console.log(e) }} />)
+                    else {
+                        return (
+                            <div key={`quest-con-${index}`} className="question-unit" >
+                                <div className="delete" index={index} onClick={deleteQuestion}>
+                                    <Delete />
+                                </div>
+                                <p>שאלה</p>
+                                <div className="question">
+                                    <input tag="quest" index={index} onChange={handleValue} value={quest.question.value} />
+                                </div>
+                                <p>תשובה</p>
+                                {quest.answers && displayAnswers(quest.answers, index)}
+                                <div className="add-answer" onClick={addAnswer} index={index}>
+                                    + הוסף תשובה
                             </div >
-                        </div >
-                    );
-                }
-            })
-        )
+                            </div >
+                        );
+                    }
+                })
+            )
+        }
     }
 
     const displayAnswers = (questAnswers, index) => {
@@ -130,12 +136,19 @@ export default function CreateChallenge({ history }) {
     return (
         <div className="create-challenge">
             <Navbar mode={2} iconFn={navIconFn} />
-            <TextField  label="Questionnaire name" />
+            <TextField label="Questionnaire name" />
 
             <p className='cc__p'>Serial Number:<span>{serialNum}</span></p>
-            <CreateNewQuest/>
-      
-        </div> 
+            {/* <CreateNewQuest /> */}
+            {displayQuestionsCards()}
+            <div
+                className="add-quest-btn"
+                onClick={addQuestion}
+            >
+                הוסף שאלה +
+                </div>
+        </div>
     )
 }
 
+export default inject('QuestionnairesStore')(observer(CreateChallenge));

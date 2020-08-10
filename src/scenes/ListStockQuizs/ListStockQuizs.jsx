@@ -1,37 +1,18 @@
 import React, { useState } from 'react';
 import './ListStockQuizs.scss';
 import { Navbar, ListUnit, PlusBtn } from '../PageTools';
+import { inject, observer } from 'mobx-react';
 
 
-export default function ListStockQuizs({ history }) {
-    const [quizzes, setQuizzes] = useState([
-        {
-            category: 'Capital City', unitName: '123456',
-            ansNum: 25
-        },
-        {
-            category: 'Capital City', unitName: '123456',
-            ansNum: 25
-        },
-        {
-            category: 'Capital City', unitName: '123456',
-            ansNum: 25
-        },
-        {
-            category: 'Capital City', unitName: '123456',
-            ansNum: 25
-        },
-        {
-            category: 'Capital City', unitName: '123456',
-            ansNum: 25
-        },
-        {
-            category: 'Capital City', unitName: '123456',
-            ansNum: 25
-        },
-    ])
+function ListStockQuizs({ history, QuestionnairesStore }) {
+    // const [quizzes, setQuizzes] = useState([
 
-    const moveToQuestionnaire = () => {
+    // ])
+
+    const moveToQuestionnaire = (id) => {
+        //TODO get questions of the quize by the sended id
+        QuestionnairesStore.currentQuizeId = id;
+        QuestionnairesStore.getQuestionsByChallengeId(id)
         history.push('quiz-info');
     }
 
@@ -42,17 +23,19 @@ export default function ListStockQuizs({ history }) {
             <h1>Questionnaires</h1>
 
             <div className='quizzes-container'>
-                {quizzes.map(({ category, ansNum, unitName }, index) =>
+                {QuestionnairesStore.quizes && QuestionnairesStore.quizes.map(({ id, category, ansNum, unitName }, index) =>
                     <ListUnit
                         index={index}
                         key={index}
                         mode={1}
-                        onClick={moveToQuestionnaire}
+                        onClick={(id) => moveToQuestionnaire(id)}
                         info={{
+                            id,
                             title: category,
                             subTitle: unitName,
                             numInfo: ansNum
-                        }} />
+                        }}
+                    />
                 )}
             </div>
 
@@ -63,3 +46,4 @@ export default function ListStockQuizs({ history }) {
 
 
 
+export default inject('QuestionnairesStore')(observer(ListStockQuizs));
