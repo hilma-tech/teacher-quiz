@@ -3,16 +3,19 @@ import './QuizInfo.scss';
 import { Navbar, QuestUnit, ListUnit } from '../PageTools';
 import { Delete, Edit } from '@material-ui/icons';
 
-export default function QuizInfo({ history }) {
+import { inject, observer } from 'mobx-react';
+
+function QuizInfo({ history, QuestionnairesStore }) {
     const [questMode, setQuestMode] = useState(true);
-    const [quests, setQuests] = useState([
-        { quest: '?מה היא עיר הבירה של ישראל', ans: ['ירושלים', 'ירושלים'] },
-        { quest: '?מה היא עיר הבירה של ישראל', ans: ['תל אביב'] },
-        { quest: '?מה היא עיר הבירה של ישראל', ans: ['חיפה'] }
-    ])
+    // const [quests, setQuests] = useState([
+    //     { quest: '?מה היא עיר הבירה של ישראל', ans: ['ירושלים', 'ירושלים'] },
+    //     { quest: '?מה היא עיר הבירה של ישראל', ans: ['תל אביב'] }
+    // ])
+
     //navigate fn
     const navIconFn = () => history.go(-1);
     const moveToStudentInfo = () => history.push('student-info');
+    const moveToCreateChallenge = () => history.push('create-challenge');
 
     const changeQuestMode = () => setQuestMode(!questMode);
 
@@ -22,19 +25,19 @@ export default function QuizInfo({ history }) {
                 mode={3}
                 iconFn={navIconFn}
                 rightIcons={<div>
-                    <Edit />
+                    <Edit onClick={moveToCreateChallenge} />
                     <Delete />
                 </div>} />
 
-            <TopSection questMode={questMode} changeQuestMode={changeQuestMode} />
+            <TopSection questMode={questMode} challengeName={QuestionnairesStore.quizeTitle} changeQuestMode={changeQuestMode} />
 
             {questMode ?
-                quests.map(({ quest, ans }, i) =>
+                QuestionnairesStore.challengeQuestions && QuestionnairesStore.challengeQuestions.map(({ question, answers }, i) =>
                     <QuestUnit
                         index={i}
                         key={i}
                         quest={{
-                            qVal: quest
+                            qVal: question.value
                         }} />
                 ) :
                 <ListUnit
@@ -49,17 +52,14 @@ export default function QuizInfo({ history }) {
     )
 }
 
-function TopSection({ changeQuestMode, questMode }) {
-
+function TopSection({ changeQuestMode, questMode, challengeName }) {
     return (
         <div className='top-section'>
-
             <img
                 src='/images/questions_tab.svg'
                 className="bg"
                 style={{ zIndex: questMode ? 0 : 1 }}
             />
-
             <img
                 src='/images/student_tab.svg'
                 className="bg"
@@ -68,7 +68,7 @@ function TopSection({ changeQuestMode, questMode }) {
 
             <div className="details">
                 <div className="right">
-                    <h1>Capital city</h1>
+                    <h1>{challengeName}</h1>
                     <p>123456</p>
                 </div>
                 <div className="left">
@@ -92,3 +92,5 @@ function TopSection({ changeQuestMode, questMode }) {
         </div >
     );
 }
+
+export default inject('QuestionnairesStore')(observer(QuizInfo));

@@ -12,10 +12,8 @@ export default function StudentQuizInfo(props) {
             { quest: "?What is Israel's capital city", answer: 'Jerusalem', status: 0 },
             { quest: "?What is Israel's capital city", answer: 'Tel-Aviv', status: 1 },
             { quest: "?What is Israel's capital city", answer: undefined, status: undefined }
-
         ]
     })
-
 
     const correctAnswersFromAll = () => {
         const corrSum = quests.filter(x => x.status === 1).length;
@@ -43,7 +41,6 @@ export default function StudentQuizInfo(props) {
                         // setQuests
                     }} />
             )}
-
         </div>
     )
 }

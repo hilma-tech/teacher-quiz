@@ -17,9 +17,7 @@ export default function StudentInfo({ history }) {
         ]
     });
 
-    const moveToStudentQuizInfo = () => {
-        history.push('student-quiz-info');
-    }
+    const moveToStudentQuizInfo = () => { history.push('student-quiz-info'); }
 
     const { name, score, challenges } = sInfo;
     return (

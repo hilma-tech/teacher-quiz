@@ -35,7 +35,7 @@ export const Navbar = ({ mode, iconFn, rightIcons = '' }) => {
 
 export const ListUnit = ({
     mode,//1-quiz, 2-student
-    info: { title, subTitle, numInfo },
+    info: { title, subTitle, numInfo , id},
     index,
     onClick
 }) => {
@@ -56,7 +56,7 @@ export const ListUnit = ({
         <Slide direction="right"
             {...(startAnimation ? { timeout: (300) } : {})}
             in={startAnimation} mountOnEnter unmountOnExit>
-            <div className="pageTools_listUnit" onClick={onClick} >
+            <div className="pageTools_listUnit" onClick={() => onClick(id)} >
                 <div className='stInfo' >
                     <h3>{title}</h3>
                     {subTitle && <h4>{subTitle}</h4>}
@@ -124,7 +124,11 @@ export const QuestUnit = ({
                     placeholder='Add question placeholder'
                     value={inputVal}
                     onChange={onChangeInputVal} />
+<<<<<<< HEAD
                     {/* <Recorder/> */}
+=======
+                {/* <Record /> */}
+>>>>>>> 8fe1697522164d649487353854099d88aab37f57
             </Fragment>
         );
 
@@ -137,14 +141,14 @@ export const QuestUnit = ({
             <div className="pageTools_questUnit unit">
                 <MoreHoriz />
 
-                {/* <CInput
+                <CInput
                     value={qVal}
                     placeholder="Please specify your question"
                     disabled={mode}
                     label='Question' />
-                {enOnly && <p className='only-en'>*Only in english</p>} */}
+                {enOnly && <p className='only-en'>*Only in english</p>}
 
-                <RecordAnswer />
+                {/* <RecordAnswer /> */}
 
                 <AnswerSection />
             </div>
