@@ -15,32 +15,29 @@ async function createDefCrud(app) {
 
     app.route(`/${cName}`)
         .get(async (req, res) => {
-            const [sCode, data] = await resStatus(async () =>
-                await this.findAll({ where: req.query })
-
-            )
-            return res.status(sCode).send(data);
+            const [sCode, data] = await resStatus(async () =>await this.findAll({ where: req.query }))
+            res.status(sCode).send(data);
         })
         .post(async (req, res) => {
             const [sCode, data] = await resStatus(async () => await this.create(req.body))
-            return res.status(sCode).send(data);
+            res.status(sCode).send(data);
         })
 
     app.route(`/${cName}/:id`)
         .get(async (req, res) => {
             const { id } = req.params;
             const [sCode, data] = await resStatus(async () => await this.findByPk(id));
-            return res.status(sCode).send(data);
+            res.status(sCode).send(data);
         })
         .delete(async (req, res) => {
             const { id } = req.params;
             const [sCode, data] = await resStatus(async () => await this.destroy({ where: { id } }));
-            return res.status(sCode).send(data);
+            res.status(sCode).send(data);
         })
         .put(async (req, res) => {
             const { id } = rereq.params;
             const [sCode, data] = await resStatus(async () => await this.update(req.body, { where: { id } }));
-            return res.status(sCode).send(data);
+            res.status(sCode).send(data);
         })
 
     cmOpenapi.components.schemas = { ...cmOpenapi.components.schemas, ...basicSchemas.call(this) }

@@ -3,21 +3,39 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+var cors = require('cors')
+
 const swaggerUi = require('swagger-ui-express');
 const models = require('./models').sequelize.modelManager.models;
 const { createDefCrud, creatingCustomMethod, cmOpenapi } = require('./models/CustomModel');
 const app = express();
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+// console.log('fdfdfdf')
+// app.use(cors({credentials: true, origin: true}))
+app.options('*', function (req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader('Access-Control-Allow-Methods', '*');
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  res.end();
+});
+
+// app.options('*', cors({credentials: true, origin: true}));
+
+
 
 app.use(function (req, res, next) {
+  console.log('insideeeeeee')
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.setHeader('origin', 'http://localhost:3000')
+  res.setHeader('origin', 'http://localhost:3000');
+  res.setHeader('Content-Type','application/json; charset=utf-8')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
   res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Connection', 'Keep-Alive')
   next();
 });
 
