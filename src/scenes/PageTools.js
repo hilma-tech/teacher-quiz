@@ -134,7 +134,7 @@ export const QuestUnit = ({
             {...(startAnimation ? { timeout: (300) } : {})}
             in={startAnimation} mountOnEnter unmountOnExit>
             <div className="pageTools_questUnit unit">
-                <MoreHoriz />
+                {/* <MoreHoriz /> */}
 
                 <CInput
                     value={qVal}
