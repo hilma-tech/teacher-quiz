@@ -5,7 +5,7 @@ import { Delete, Edit } from '@material-ui/icons';
 
 import { inject, observer } from 'mobx-react';
 
-function QuizInfo({ history, QuestionnairesStore }) {
+function QuizInfo({ history, TeacherStore }) {
     const [questMode, setQuestMode] = useState(true);
     // const [quests, setQuests] = useState([
     //     { quest: '?מה היא עיר הבירה של ישראל', ans: ['ירושלים', 'ירושלים'] },
@@ -29,10 +29,10 @@ function QuizInfo({ history, QuestionnairesStore }) {
                     <Delete />
                 </div>} />
 
-            <TopSection questMode={questMode} challengeName={QuestionnairesStore.quizeTitle} changeQuestMode={changeQuestMode} />
+            <TopSection questMode={questMode} challengeName={TeacherStore.QuestionnairesStore.quizeTitle} changeQuestMode={changeQuestMode} />
 
             {questMode ?
-                QuestionnairesStore.challengeQuestions && QuestionnairesStore.challengeQuestions.map(({ question, answers }, i) =>
+                TeacherStore.QuestionnairesStore.challengeQuestions && TeacherStore.QuestionnairesStore.challengeQuestions.map(({ question, answers }, i) =>
                     <QuestUnit
                         index={i}
                         key={i}
@@ -93,4 +93,4 @@ function TopSection({ changeQuestMode, questMode, challengeName }) {
     );
 }
 
-export default inject('QuestionnairesStore')(observer(QuizInfo));
+export default inject('TeacherStore')(observer(QuizInfo));

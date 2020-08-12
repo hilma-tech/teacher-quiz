@@ -56,7 +56,7 @@ export const ListUnit = ({
         <Slide direction="right"
             {...(startAnimation ? { timeout: (300) } : {})}
             in={startAnimation} mountOnEnter unmountOnExit>
-            <div className="pageTools_listUnit" onClick={() => onClick(id)} >
+            <div className="pageTools_listUnit" onClick={onClick ? () => onClick(id) : () => { }} >
                 <div className='stInfo' >
                     <h3>{title}</h3>
                     {subTitle && <h4>{subTitle}</h4>}
@@ -135,7 +135,7 @@ export const QuestUnit = ({
             {...(startAnimation ? { timeout: (300) } : {})}
             in={startAnimation} mountOnEnter unmountOnExit>
             <div className="pageTools_questUnit unit">
-                <MoreHoriz />
+                {/* <MoreHoriz /> */}
 
                 <CInput
                     value={qVal}

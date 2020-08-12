@@ -4,14 +4,14 @@ import { Navbar, ListUnit, PlusBtn } from '../PageTools';
 import { inject, observer } from 'mobx-react';
 
 
-function ListStockQuizs({ history, QuestionnairesStore }) {
+function ListStockQuizs({ history, TeacherStore }) {
     // const [quizzes, setQuizzes] = useState([
     // ])
 
     const moveToQuestionnaire = (id) => {
         //TODO get questions of the quize by the sended id
-        QuestionnairesStore.currentQuizeId = id;
-        QuestionnairesStore.getQuestionsByChallengeId(id)
+        TeacherStore.QuestionnairesStore.currentQuizeId = id;
+        TeacherStore.QuestionnairesStore.getQuestionsByChallengeId(id)
         history.push('quiz-info');
     }
 
@@ -22,7 +22,7 @@ function ListStockQuizs({ history, QuestionnairesStore }) {
             <h1>Questionnaires</h1>
 
             <div className='quizzes-container'>
-                {QuestionnairesStore.quizes && QuestionnairesStore.quizes.map(({ id, category, ansNum, unitName }, index) =>
+                {TeacherStore.QuestionnairesStore.quizes && TeacherStore.QuestionnairesStore.quizes.map(({ id, category, ansNum, unitName }, index) =>
                     <ListUnit
                         index={index}
                         key={index}
@@ -44,4 +44,4 @@ function ListStockQuizs({ history, QuestionnairesStore }) {
 
 
 
-export default inject('QuestionnairesStore')(observer(ListStockQuizs));
+export default inject('TeacherStore')(observer(ListStockQuizs));

@@ -77,7 +77,7 @@ class AddNewStudent extends Component {
                 </div>
                 <div
                     className="save-btn"
-                    onClick={this.props.StudentsStore.addNewStudent}
+                    onClick={this.props.TeacherStore.StudentsStore.addNewStudent}
                 >
                     Save
                 </div>
@@ -88,4 +88,4 @@ class AddNewStudent extends Component {
 }
 
 
-export default inject('StudentsStore')(observer(AddNewStudent));
+export default inject('TeacherStore')(observer(AddNewStudent));
