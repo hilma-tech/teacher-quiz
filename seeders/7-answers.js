@@ -2,16 +2,20 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('questions', [{
-      quest: 'what is the color of the sky?',
-      answer: "blue",
+    return queryInterface.bulkInsert('studentAnswers', [{
+      answer: 'blue',
+      score: 100,
+      studentId: 1,
+      questId: 1,
       questionnaireId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },
     {
-      quest: "what is the color of tree?",
-      answer: "brown",
+      answer: 'yellow',
+      score: 0,
+      studentId: 1,
+      questId: 2,
       questionnaireId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -19,6 +23,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-     return queryInterface.bulkDelete('questions', null, {});
+     return queryInterface.bulkDelete('studentAnswers', null, {});
   }
 };

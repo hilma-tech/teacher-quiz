@@ -35,7 +35,7 @@ export const Navbar = ({ mode, iconFn, rightIcons = '' }) => {
 
 export const ListUnit = ({
     mode,//1-quiz, 2-student
-    info: { title, subTitle, numInfo , id},
+    info: { title, subTitle, numInfo, id },
     index,
     onClick
 }) => {
@@ -118,18 +118,14 @@ export const QuestUnit = ({
         const [level, setLevel] = useState(1);
 
         return (
-            <Fragment>
+            <>
                 <CInput
                     label='Question title'
                     placeholder='Add question placeholder'
                     value={inputVal}
                     onChange={onChangeInputVal} />
-<<<<<<< HEAD
-                    {/* <Recorder/> */}
-=======
-                {/* <Record /> */}
->>>>>>> 8fe1697522164d649487353854099d88aab37f57
-            </Fragment>
+                {/* <Recorder/> */}
+            </>
         );
 
     }

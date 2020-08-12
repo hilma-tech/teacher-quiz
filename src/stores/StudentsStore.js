@@ -32,7 +32,10 @@ class StudentsStore {
     }
 
     getStudentList = async () => {
-        const [res, err] = await superAuthFetch('/user');
+        console.log('in heree')
+        const [res, err] = await superAuthFetch('/challengestock?filter=' + JSON.stringify({
+            where: { id: 1 }
+        }));
         console.log('res: ', res);
         return res;
     }
