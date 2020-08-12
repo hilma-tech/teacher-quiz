@@ -13,9 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
 
-  Questionnaires_Classes.associate = function ({
-    Classes, Questionnaires
-  }) {
+  Questionnaires_Classes.associate = function ({ Classes, Questionnaires }) {
     Classes.belongsToMany(Questionnaires, {
       through: 'Questionnaires_Classes',
       foreignKey: 'classId'
