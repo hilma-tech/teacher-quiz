@@ -69,12 +69,12 @@ function CreateChallenge({ history, QuestionnairesStore }) {
 
     const displayQuestionsCards = () => {
         if (!QuestionnairesStore.challengeQuestions.length) {
-            return (<Choose addQuestSection={(e) =>  console.log(e)} />)
+            return (<Choose addQuestSection={(e) => console.log(e)} />)
         }
         else {
             return (
                 QuestionnairesStore.challengeQuestions.map((quest, index) => {
-                    if (!quest.question.value) return (<Choose addQuestSection={(e) => { console.log(e) }} />)
+                    if (!quest.question.value) return (<Choose key={`empty-quest-${index}`} addQuestSection={(e) => { console.log(e) }} />)
                     else {
                         return (
                             <div key={`quest-con-${index}`} className="question-unit" >
