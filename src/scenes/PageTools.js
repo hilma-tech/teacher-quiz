@@ -117,16 +117,6 @@ export const QuestUnit = ({
 
         const [level, setLevel] = useState(1);
 
-        const Record = () => {
-            return (
-                <div className='record'>
-                    <p>Record the question</p>
-                    <img src='images/recordIcon.svg' />
-                    <Recorder/>
-                </div>
-            )
-        }
-
         return (
             <Fragment>
                 <CInput
@@ -134,7 +124,11 @@ export const QuestUnit = ({
                     placeholder='Add question placeholder'
                     value={inputVal}
                     onChange={onChangeInputVal} />
+<<<<<<< HEAD
+                    {/* <Recorder/> */}
+=======
                 {/* <Record /> */}
+>>>>>>> 8fe1697522164d649487353854099d88aab37f57
             </Fragment>
         );
 

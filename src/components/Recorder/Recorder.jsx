@@ -1,8 +1,7 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState, useEffect, useRef } from 'react';
 import MicRecorder from 'mic-recorder-to-mp3';
 import { ReactMic } from 'react-mic';
-
-import { Button, ButtonGroup } from '@material-ui/core';
+import { StopOutlined, Clear } from '@material-ui/icons';
 import './Recorder.scss'
 import AWS from 'aws-sdk';
 import dotenv from 'dotenv'
@@ -20,176 +19,100 @@ dotenv.config()
 // const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 
 
-export default function Recorder() {
-  const [recorder, setRecorder] = useState({});
-
-  useEffect(() => {
-    (async () => {
-      const recorder = await recordAudio();
-      setRecorder(recorder);
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      const analyser = audioCtx.createAnalyser();
-
-    })()
-
-  }, [])
-
-  const recordAudio = () =>
-    new Promise(async resolve => {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const mediaRecorder = new MediaRecorder(stream);
-      const audioChunks = [];
-
-      mediaRecorder.addEventListener("dataavailable", (event) => {
-        audioChunks.push(event.data);
-      });
-
-      const start = () => mediaRecorder.start();
-
-      const stop = () =>
-        new Promise(resolve => {
-          mediaRecorder.addEventListener("stop", (event) => {
-            if (!audioChunks.length) resolve({});
-            const audioBlob = new Blob(audioChunks);
-            const audioUrl = URL.createObjectURL(audioBlob);
-            const audio = new Audio(audioUrl);
-            const play = () => audio.play();
-            resolve({ audioBlob, audioUrl, play });
-          });
-          mediaRecorder.stop();
-        });
-
-      resolve({ start, stop });
-    });
-
-  // const sleep = time => new Promise(resolve => setTimeout(resolve, time));
-
-  return (
-    <div>
-      <button onClick={recorder.start}>start</button>
-      <button onClick={async () => {
-        const lala = await recorder.stop()
-        lala.play();
-      }}>stop</button>
-    </div>
-  )
-}
 
 // export default function Recorder(props) {
-
+//   const [level, setLevel] = useState(1);
 //   const [record, setRecord] = useState(false);
 
-//   const startRecording = () => setRecord(true);
-//   const stopRecording = () => setRecord(false);
+//   useEffect(() => {
+//     // console.log('record in effects',record)
+//     // start  Recording()
+//   }, [record])
 
-//   const onData=(recordedBlob)=> {
+//   const onData = (recordedBlob) => {
 //     console.log('chunk of real-time data is: ', recordedBlob);
 //   }
 
-//   const onStop=(recordedBlob)=> {
+//   const onStop = (recordedBlob) => {
 //     console.log('recordedBlob is: ', recordedBlob);
+//     const blob=new Blob(recordedBlob)
+//     const file = new File(blob);
+//     console.log('file: ', file);
 //   }
 
-//     return (
-//       <div>
-//         <ReactMic
-//           record={record}
-//           className="sound-wave"
-//           onStop={onStop}
-//           onData={onData}
-//           strokeColor="#11ABB9"
-//           backgroundColor="rgba(0,0,0,0)" />
-//         <button onClick={startRecording} type="button">Start</button>
-//         <button onClick={stopRecording} type="button">Stop</button>
-//       </div>
-//     );
+//   const startRecording = () => {
+//     console.log('immm hereee')
+//     setRecord(true);
+//     setLevel(2);
+//   }
+
+//   const stopRecording = () => {
+//     setRecord(false);
+//     setLevel(3);
+//   }
+
+//   const LevelIcon = (() => {
+//     switch (level) {
+//       case 1: return <Lvl1Icon {...{ startRecording }} />
+//       case 2: return <Lvl2Icon {...{ stopRecording }} />
+//       case 3: return <Lvl3Icon {...{ onStop }} />
+//       default: return;
+//     }
+//   })()
+
+
+//   return (
+//     <div className='recorder'>
+//       <p className='record__p'>Record the question</p>
+//       {LevelIcon}
+
+//       <ReactMic
+//         record={record}
+//         className="sound-wave"
+//         height={level === 2 ? 100 : 0}
+//         onStop={onStop}
+//         onData={onData}
+//         strokeColor="#11ABB9"
+//         backgroundColor="#ffffff00" />
+//     </div>
+//   );
 // }
 
-// export default class Recorder extends Component {
-//   constructor(props) {
-//     super(props);
 
-//     this.state = {
-//       isRecording: false,
-//       blobURL: '',
-//       isBlocked: false,
-//       isRecorded: false,
-//       bufferData: ''
+// const Lvl1Icon = ({ startRecording, setLevel }) => {
+//   return <img
+//     onClick={
+//       startRecording
+//       // () => setLevel(2)
 //     }
-//   }
-
-//   componentDidMount() {
-//     navigator.getUserMedia({ audio: true },
-//       () => {
-//         console.log('Permission Granted');
-//         this.setState({ isBlocked: false });
-//       },
-//       () => {
-//         console.log('Permission Denied');
-//         this.setState({ isBlocked: true })
-//       },
-//     );
-//   }
-
-//   start = () => {
-//     if (this.state.isBlocked) {
-//       console.log('Permission Denied');
-//     } else {
-//       Mp3Recorder
-//         .start()
-//         .then(() => {
-//           this.setState({ isRecording: true });
-//         }).catch((e) => console.error(e));
-//     }
-//   };
-
-//   stop = () => {
-//     Mp3Recorder
-//       .stop()
-//       .getMp3()
-//       .then(([buffer, blob]) => {
-//         const blobURL = URL.createObjectURL(blob)
-//         const bufferData = Buffer.from(buffer, 'binary')
-//         this.setState({ blobURL, bufferData, isRecording: false, isRecorded: true });
-//       }).catch((e) => console.log(e));
-//   };
-
-//   uploadFile = ({ body }) => {
-
-//     return s3.upload({
-//       Bucket: 'tts-hb-translator', // pass your bucket name
-//       Key: this.state.blobURL + '.mp3',
-//       Body: body,
-//       ACL: "public-read"
-//     }).promise()
-//   };
-
-
-//   render() {
-//     return (
-//       <div className={`recorder ${this.props.addedClasses}`}>
-//         <audio src={this.state.blobURL} controls="controls" />
-
-//         <ButtonGroup variant="contained">
-//           <Button
-//             onClick={this.start}
-//             disabled={this.state.isRecording}>
-//             Record</Button>
-
-//           <Button
-//             onClick={this.stop}
-//             disabled={!this.state.isRecording}>
-//             Stop</Button>
-
-//           <Button
-//             onClick={this.uploadFile}
-//             disabled={!this.state.isRecorded}>
-//             Upload</Button>
-//         </ButtonGroup>
-//       </div>
-//     )
-//   }
+//     className='lvl1__img'
+//     src='images/recordIcon.svg'
+//     alt='record' />
 // }
 
+// const Lvl2Icon = ({ stopRecording }) => {
+//   return (
+//     <div className='stop-btn' onClick={stopRecording}>
+//       <StopOutlined />
+//     </div>
+//   );
+// }
+
+// const Lvl3Icon = () => {
+//   return (
+//     <>
+//       <div className='lvl3__speaker'>
+//         <img
+//           src='images/speaker.svg'
+//         />
+//       </div>
+
+//       <div className='lvl3__delete'>
+//         <Clear />
+//       </div>
+
+//     </>
+//   )
+// }
 
 
