@@ -67,13 +67,13 @@ function CreateChallenge({ history, TeacherStore }) {
 
     const displayQuestionsCards = () => {
         if (!TeacherStore.QuestionnairesStore.challengeQuestions.length) {
-            return (<Choose addQuestSection={(e) => console.log(e)} />)
+            return //(<Choose addQuestSection={(e) => console.log(e)} />)
         }
         else {
             return (
                 TeacherStore.QuestionnairesStore.challengeQuestions.map((quest, index) => {
-                    if (!quest.question.value) return (<Choose key={`empty-quest-${index}`} addQuestSection={(e) => { console.log(e) }} />)
-                    else {
+                    // if (!quest.question.value) return (<Choose key={`empty-quest-${index}`} addQuestSection={(e) => { console.log(e) }} />)
+                    // else {
                         return (
                             <div key={`quest-con-${index}`} className="question-unit" >
                                 <div className="delete" index={index} onClick={deleteQuestion}>
@@ -90,7 +90,7 @@ function CreateChallenge({ history, TeacherStore }) {
                             </div >
                             </div >
                         );
-                    }
+                    // }
                 })
             )
         }
