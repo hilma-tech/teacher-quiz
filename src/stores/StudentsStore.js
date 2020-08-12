@@ -5,7 +5,7 @@ class StudentsStore {
     constructor(TeacherStore) {
         this.TeacherStore = TeacherStore
     }
-    students = null;
+
     newStudentData = {
         userName: 'john smith',
         code: '546856',
@@ -13,6 +13,7 @@ class StudentsStore {
         updatedAt: new Date()
     }
 
+    allStudents= [];
 
     addNewStudent = async () => {
         console.log('hereeeee');
@@ -36,7 +37,8 @@ class StudentsStore {
     getStudentList = async () => {
         const [res, err] = await superAuthFetch('/user');
         console.log('res: ', res);
-        return res;
+        this.allStudents = res
+        return;
     }
 
 }
@@ -45,8 +47,8 @@ class StudentsStore {
 
 
 decorate(StudentsStore, {
+    allStudents: observable,
     newStudentData: observable,
-    students: observable,
     addNewStudent: action,
     getStudentList: action
 

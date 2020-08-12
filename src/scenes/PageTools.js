@@ -35,7 +35,7 @@ export const Navbar = ({ mode, iconFn, rightIcons = '' }) => {
 
 export const ListUnit = ({
     mode,//1-quiz, 2-student
-    info: { title, subTitle, numInfo , id},
+    info: { title, subTitle, numInfo, id },
     index,
     onClick
 }) => {
@@ -56,7 +56,7 @@ export const ListUnit = ({
         <Slide direction="right"
             {...(startAnimation ? { timeout: (300) } : {})}
             in={startAnimation} mountOnEnter unmountOnExit>
-            <div className="pageTools_listUnit" onClick={() => onClick(id)} >
+            <div className="pageTools_listUnit" onClick={onClick ? () => onClick(id) : () => { }} >
                 <div className='stInfo' >
                     <h3>{title}</h3>
                     {subTitle && <h4>{subTitle}</h4>}
