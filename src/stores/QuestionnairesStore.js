@@ -40,6 +40,9 @@ const fakeQuizes = [
     }]
 
 class QuestionnairesStore {
+    constructor(TeacherStore) {
+        this.TeacherStore = TeacherStore
+    }
     //challenge data
     quizes = fakeQuizes;
     challenges = null;
@@ -77,9 +80,6 @@ decorate(QuestionnairesStore, {
 });
 
 
-export default new QuestionnairesStore;
-
-
 const fakeData = {
     1: [
         { question: { value: 'סתם שאלה?' }, answers: [{ value: 'תשובה כלשהי' }, { value: 'תשובה אחרת' }] }
@@ -109,3 +109,4 @@ const fakeData = {
     ]
 }
 
+export default QuestionnairesStore;

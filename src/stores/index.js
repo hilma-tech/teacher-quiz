@@ -1,4 +1,3 @@
-import QuestionnairesStore from './QuestionnairesStore';
-import StudentsStore from './StudentsStore';
+import TeacherStore from './TeacherStore';
 
-export default { QuestionnairesStore, StudentsStore }
+export default { TeacherStore }

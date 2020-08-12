@@ -4,11 +4,10 @@ import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from "mobx-react";
-import QuestionnairesStore from './stores/QuestionnairesStore';
-import StudentsStore from './stores/StudentsStore'
+import stores from './stores';
 
 ReactDOM.render(
-  <Provider QuestionnairesStore={QuestionnairesStore} StudentsStore={StudentsStore}>
+  <Provider {...stores}>
   <React.StrictMode>
     <App />
   </React.StrictMode>

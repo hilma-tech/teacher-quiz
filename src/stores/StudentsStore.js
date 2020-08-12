@@ -1,8 +1,10 @@
 import { observable, decorate, action, runInAction, extendObservable, computed } from 'mobx';
 import superAuthFetch from '../superFetch';
 
-
 class StudentsStore {
+    constructor(TeacherStore) {
+        this.TeacherStore = TeacherStore
+    }
     students = null;
     newStudentData = {
         userName: 'john smith',
@@ -23,8 +25,8 @@ class StudentsStore {
             body: JSON.stringify(this.newStudentData)
         });
         console.log('after post');
-        if(err){
-          return  console.log('err', err);
+        if (err) {
+            return console.log('err', err);
         }
         else {
             return console.log('res', res);
@@ -52,4 +54,4 @@ decorate(StudentsStore, {
 });
 
 
-export default new StudentsStore;
+export default StudentsStore;

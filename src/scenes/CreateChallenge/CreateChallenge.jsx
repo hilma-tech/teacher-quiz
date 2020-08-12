@@ -9,7 +9,7 @@ import { Choose } from '../CreateNewQuestionnaire/CreateNewQuestionnaire';
 import { Navbar } from '../PageTools';
 import CreateNewQuest from './CreateNewQuest';
 
-function CreateChallenge({ history, QuestionnairesStore }) {
+function CreateChallenge({ history, TeacherStore }) {
     const [serialNum, setSerialNum] = useState(0)
     // const [questions, setQuestions] = useState([
     //     { question: { value: '' } },
@@ -18,9 +18,7 @@ function CreateChallenge({ history, QuestionnairesStore }) {
     //     { question: { value: '?מה היא עיר הבירה של ישראל' }, answers: [{ value: 'חיפה' }] }
     // ])
 
-    useEffect(() => {
-        createSerialNum();
-    }, [])
+    useEffect(() => { createSerialNum(); }, [])
 
     const navIconFn = () => history.go(-1);
 
@@ -31,7 +29,7 @@ function CreateChallenge({ history, QuestionnairesStore }) {
 
     const addAnswer = (event) => {
         let index = event.target.getAttribute("index");
-        QuestionnairesStore.challengeQuestions[index].answers.push({ value: '' })
+        TeacherStore.QuestionnairesStore.challengeQuestions[index].answers.push({ value: '' })
         // setQuestions(questions)
     }
 
@@ -40,26 +38,26 @@ function CreateChallenge({ history, QuestionnairesStore }) {
         const tag = target.getAttribute('tag');
         const { id, value } = target
 
-        if (tag === "quest") QuestionnairesStore.challengeQuestions[index].question.value = value;
-        else if (tag === "answer") QuestionnairesStore.challengeQuestions[index].answers[id].value = value;
+        if (tag === "quest") TeacherStore.QuestionnairesStore.challengeQuestions[index].question.value = value;
+        else if (tag === "answer") TeacherStore.QuestionnairesStore.challengeQuestions[index].answers[id].value = value;
         // setQuestions(questions)
     }
 
     const deleteAnswer = ({ currentTarget }) => {
         let index = currentTarget.getAttribute("index");
         let { id } = currentTarget
-        delete QuestionnairesStore.challengeQuestions[index].answers[id];
+        delete TeacherStore.QuestionnairesStore.challengeQuestions[index].answers[id];
         // setQuestions(questions);
     }
 
     const deleteQuestion = ({ currentTarget }) => {
         let index = currentTarget.getAttribute("index");
-        delete QuestionnairesStore.challengeQuestions[index]
+        delete TeacherStore.QuestionnairesStore.challengeQuestions[index]
         // setQuestions(questions)
     }
 
     const addQuestion = () => {
-        QuestionnairesStore.challengeQuestions.unshift({ question: '', answers: [{ value: '' }] })
+        TeacherStore.QuestionnairesStore.challengeQuestions.unshift({ question: '', answers: [{ value: '' }] })
         // setQuestions(questions)
     }
 
@@ -68,12 +66,12 @@ function CreateChallenge({ history, QuestionnairesStore }) {
     }
 
     const displayQuestionsCards = () => {
-        if (!QuestionnairesStore.challengeQuestions.length) {
+        if (!TeacherStore.QuestionnairesStore.challengeQuestions.length) {
             return (<Choose addQuestSection={(e) => console.log(e)} />)
         }
         else {
             return (
-                QuestionnairesStore.challengeQuestions.map((quest, index) => {
+                TeacherStore.QuestionnairesStore.challengeQuestions.map((quest, index) => {
                     if (!quest.question.value) return (<Choose key={`empty-quest-${index}`} addQuestSection={(e) => { console.log(e) }} />)
                     else {
                         return (
@@ -134,4 +132,4 @@ function CreateChallenge({ history, QuestionnairesStore }) {
     )
 }
 
-export default inject('QuestionnairesStore')(observer(CreateChallenge));
+export default inject('TeacherStore')(observer(CreateChallenge));
