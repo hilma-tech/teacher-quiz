@@ -36,9 +36,11 @@ class StudentsStore {
 
     getStudentList = async () => {
         console.log('in heree')
-        const [res, err] = await superAuthFetch('/challengestock?filter=' + JSON.stringify({
-            where: { id: 1 }
-        }));
+        const [res, err] = await superAuthFetch('/challengestock?filter=1' 
+        // + JSON.stringify({
+        //     where: { id: 1 }
+        // })
+        );
         console.log('res: ', res);
         this.allStudents = res
         return;

@@ -30,8 +30,7 @@ module.exports = (sequelize, DataTypes) => {
   User.check = async (req) => {
     let users = await User.findAll();
     console.log(users.every(user => user instanceof User)); // true
-    console.log("All users:", JSON.stringify(users, null, 2));
-    return lala;
+    return {lala:'lala'};
   }
 
   User.routes = {

@@ -1,86 +1,69 @@
-// let { Model } = require('sequelize');
-const fOpenapi = require('../openApi.json');
-
+const fOpenapi = require('./openApi.json');
+const models = require('./models').sequelize.modelManager.models;
+const express = require('express');
 let cmOpenapi = fOpenapi;
 
-module.exports = {
-    createDefCrud,
-    creatingCustomMethod,
-    cmOpenapi
+module.exports = async function start(app) {
+    for (let Model of models) {
+        let router = express.Router();
+        router = creatingCustomMethod(Model, router) || router;
+        router = createDefCrud(Model, router);
+        app.use(`/${Model.name.toLowerCase()}`, router);
+    }
+    return cmOpenapi;
 }
 
-
-async function createDefCrud(app) {
-    const cName = this.name.toLowerCase();
-
-    app.route(`/${cName}`)
+function createDefCrud(Model, router) {
+    router.route(`/`)
         .get(async (req, res) => {
-            const [sCode, data] = await resStatus(async () =>await this.findAll({ where: req.query }))
-            res.status(sCode).send(data);
+            console.log('inside get ')
+            console.log('req.query.filter): ', req.query.filter);
+            await handleRes(res, async () => await Model.findAll(req.query.filter))
         })
-        .post(async (req, res) => {
-            const [sCode, data] = await resStatus(async () => await this.create(req.body))
-            res.status(sCode).send(data);
-        })
+        .post(async (req, res) =>
+            await handleRes(res, async () => await Model.create(req.body))
+        )
 
-    app.route(`/${cName}/:id`)
+    router.route(`/:id`)
         .get(async (req, res) => {
             const { id } = req.params;
-            const [sCode, data] = await resStatus(async () => await this.findByPk(id));
-            res.status(sCode).send(data);
+            // console.log('id: ', id);
+            console.log('req.query.filter: ', req.query.filter);
+            await handleRes(res, async () => await Model.findByPk(id, req.query.filter));
         })
         .delete(async (req, res) => {
             const { id } = req.params;
-            const [sCode, data] = await resStatus(async () => await this.destroy({ where: { id } }));
-            res.status(sCode).send(data);
+            await handleRes(res, async () => await Model.destroy({ where: { id } }));
         })
         .put(async (req, res) => {
-            const { id } = rereq.params;
-            const [sCode, data] = await resStatus(async () => await this.update(req.body, { where: { id } }));
-            res.status(sCode).send(data);
-        })
+            const { id } = req.params;
+            await handleRes(res, async () => await Model.update(req.body, { where: { id } }));
+        });
 
-    cmOpenapi.components.schemas = { ...cmOpenapi.components.schemas, ...basicSchemas.call(this) }
-    cmOpenapi.paths = { ...cmOpenapi.paths, ...defCrudOpenapi.call(this) }
+    Object.assign(cmOpenapi.components.schemas, {
+        components: { schemas: basicSchemas(Model) },
+        paths: defCrudOpenapi(Model)
+    });
+    return router;
 }
 
-async function creatingCustomMethod(app) {
-    const { routes, schemas } = this;
-    if (!routes && !schemas) return;
-
+function creatingCustomMethod(Model, router) {
+    const { routes, schemas } = Model;
+    if (!routes) return router;
     let { paths: pathsOA } = cmOpenapi;
-    const cName = this.name.toLowerCase();
-
-    const existRoutes = [];
-    if (app._router) {
-        for (let middleware of app._router.stack) {
-            if (!middleware.route) continue;
-            const { route } = middleware;
-            existRoutes.push({ op: Object.keys(route.methods), path: route.path })
-        }
-    }
+    const cName = Model.name.toLowerCase();
 
     for (let path in routes) {
         const registeredOp = routes[path];
-        path = `/${cName}${path}`;
 
         for (const { method, op, ...other } of registeredOp) {
+            const rPath = path.replace(/[{()}]/g, '');
 
-            let ifRouteExist = existRoutes
-                .some(({ op: eOp, path: ePath }) => eOp === op && ePath === path);
+            router[op](rPath, async (req, res, next) => {
+                await handleRes(res, async () => await Model[method](req));
+            });
 
-            if (!ifRouteExist) {
-                //creating route
-                const rPath = path.replace(/[{()}]/g, '');
-
-                app[op](rPath, async (req, res, next) => {
-                    const [sCode, data] = await resStatus(async () => await this[method](req));
-                    return res.status(sCode).send(data);
-                });
-
-            } else { console.log('route already exist') }
-
-            //creating openapi info for this route
+            //creating openapi info for Model route
             const oaPath = path.replace(':', '');
 
             if (pathsOA.hasOwnProperty(oaPath)
@@ -103,29 +86,26 @@ async function creatingCustomMethod(app) {
             if (!pathsOA[oaPath]) pathsOA[oaPath] = {};
             pathsOA[oaPath][op] = other;
 
-            cmOpenapi.paths = pathsOA;
-            cmOpenapi.components.schemas = {
-                ...cmOpenapi.components.schemas,
-                ...schemas
-            };
-
+            Object.assign(cmOpenapi.paths, pathsOA);
+            Object.assign(cmOpenapi.components.schemas, schemas);
         }
     }
+    return router;
 }
 
-async function resStatus(cb) {
+async function handleRes(res, cb) {
     try {
         const data = await cb();
-        return [200, data];
+        res.status(200).send(data);
     }
     catch (err) {
         console.log('err in res status', err)
-        return [400];
+        res.status(400).send(err);
     }
 }
 
-function basicSchemas() {
-    const att = this.rawAttributes;
+function basicSchemas(Model) {
+    const att = Model.rawAttributes;
     let properties = {}, fields = {};
 
     for (const prop in att) {
@@ -134,26 +114,24 @@ function basicSchemas() {
     }
 
     return {
-        [this.name.toLowerCase()]: {
+        [Model.name.toLowerCase()]: {
             type: 'object',
             properties: JSON.stringify(properties)
         },
-        [`filter${this.name}`]: {
+        [`filter${Model.name}`]: {
             allOf: [
-                {
-                    $ref: "#/components/schemas/basicFilter"
-                },
+                { $ref: "#/components/schemas/basicFilter" },
                 {
                     type: "object",
                     properties: {
                         fields: {
-                            $ref: `#/components/schemas/${this.name}.fields`
+                            $ref: `#/components/schemas/${Model.name}.fields`
                         }
                     }
                 }
             ]
         },
-        [`${this.name}.fields`]: {
+        [`${Model.name}.fields`]: {
             type: 'object',
             properties:
                 JSON.stringify(fields)
@@ -161,8 +139,8 @@ function basicSchemas() {
     }
 }
 
-function defCrudOpenapi() {
-    const cName = this.name.toLowerCase();
+function defCrudOpenapi(Model) {
+    const cName = Model.name.toLowerCase();
 
     return {
         [`/${cName}`]: {
@@ -173,7 +151,7 @@ function defCrudOpenapi() {
                         name: "query",
                         in: "query",
                         schema: {
-                            $ref: `#/components/schemas/filter${this.name}`
+                            $ref: `#/components/schemas/filter${Model.name}`
                         }
                     }
                 ],
@@ -229,7 +207,7 @@ function defCrudOpenapi() {
                         name: 'query',
                         in: 'query',
                         schema: {
-                            $ref: `#/components/schemas/filter${this.name}`
+                            $ref: `#/components/schemas/filter${Model.name}`
                         }
                     }
                 ],
